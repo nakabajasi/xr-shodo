@@ -437,49 +437,32 @@
       container.innerHTML = `
         <div class="info-card" style="width:100%;text-align:center;">
           <h3 class="serif">${omake.title}</h3>
-          <p style="font-size:12.5px;line-height:1.6;margin-bottom:12px;">${omake.description}</p>
+          <p style="font-size:12.5px;line-height:1.6;margin-bottom:14px;">${omake.description}</p>
 
           <!-- gunji.png タップでネイティブAR（iOS Quick Look / Android Scene Viewer）起動 -->
-          <a id="omake-ar-trigger" rel="ar" href="${omake.usdz}" style="display:inline-block;position:relative;text-decoration:none;cursor:pointer;">
-            <img src="${omake.triggerImg}" alt="郡司をタップしてAR起動" style="height:260px;width:auto;display:block;margin:0 auto;filter:drop-shadow(0 8px 16px rgba(0,0,0,0.22));">
-            <span style="display:inline-block;margin-top:8px;padding:8px 18px;border-radius:999px;background:#9f3328;color:#fff;font-size:13px;font-weight:700;">
-              郡司をタップしてAR起動（記念撮影）
-            </span>
+          <a id="omake-ar-trigger" rel="ar" href="${omake.usdz}" style="display:inline-block;text-decoration:none;cursor:pointer;">
+            <img src="${omake.triggerImg}" alt="郡司をタップしてAR起動" style="height:280px;width:auto;display:block;margin:0 auto;filter:drop-shadow(0 8px 16px rgba(0,0,0,0.22));">
           </a>
-
-          <!-- 板ポリ3Dモデル確認 & Android/WebXR AR起動エンジン -->
-          <model-viewer
-            id="omake-model-viewer"
-            src="${omake.glb}"
-            ios-src="${omake.usdz}"
-            alt="久世郡司 板ポリ3Dモデル"
-            ar
-            ar-modes="quick-look scene-viewer webxr"
-            camera-controls
-            auto-rotate
-            shadow-intensity="0.8"
-            style="height:240px;margin-top:16px;"
-          ></model-viewer>
+          <p style="margin:10px 0 4px;font-size:13px;font-weight:700;color:#22345e;">
+            郡司をタップしてAR起動（記念撮影）
+          </p>
         </div>
         <div style="text-align:center;">${checklistHtml}</div>
       `;
 
       const triggerEl = document.getElementById("omake-ar-trigger");
-      const mvEl = document.getElementById("omake-model-viewer");
       triggerEl.addEventListener("click", (ev) => {
         if (isIOS && !omake.usdz.startsWith("data:")) {
           // iOS Safari は <a rel="ar" href="...usdz"> のネイティブ動作で Quick Look を直接起動
           return;
         }
         ev.preventDefault();
-        if (mvEl && mvEl.canActivateAR) {
-          mvEl.activateAR();
-        } else if (isAndroid && !omake.glb.startsWith("data:")) {
+        if (isAndroid && !omake.glb.startsWith("data:")) {
           const absGlb = new URL(omake.glb, window.location.href).href;
           const intentUrl = `intent://arvr.google.com/scene-viewer/1.0?file=${encodeURIComponent(absGlb)}&mode=ar_preferred&title=${encodeURIComponent(omake.title)}#Intent;scheme=https;package=com.google.android.googlequicksearchbox;action=android.intent.action.VIEW;end;`;
           window.location.href = intentUrl;
         } else {
-          showAlert("ネイティブAR起動について", "iPhone（Safari）ではクイックルック、Android（Chrome）ではScene Viewerが直接起動します。PCブラウザやプレビュー環境では下の3Dビューワーで板ポリモデルをご確認いただけます。");
+          showAlert("ネイティブAR起動について", "iPhone（Safari）ではARクイックルック、Android（Chrome）ではScene Viewerが直接起動します。GitHub Pages公開URLからスマートフォンでお試しください。");
         }
       });
     } else {
