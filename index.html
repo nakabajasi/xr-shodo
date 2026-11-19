@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>XR正道官衙遺跡 | Web AR/VR ガイド</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+  <link rel="stylesheet" href="./css/style.css">
+  <script type="module" src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
+</head>
+<body>
+  <div id="app-shell">
+    <!-- スプラッシュ画面 -->
+    <div id="splash-screen">
+      <img class="splash-logo-img" src="./assets/images/brand/splash_logo.png" alt="XR正道官衙遺跡">
+      <img class="splash-gunji" src="./assets/images/character/gunji.png" alt="久世郡司キャラクター">
+    </div>
+
+    <!-- 1. ホーム画面 -->
+    <section id="view-home" class="view is-active">
+      <div class="home-top-bar">
+        <img class="home-logo-img" src="./assets/images/brand/home_title_logo.png" alt="XR正道官衙遺跡">
+        <button class="icon-btn js-open-help" aria-label="ヘルプ">
+          <img src="./assets/images/icons/icon_help.png" alt="ヘルプ">
+        </button>
+      </div>
+
+      <div class="view-scroll" style="padding: 0;">
+        <div class="home-hero">
+          <div id="home-hero-char" class="home-hero-char" title="タップしてセリフ切替">
+            <img src="./assets/images/character/gunji.png" alt="久世郡司">
+          </div>
+          <div id="home-speech-wrap" class="home-speech-wrap">
+            <span class="home-speech-name">久世郡司の案内（タップで切替）</span>
+            <p id="home-speech-text" class="home-speech-text"></p>
+          </div>
+        </div>
+
+        <div class="home-menu-list">
+          <div class="home-progress-strip">
+            <span>復元建物 体験スタンプ</span>
+            <span id="home-progress-text" class="home-progress-count">0 / 5 棟 体験済み</span>
+          </div>
+
+          <button class="banner-btn" data-goto="about">
+            <img src="./assets/images/banners/banner_about.png" alt="正道官衙遺跡とは">
+          </button>
+
+          <button class="banner-btn" data-goto="map">
+            <img src="./assets/images/banners/banner_map.png" alt="現地マップ・AR探索">
+          </button>
+
+          <button class="banner-btn" data-goto="models">
+            <img src="./assets/images/banners/banner_3d.png" alt="3Dモデル鑑賞">
+          </button>
+
+          <button class="banner-btn" data-goto="omake">
+            <img src="./assets/images/banners/banner_omake.png" alt="おまけ：郡司と記念撮影AR">
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. 現地マップ画面 -->
+    <section id="view-map" class="view">
+      <div id="leaflet-map"></div>
+
+      <div class="map-top-layers">
+        <button id="btn-layer-cg" class="layer-toggle-btn is-on">
+          <img src="./assets/images/icons/icon_layer_cg.png" alt="">
+          <span>復元図</span>
+        </button>
+        <button id="btn-layer-dig" class="layer-toggle-btn is-on">
+          <img src="./assets/images/icons/icon_layer_dig.png" alt="">
+          <span>発掘図</span>
+        </button>
+        <button id="btn-layer-sat" class="layer-toggle-btn">
+          <img src="./assets/images/icons/icon_layer_sat.png" alt="">
+          <span>航空写真</span>
+        </button>
+      </div>
+
+      <div id="map-gps-status" class="map-status-pill">デモモード中（どこでも体験OK）</div>
+
+      <div class="map-right-rail">
+        <button id="btn-map-gps" class="map-tool-btn" aria-label="現在地へ移動">
+          <img src="./assets/images/icons/icon_gps.png" alt="GPS">
+        </button>
+        <button class="map-tool-btn js-open-help" aria-label="マップヘルプ">
+          <img src="./assets/images/icons/icon_help.png" alt="ヘルプ" style="filter: invert(0.75);">
+        </button>
+      </div>
+
+      <div id="map-spot-sheet" class="map-spot-sheet">
+        <div class="spot-sheet-head">
+          <img class="spot-sheet-char" src="./assets/images/character/gunji_icon.png" alt="郡司">
+          <div>
+            <h3 id="spot-sheet-title" class="spot-sheet-title serif">スポット名</h3>
+            <p id="spot-sheet-meta" class="spot-sheet-meta"></p>
+          </div>
+        </div>
+        <p id="spot-sheet-desc" class="spot-sheet-desc"></p>
+        <div class="spot-sheet-actions">
+          <button id="spot-sheet-action" class="primary-btn accent-red">体験する</button>
+          <button class="secondary-btn" onclick="document.getElementById('map-spot-sheet').classList.remove('is-open')">閉じる</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. 3Dモデル鑑賞画面 -->
+    <section id="view-models" class="view subpage-bg">
+      <header class="sub-header">
+        <button class="icon-btn" data-goto="home" aria-label="ホームへ戻る">
+          <img src="./assets/images/icons/icon_back.png" alt="戻る">
+        </button>
+        <h2 class="sub-header-title serif">3Dモデル鑑賞</h2>
+        <button class="icon-btn js-open-help" aria-label="ヘルプ">
+          <img src="./assets/images/icons/icon_help.png" alt="ヘルプ">
+        </button>
+      </header>
+
+      <div class="segment-tabs">
+        <button class="segment-btn is-active" data-model-tab="buildings">復元建物（5棟）</button>
+        <button class="segment-btn" data-model-tab="artifacts">出土遺物（3点）</button>
+      </div>
+
+      <div class="view-scroll">
+        <div id="model-grid" class="model-grid"></div>
+      </div>
+    </section>
+
+    <!-- 4. 正道官衙遺跡とは（解説画面） -->
+    <section id="view-about" class="view subpage-bg">
+      <header class="sub-header">
+        <button class="icon-btn" data-goto="home" aria-label="戻る">
+          <img src="./assets/images/icons/icon_back.png" alt="戻る">
+        </button>
+        <h2 class="sub-header-title serif">正道官衙遺跡とは</h2>
+        <span style="width:40px;"></span>
+      </header>
+      <div class="view-scroll">
+        <img class="info-hero-img" src="./assets/images/info/info_hero_shodo.png" alt="正道官衙遺跡">
+        <div class="info-card">
+          <h3 class="serif">奈良時代の「久世郡役所」跡</h3>
+          <p>正道官衙遺跡（しょうどうかんがいせき）は、京都府城陽市寺田正道に位置する国指定史跡です。古墳時代（5世紀）の小規模古墳、6世紀後半〜7世紀の集落跡、そして7世紀以降の大型掘立柱建物群による官衙遺構が重なり合う複合遺跡です。</p>
+          <p>発掘調査の結果、奈良時代の山背国（山城国）久世郡の郡衙（郡役所）の中心部と推定されており、昭和49年（1974年）9月に国の史跡に指定されました。</p>
+        </div>
+        <div class="info-card">
+          <h3 class="serif">整然と並んだ5つの主要建物</h3>
+          <p>南辺を築地塀と「南門」で区画し、その内側に庇をもつ最大の中心建物「庁屋」、後方に「副屋」、前庭の東西に「東屋」と「向屋」が計画的に配置されていました。現在も一部が史跡公園として整備されています。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. おまけ画面（正道官衙の郡司と記念撮影 AR） -->
+    <section id="view-omake" class="view subpage-bg">
+      <header class="sub-header">
+        <button class="icon-btn" data-goto="home" aria-label="戻る">
+          <img src="./assets/images/icons/icon_back.png" alt="戻る">
+        </button>
+        <h2 class="sub-header-title serif">おまけ</h2>
+        <span style="width:40px;"></span>
+      </header>
+      <div class="view-scroll">
+        <div id="omake-stage" class="reward-stage"></div>
+      </div>
+    </section>
+
+    <!-- 6. ガイド・設定画面 -->
+    <section id="view-menu" class="view subpage-bg">
+      <header class="sub-header">
+        <button class="icon-btn" data-goto="home" aria-label="戻る">
+          <img src="./assets/images/icons/icon_back.png" alt="戻る">
+        </button>
+        <h2 class="sub-header-title serif">ガイド・設定</h2>
+        <span style="width:40px;"></span>
+      </header>
+      <div class="view-scroll">
+        <div class="info-card">
+          <h3 class="serif">ホーム背景テーマ設定</h3>
+          <p style="font-size:12px;">背景素材（<code>bg_home_*.png</code>）を差し替えることで好みの世界観に変更できます。</p>
+          <div id="theme-swatches" class="theme-swatches"></div>
+        </div>
+
+        <label class="setting-row">
+          <span>デモモード（GPS現地制限を解除）</span>
+          <input id="toggle-demo-mode" type="checkbox" style="width:20px;height:20px;">
+        </label>
+
+        <button class="danger-btn" id="btn-reset-progress">体験スタンプ・発掘データを初期化</button>
+        <button class="secondary-btn js-open-help" style="width:100%;margin-bottom:10px;">使い方ガイド（ヘルプ）を見る</button>
+        <button class="secondary-btn" style="width:100%;" data-goto="about">正道官衙遺跡について</button>
+
+        <p style="text-align:center;font-size:12px;color:#5a5e6b;margin-top:24px;">
+          XR正道官衙遺跡 Webプロトタイプ<br>GitHub Pages Edition
+        </p>
+      </div>
+    </section>
+
+    <!-- 常設ボトムタブナビゲーション -->
+    <nav class="bottom-nav" aria-label="メインメニュー">
+      <button class="nav-tab is-active" data-tab="home" data-goto="home">
+        <img src="./assets/images/nav/tab_home_on.png" alt="">
+        <span>ホーム</span>
+      </button>
+      <button class="nav-tab" data-tab="map" data-goto="map">
+        <img src="./assets/images/nav/tab_map_off.png" alt="">
+        <span>マップ</span>
+      </button>
+      <button class="nav-tab" data-tab="models" data-goto="models">
+        <img src="./assets/images/nav/tab_models_off.png" alt="">
+        <span>3D鑑賞</span>
+      </button>
+      <button class="nav-tab" data-tab="menu" data-goto="menu">
+        <img src="./assets/images/nav/tab_menu_off.png" alt="">
+        <span>設定</span>
+      </button>
+    </nav>
+
+    <!-- モーダル: 3D/ARビューワー & Sketchfab -->
+    <div id="modal-viewer" class="modal-overlay">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3 id="viewer-title" class="serif">3Dモデル</h3>
+          <button class="icon-btn" data-close-modal="modal-viewer" aria-label="閉じる">
+            <img src="./assets/images/icons/icon_close.png" alt="閉じる">
+          </button>
+        </div>
+        <div id="viewer-body" class="modal-body"></div>
+      </div>
+    </div>
+
+    <!-- モーダル: 発掘体験 -->
+    <div id="modal-dig" class="modal-overlay">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3 id="dig-title" class="serif">発掘体験</h3>
+          <button class="icon-btn" data-close-modal="modal-dig" aria-label="閉じる">
+            <img src="./assets/images/icons/icon_close.png" alt="閉じる">
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="dig-stage">
+            <img class="dig-artifact-bg" src="./assets/images/dig/dig_artifact_01.png" alt="発掘遺物">
+            <canvas id="dig-canvas"></canvas>
+          </div>
+          <p id="dig-result-msg" style="font-size:13px;font-weight:700;text-align:center;margin:12px 0 0;"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- モーダル: ヘルプカルーセル -->
+    <div id="modal-help" class="modal-overlay">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3 class="serif">使い方ガイド</h3>
+          <button class="icon-btn" data-close-modal="modal-help" aria-label="閉じる">
+            <img src="./assets/images/icons/icon_close.png" alt="閉じる">
+          </button>
+        </div>
+        <div class="modal-body">
+          <img id="help-slide-img" class="help-slide-img" src="./assets/images/help/help_slide_01.png" alt="">
+          <h4 id="help-slide-title" class="serif" style="margin:0 0 6px;font-size:16px;"></h4>
+          <p id="help-slide-text" style="margin:0;font-size:13px;line-height:1.6;"></p>
+          <div id="help-dots" class="help-dots"></div>
+          <div style="display:flex;gap:8px;">
+            <button id="btn-help-prev" class="secondary-btn" style="flex:1;">前へ</button>
+            <button id="btn-help-next" class="primary-btn" style="flex:1;">次へ</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- モーダル: 汎用アラート -->
+    <div id="modal-alert" class="modal-overlay">
+      <div class="modal-card" style="max-width:340px;">
+        <div class="modal-header">
+          <h3 id="alert-title" class="serif">お知らせ</h3>
+          <button class="icon-btn" data-close-modal="modal-alert" aria-label="閉じる">
+            <img src="./assets/images/icons/icon_close.png" alt="閉じる">
+          </button>
+        </div>
+        <div class="modal-body">
+          <p id="alert-message" style="font-size:13.5px;line-height:1.65;margin:0 0 14px;"></p>
+          <button class="primary-btn" style="width:100%;" data-close-modal="modal-alert">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="./js/config.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+</html>
