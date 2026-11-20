@@ -87,26 +87,27 @@
       <div id="leaflet-map"></div>
 
       <div class="map-top-layers">
-        <button id="btn-layer-cg" class="layer-toggle-btn">
+        <button id="btn-layer-cg" class="layer-toggle-btn is-on">
           <img src="./assets/images/icons/icon_layer_cg.png" alt="">
-          <span>復元建物配置図</span>
+          <span>復元図</span>
         </button>
-        <button id="btn-layer-dig" class="layer-toggle-btn">
+        <button id="btn-layer-dig" class="layer-toggle-btn is-on">
           <img src="./assets/images/icons/icon_layer_dig.png" alt="">
-          <span>発掘調査図面</span>
+          <span>発掘図</span>
+        </button>
+        <button id="btn-layer-sat" class="layer-toggle-btn">
+          <img src="./assets/images/icons/icon_layer_sat.png" alt="">
+          <span>航空写真</span>
         </button>
       </div>
 
       <div id="map-gps-status" class="map-status-pill">デモモード中（どこでも体験OK）</div>
 
       <div class="map-right-rail">
-        <button id="btn-layer-sat" class="map-tool-btn" aria-label="航空写真切替" title="航空写真切替">
-          <img src="./assets/images/icons/icon_layer_sat.png" alt="航空写真">
-        </button>
-        <button id="btn-map-gps" class="map-tool-btn" aria-label="現在地へ移動" title="現在地へ移動">
+        <button id="btn-map-gps" class="map-tool-btn" aria-label="現在地へ移動">
           <img src="./assets/images/icons/icon_gps.png" alt="GPS">
         </button>
-        <button class="map-tool-btn js-open-help" aria-label="マップヘルプ" title="ヘルプ">
+        <button class="map-tool-btn js-open-help" aria-label="マップヘルプ">
           <img src="./assets/images/icons/icon_help.png" alt="ヘルプ" style="filter: invert(0.75);">
         </button>
       </div>
@@ -294,7 +295,7 @@
           <input id="toggle-demo-mode" type="checkbox" style="width:20px;height:20px;">
         </label>
 
-        <button class="danger-btn" id="btn-reset-progress">体験スタンプを初期化</button>
+        <button class="danger-btn" id="btn-reset-progress">体験スタンプ・発掘データを初期化</button>
         <button class="secondary-btn js-open-help" style="width:100%;margin-bottom:10px;">使い方ガイド（ヘルプ）を見る</button>
         <button class="secondary-btn" style="width:100%;" data-goto="about">正道官衙遺跡について</button>
 
@@ -325,6 +326,25 @@
     </nav>
 
 
+
+    <!-- モーダル: 発掘体験 -->
+    <div id="modal-dig" class="modal-overlay">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3 id="dig-title" class="serif">発掘体験</h3>
+          <button class="icon-btn" data-close-modal="modal-dig" aria-label="閉じる">
+            <img src="./assets/images/icons/icon_close.png" alt="閉じる">
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="dig-stage">
+            <img class="dig-artifact-bg" src="./assets/images/dig/dig_artifact_01.png" alt="発掘遺物">
+            <canvas id="dig-canvas"></canvas>
+          </div>
+          <p id="dig-result-msg" style="font-size:13px;font-weight:700;text-align:center;margin:12px 0 0;"></p>
+        </div>
+      </div>
+    </div>
 
     <!-- モーダル: ヘルプカルーセル -->
     <div id="modal-help" class="modal-overlay">

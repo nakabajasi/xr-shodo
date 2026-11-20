@@ -470,12 +470,12 @@ html, body {
   align-items: center;
   justify-content: center;
   gap: 5px;
-  padding: 10px 10px;
+  padding: 7px 6px;
   border: 1px solid var(--border-subtle);
   border-radius: 8px;
   background: #ffffff;
   color: var(--ink-muted);
-  font-size: 13.5px;
+  font-size: 12px;
   font-weight: 700;
   cursor: pointer;
 }
@@ -1278,9 +1278,4 @@ model-viewer {
 .viewer-plain-body .sketchfab-credit a {
   color: #111111;
   text-decoration: underline;
-}
-
-.map-tool-btn.is-on {
-  background: var(--accent);
-  border-color: var(--accent);
 }
