@@ -9,7 +9,8 @@
 
 | ファイルパス | 用途 | 推奨サイズ (px) | 透過 | 備考 |
 | :--- | :--- | :--- | :---: | :--- |
-| `assets/images/character/gunji.png` | スプラッシュ・ホーム画面の立ち絵／おまけポスター | 800 × 1400 目安 | 必須 | 添付画像から背景透過済みで同梱 |
+| `assets/images/character/gunji.png` | スプラッシュ・お楽しみARトリガー立ち絵 | 800 × 1400 目安 | 必須 | 背景透過済みで同梱 |
+| `assets/images/character/gunji_face.png` | ホーム画面「郡司の案内」丸顔アイコン | 336 × 336 | 必須 | アップロード画像を解像度・透過最適化済み |
 | `assets/images/character/gunji_icon.png` | マップのスポット案内丸アイコン | 320 × 320 | 必須 | `gunji.png` から自動切り出し済み |
 
 ---
@@ -19,7 +20,8 @@
 | ファイルパス | 用途 | 推奨サイズ (px) | 透過 | 備考 |
 | :--- | :--- | :--- | :---: | :--- |
 | `assets/images/brand/splash_logo.png` | 起動画面のタイトルロゴ | 720 × 480 | 必須 | 白背景上に表示 |
-| `assets/images/brand/home_title_logo.png` | ホーム画面上部の横長タイトルロゴ | 860 × 180 | 必須 | 暗色背景上に表示 |
+| `assets/images/brand/ecomu_logo.png` | ホーム画面左上端ロゴ（JOYOエコミュージアム） | 320 × 120 | 必須 | タイトルと同じ高さで左端に配置 |
+| `assets/images/brand/home_title_logo.png` | ホーム画面上部中央のタイトルロゴ | 860 × 180 | 必須 | 暗色背景上・中央揃え |
 | `assets/images/bg/bg_home_indigo.png` | ホーム背景（藍・標準テーマ） | 1080 × 1920 | 不要 | 縦長フルスクリーン |
 | `assets/images/bg/bg_home_matcha.png` | ホーム背景（緑テーマ） | 1080 × 1920 | 不要 | 設定画面で切替可能 |
 | `assets/images/bg/bg_home_vermilion.png` | ホーム背景（朱テーマ） | 1080 × 1920 | 不要 | 設定画面で切替可能 |
@@ -34,10 +36,11 @@
 
 | ファイルパス | 用途 | 推奨サイズ (px) | 透過 | 備考 |
 | :--- | :--- | :--- | :---: | :--- |
-| `assets/images/banners/banner_map.png` | 「現地マップ・AR探索」ワイドバナー | 960 × 240 | 任意 | 最優先メイン導線 |
-| `assets/images/banners/banner_3d.png` | 「3Dモデル鑑賞」ワイドバナー | 960 × 200 | 任意 | 建物5棟＋遺物3点 |
-| `assets/images/banners/banner_omake.png` | 「おまけ：郡司と記念撮影AR」ワイドバナー | 960 × 200 | 任意 | 建物5棟鑑賞で解放 |
-| `assets/images/banners/banner_about.png` | 「正道官衙遺跡とは」バナー | 960 × 160 | 任意 | 歴史解説ページへ |
+| `assets/images/banners/banner_about.svg` | 上段左：「正道官衙遺跡とは」正方形バナー | 400 × 400 SVG | 任意 | 2×2グリッド上段左 |
+| `assets/images/banners/banner_map.svg` | 上段右：「現地マップ&探索」正方形バナー | 400 × 400 SVG | 任意 | 2×2グリッド上段右 |
+| `assets/images/banners/banner_3d.svg` | 下段左：「3Dで楽しむ」正方形バナー | 400 × 400 SVG | 任意 | 2×2グリッド下段左 |
+| `assets/images/banners/banner_otanoshimi_locked.svg` | 下段右：「お楽しみ」解放前バナー（グレーアウト） | 400 × 400 SVG | 任意 | 建物5棟鑑賞前は選択不可 |
+| `assets/images/banners/banner_otanoshimi_unlocked.svg` | 下段右：「お楽しみ」解放後バナー | 400 × 400 SVG | 任意 | 建物5棟すべて鑑賞で切替・選択可 |
 
 ---
 
@@ -99,7 +102,7 @@
 
 | ファイルパス | 用途 | 推奨サイズ (px) | 透過 | 備考 |
 | :--- | :--- | :--- | :---: | :--- |
-| `assets/images/info/info_hero_shodo.png` | 「正道官衙遺跡とは」トップ写真 | 960 × 540 | 不要 | 史跡公園の全景・空撮写真 |
+| `assets/images/info/about_01_overview.png`〜`about_12_suien.png` | 「正道官衙遺跡とは」・3D復元解説の図版（全12点） | 横幅960px目安 | 不要 | 図録PDF切り抜きダミーを配置済み（全幅表示） |
 | `assets/images/omake/omake_locked.png` | おまけ：未解放カード | 640 × 480 | 任意 | 建物5棟鑑賞前に表示 |
 | `assets/images/dig/dig_soil.png` | 発掘体験：削る土テクスチャ | 640 × 640 | 不要 | Canvas上で指で削るレイヤー |
 | `assets/images/dig/dig_artifact_01.png` | 発掘体験：土の下から出る遺物 | 640 × 640 | 不要 | 削り終えると出現 |
