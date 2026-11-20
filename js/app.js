@@ -303,6 +303,20 @@
     });
 
 
+    // VRウォークスルー開始ピン（タップでウォークスルー画面へ直接遷移）
+    (CFG.vrSpots || []).forEach((v) => {
+      const marker = L.marker([v.lat, v.lng], {
+        icon: createPinIcon(v.pin)
+      }).addTo(map);
+      marker.on("click", () => {
+        if (window.__IS_CANVAS_PREVIEW) {
+          showAlert(v.name, `GitHub Pages公開版ではこのアイコンをタップすると、カメラ「${v.id}」から遺跡内VRウォークスルー（./vr/index.html?camera=${v.id}）が直接起動します。`);
+          return;
+        }
+        window.location.href = `./vr/index.html?camera=${encodeURIComponent(v.id)}`;
+      });
+    });
+
     map.on("click", () => closeSpotSheet());
     startGpsWatch();
   }
@@ -612,7 +626,12 @@
     });
 
     updateProgressUI();
-    showView("home");
+    if (window.location.hash === "#map") {
+      document.getElementById("splash-screen").classList.add("is-hidden");
+      showView("map");
+    } else {
+      showView("home");
+    }
   }
 
   document.addEventListener("DOMContentLoaded", init);

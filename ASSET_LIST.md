@@ -69,6 +69,7 @@
 | :--- | :--- | :--- | :---: | :--- |
 | `assets/images/map/pin_<建物名>.png` / `_done.png` | 建物別ピン（庁屋・南門・東屋・向屋・副屋の未体験／体験済み計10点） | 104 × 118 | 必須 | 各建物名入りピン |
 | `assets/images/map/pin_user.png` | ユーザー現在地ピン | 96 × 112 | 必須 | GPS受信時に表示 |
+| `assets/images/map/pin_vr_<カメラ名>.png` | VRウォークスルー開始ピン（庁屋・東屋・向屋・南門 計4点） | 104 × 118 | 必須 | タップで `vr/index.html?camera=...` へ遷移 |
 | `assets/images/map/overlay_restoration.png` | 復元配置図オーバーレイ | 800 × 800 | 必須 | 地図上に重ねる鳥瞰図・配置図 |
 | `assets/images/map/overlay_excavation.png` | 発掘調査遺構図オーバーレイ | 800 × 800 | 必須 | 地図上に重ねる遺構図 |
 
