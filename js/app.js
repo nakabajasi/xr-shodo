@@ -283,13 +283,13 @@
     restorationOverlay = L.imageOverlay(
       "./assets/images/map/overlay_restoration.png",
       CFG.overlayBounds.restoration,
-      { opacity: 0.85 }
+      { opacity: 1.0 }
     ).addTo(map);
 
     excavationOverlay = L.imageOverlay(
       "./assets/images/map/overlay_excavation.png",
       CFG.overlayBounds.excavation,
-      { opacity: 0.8 }
+      { opacity: 0.95 }
     ).addTo(map);
 
     // 建物ピン5棟

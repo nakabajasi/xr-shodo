@@ -6,19 +6,19 @@ window.XR_CONFIG = {
   appName: "XR正道官衙遺跡",
   // 国指定史跡 正道官衙遺跡（庁屋・史跡公園中心: 北緯34度51分37.35秒 東経135度47分3.26秒）
   siteCenter: {
-    lat: 34.860375,
-    lng: 135.784239,
+    lat: 34.86015,
+    lng: 135.78433,
     zoom: 18
   },
   geofenceRadiusMeters: 45,
   overlayBounds: {
     restoration: [
-      [34.85998, 135.78388],
-      [34.86075, 135.78460]
+      [34.85947916, 135.78339778],
+      [34.86083430, 135.78503476]
     ],
     excavation: [
-      [34.86004, 135.78396],
-      [34.86066, 135.78452]
+      [34.85894569, 135.78158926],
+      [34.86151094, 135.78533005]
     ]
   },
   themes: [
@@ -54,8 +54,8 @@ window.XR_CONFIG = {
       glb: "./assets/models/choya.glb",
       usdz: "./assets/models/choya.usdz",
       thumb: "./assets/images/thumbs/choya_thum.png",
-      lat: 34.86048,
-      lng: 135.78423,
+      lat: 34.86040607968549,
+      lng: 135.78424322774643,
       description: "官衙Ⅲ期の中心建物で、6間×2間の身舎（もや）の四方に庇（ひさし）がめぐる『四面庇建物』と推定されます。掘立柱建物は瓦葺きの重い屋根を支えられないため板葺きや檜皮葺きが採用され、屋根は入母屋造りで復元しました。前面には柵（目隠し塀）が巡っていました。"
     },
     {
@@ -66,8 +66,8 @@ window.XR_CONFIG = {
       glb: "./assets/models/nanmon.glb",
       usdz: "./assets/models/nanmon.usdz",
       thumb: "./assets/images/thumbs/nanmon_thum.png",
-      lat: 34.86008,
-      lng: 135.78423,
+      lat: 34.85972746193886,
+      lng: 135.7842785339946,
       description: "官衙Ⅲ期の西と南を区画する築地状の遺構の南辺、庁屋正面で溝が途切れる位置に配置された門です。東西に築地塀が取り付く構造で、柱の位置は明確ではないものの『八脚門（桁行3間・梁間2間の門）』として掘立柱建物で復元しています。"
     },
     {
@@ -78,8 +78,8 @@ window.XR_CONFIG = {
       glb: "./assets/models/higashiya.glb",
       usdz: "./assets/models/higashiya.usdz",
       thumb: "./assets/images/thumbs/higashiya_thum.png",
-      lat: 34.86030,
-      lng: 135.78442,
+      lat: 34.860251823950115,
+      lng: 135.7844854049314,
       description: "庁屋前方の広場を挟んで東側に配置された5間×3間の南北棟の掘立柱建物です。二面庇の平面構成をもち、側面（妻）側に庇が付かないことから、板葺き・檜皮葺きの切妻造りの屋根で復元しました。"
     },
     {
@@ -90,8 +90,8 @@ window.XR_CONFIG = {
       glb: "./assets/models/mukaiya.glb",
       usdz: "./assets/models/mukaiya.usdz",
       thumb: "./assets/images/thumbs/mukaiya_thum.png",
-      lat: 34.86030,
-      lng: 135.78404,
+      lat: 34.86007355224724,
+      lng: 135.78439152761808,
       description: "東屋の前方に配置された8間×2間の東西棟の細長い掘立柱建物です。身舎（もや）のみの平面構成で側面（妻）側に庇が付かないことから、板葺き・檜皮葺きの切妻造りの屋根で復元しました。"
     },
     {
@@ -102,8 +102,8 @@ window.XR_CONFIG = {
       glb: "./assets/models/soeya.glb",
       usdz: "./assets/models/soeya.usdz",
       thumb: "./assets/images/thumbs/soeya_thum.png",
-      lat: 34.86062,
-      lng: 135.78423,
+      lat: 34.860562341922886,
+      lng: 135.78421908786578,
       description: "中心建物である庁屋の後方に配置された7間×2間の掘立柱建物です。身舎（もや）のみの平面構成で側面（妻）側に庇が付かないことから、板葺き・檜皮葺きの切妻造りの屋根で復元しました。"
     }
   ],
@@ -147,8 +147,8 @@ window.XR_CONFIG = {
       id: "dig_01",
       type: "dig",
       name: "発掘体験：南門付近の瓦だまり",
-      lat: 34.86016,
-      lng: 135.78436,
+      lat: 34.85983,
+      lng: 135.78438,
       artifactName: "複弁八葉蓮華文軒丸瓦",
       description: "画面を指でこすって土の中から奈良時代の瓦を掘り出してみよう！"
     },
@@ -156,7 +156,7 @@ window.XR_CONFIG = {
       id: "info_01",
       type: "info",
       name: "発掘調査の歩み",
-      lat: 34.86042,
+      lat: 34.86036,
       lng: 135.78408,
       description: "昭和48年（1973年）からの発掘調査により、整然と配置された大型掘立柱建物群が確認され、昭和49年（1974年）に国の史跡に指定されました。"
     }
