@@ -30,7 +30,7 @@ window.XR_CONFIG = {
   // 郡司キャラクターのガイドセリフ（各バナーの役割を簡潔に案内）
   gunjiQuotes: [
     "ようこそ。「正道官衙遺跡とは」で、奈良時代の役所・久世郡衙の歴史を知ろう。",
-    "「現地マップ&探索」では、GPSで遺跡を歩きながら復元図や発掘体験が楽しめるぞ。",
+    "「現地マップ&探索」では、GPSで遺跡を歩きながら復元建物配置図や発掘調査図面を見比べられるぞ。",
     "「3Dで楽しむ」では、復元建物5棟と出土遺物3点の3Dモデルをじっくり鑑賞できるぞ。",
     "建物5棟をすべて見ると「お楽しみ」が解放される。わしと一緒にAR記念撮影をしようぞ。"
   ],
@@ -54,6 +54,8 @@ window.XR_CONFIG = {
       glb: "./assets/models/choya.glb",
       usdz: "./assets/models/choya.usdz",
       thumb: "./assets/images/thumbs/choya_thum.png",
+      pin: "./assets/images/map/pin_choya.png",
+      pinDone: "./assets/images/map/pin_choya_done.png",
       lat: 34.86040607968549,
       lng: 135.78424322774643,
       description: "官衙Ⅲ期の中心建物で、6間×2間の身舎（もや）の四方に庇（ひさし）がめぐる『四面庇建物』と推定されます。掘立柱建物は瓦葺きの重い屋根を支えられないため板葺きや檜皮葺きが採用され、屋根は入母屋造りで復元しました。前面には柵（目隠し塀）が巡っていました。"
@@ -66,6 +68,8 @@ window.XR_CONFIG = {
       glb: "./assets/models/nanmon.glb",
       usdz: "./assets/models/nanmon.usdz",
       thumb: "./assets/images/thumbs/nanmon_thum.png",
+      pin: "./assets/images/map/pin_nanmon.png",
+      pinDone: "./assets/images/map/pin_nanmon_done.png",
       lat: 34.85972746193886,
       lng: 135.7842785339946,
       description: "官衙Ⅲ期の西と南を区画する築地状の遺構の南辺、庁屋正面で溝が途切れる位置に配置された門です。東西に築地塀が取り付く構造で、柱の位置は明確ではないものの『八脚門（桁行3間・梁間2間の門）』として掘立柱建物で復元しています。"
@@ -78,6 +82,8 @@ window.XR_CONFIG = {
       glb: "./assets/models/higashiya.glb",
       usdz: "./assets/models/higashiya.usdz",
       thumb: "./assets/images/thumbs/higashiya_thum.png",
+      pin: "./assets/images/map/pin_higashiya.png",
+      pinDone: "./assets/images/map/pin_higashiya_done.png",
       lat: 34.860251823950115,
       lng: 135.7844854049314,
       description: "庁屋前方の広場を挟んで東側に配置された5間×3間の南北棟の掘立柱建物です。二面庇の平面構成をもち、側面（妻）側に庇が付かないことから、板葺き・檜皮葺きの切妻造りの屋根で復元しました。"
@@ -90,6 +96,8 @@ window.XR_CONFIG = {
       glb: "./assets/models/mukaiya.glb",
       usdz: "./assets/models/mukaiya.usdz",
       thumb: "./assets/images/thumbs/mukaiya_thum.png",
+      pin: "./assets/images/map/pin_mukaiya.png",
+      pinDone: "./assets/images/map/pin_mukaiya_done.png",
       lat: 34.86007355224724,
       lng: 135.78439152761808,
       description: "東屋の前方に配置された8間×2間の東西棟の細長い掘立柱建物です。身舎（もや）のみの平面構成で側面（妻）側に庇が付かないことから、板葺き・檜皮葺きの切妻造りの屋根で復元しました。"
@@ -102,6 +110,8 @@ window.XR_CONFIG = {
       glb: "./assets/models/soeya.glb",
       usdz: "./assets/models/soeya.usdz",
       thumb: "./assets/images/thumbs/soeya_thum.png",
+      pin: "./assets/images/map/pin_soeya.png",
+      pinDone: "./assets/images/map/pin_soeya_done.png",
       lat: 34.860562341922886,
       lng: 135.78421908786578,
       description: "中心建物である庁屋の後方に配置された7間×2間の掘立柱建物です。身舎（もや）のみの平面構成で側面（妻）側に庇が付かないことから、板葺き・檜皮葺きの切妻造りの屋根で復元しました。"
@@ -165,7 +175,7 @@ window.XR_CONFIG = {
     {
       img: "./assets/images/help/help_slide_01.png",
       title: "現地マップ&探索で遺跡を歩こう",
-      text: "GPSで現在地を表示しながら、復元配置図や発掘調査図を現代の地図と重ねて見比べることができます。"
+      text: "GPSで現在地を表示しながら、復元建物配置図や発掘調査図面を現代の地図・航空写真と重ねて見比べることができます。"
     },
     {
       img: "./assets/images/help/help_slide_02.png",
@@ -174,8 +184,8 @@ window.XR_CONFIG = {
     },
     {
       img: "./assets/images/help/help_slide_03.png",
-      title: "出土遺物3Dと発掘体験",
-      text: "軒丸瓦・軒平瓦・円面硯の高精細3Dモデル鑑賞や、画面をこすって遺物を掘り出す発掘体験も楽しめます。"
+      title: "出土遺物の3Dモデル鑑賞",
+      text: "正道官衙遺跡から出土した軒丸瓦・軒平瓦・円面硯の高精細3Dモデルを自在に回して鑑賞できます。"
     },
     {
       img: "./assets/images/help/help_slide_04.png",

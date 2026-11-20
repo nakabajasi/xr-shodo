@@ -57,9 +57,9 @@
 | `assets/images/icons/icon_close.png` | モーダル閉じるボタン（×） | 96 × 96 | 必須 | モーダル右上 |
 | `assets/images/icons/icon_gps.png` | 現在地フォーカスボタン | 96 × 96 | 必須 | マップ右側ツールレール |
 | `assets/images/icons/icon_ar.png` | AR起動ボタン内アイコン | 96 × 96 | 必須 | `<model-viewer>` ARボタン |
-| `assets/images/icons/icon_layer_cg.png` | レイヤー切替：復元図 | 96 × 96 | 必須 | マップ上部バー |
-| `assets/images/icons/icon_layer_dig.png` | レイヤー切替：発掘図 | 96 × 96 | 必須 | マップ上部バー |
-| `assets/images/icons/icon_layer_sat.png` | レイヤー切替：航空写真 | 96 × 96 | 必須 | マップ上部バー |
+| `assets/images/icons/icon_layer_cg.png` | レイヤー切替：復元建物配置図 | 96 × 96 | 必須 | マップ上部バー／右側ツールレール |
+| `assets/images/icons/icon_layer_dig.png` | レイヤー切替：発掘調査図面 | 96 × 96 | 必須 | マップ上部バー／右側ツールレール |
+| `assets/images/icons/icon_layer_sat.png` | レイヤー切替：航空写真 | 96 × 96 | 必須 | マップ上部バー／右側ツールレール |
 
 ---
 
@@ -67,10 +67,7 @@
 
 | ファイルパス | 用途 | 推奨サイズ (px) | 透過 | 備考 |
 | :--- | :--- | :--- | :---: | :--- |
-| `assets/images/map/pin_building.png` | 復元建物ピン（未体験） | 96 × 112 | 必須 | 先端を中央下端に合わせる |
-| `assets/images/map/pin_building_done.png` | 復元建物ピン（体験済み） | 96 × 112 | 必須 | チェックマーク等付き推奨 |
-| `assets/images/map/pin_dig.png` | 発掘体験スポットピン | 96 × 112 | 必須 | スコップ／？モチーフ等 |
-| `assets/images/map/pin_info.png` | 解説スポットピン | 96 × 112 | 必須 | `i` モチーフ等 |
+| `assets/images/map/pin_<建物名>.png` / `_done.png` | 建物別ピン（庁屋・南門・東屋・向屋・副屋の未体験／体験済み計10点） | 104 × 118 | 必須 | 各建物名入りピン |
 | `assets/images/map/pin_user.png` | ユーザー現在地ピン | 96 × 112 | 必須 | GPS受信時に表示 |
 | `assets/images/map/overlay_restoration.png` | 復元配置図オーバーレイ | 800 × 800 | 必須 | 地図上に重ねる鳥瞰図・配置図 |
 | `assets/images/map/overlay_excavation.png` | 発掘調査遺構図オーバーレイ | 800 × 800 | 必須 | 地図上に重ねる遺構図 |
@@ -104,6 +101,4 @@
 | :--- | :--- | :--- | :---: | :--- |
 | `assets/images/info/about_01_overview.png`〜`about_12_suien.png` | 「正道官衙遺跡とは」・3D復元解説の図版（全12点） | 横幅960px目安 | 不要 | 図録PDF切り抜きダミーを配置済み（全幅表示） |
 | `assets/images/omake/omake_locked.png` | おまけ：未解放カード | 640 × 480 | 任意 | 建物5棟鑑賞前に表示 |
-| `assets/images/dig/dig_soil.png` | 発掘体験：削る土テクスチャ | 640 × 640 | 不要 | Canvas上で指で削るレイヤー |
-| `assets/images/dig/dig_artifact_01.png` | 発掘体験：土の下から出る遺物 | 640 × 640 | 不要 | 削り終えると出現 |
 | `assets/images/help/help_slide_01.png`〜`04.png` | ヘルプモーダル用スライド（4枚） | 800 × 520 | 不要 | 使い方ガイド各ページ |

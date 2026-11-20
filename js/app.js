@@ -16,7 +16,7 @@
   let excavationOverlay = null;
   let tileOSM = null;
   let tileSat = null;
-  let mapLayers = { restoration: true, excavation: true, satellite: false };
+  let mapLayers = { restoration: false, excavation: false, satellite: false };
   let pinMarkers = {};
   let currentModelTab = "buildings";
   let quoteIndex = 0;
@@ -284,30 +284,24 @@
       "./assets/images/map/overlay_restoration.png",
       CFG.overlayBounds.restoration,
       { opacity: 1.0 }
-    ).addTo(map);
+    );
 
     excavationOverlay = L.imageOverlay(
       "./assets/images/map/overlay_excavation.png",
       CFG.overlayBounds.excavation,
       { opacity: 0.95 }
-    ).addTo(map);
+    );
 
     // 建物ピン5棟
     CFG.buildings.forEach((b) => {
       const done = state.visitedBuildings.includes(b.id);
       const marker = L.marker([b.lat, b.lng], {
-        icon: createPinIcon(done ? "./assets/images/map/pin_building_done.png" : "./assets/images/map/pin_building.png")
+        icon: createPinIcon(done ? b.pinDone : b.pin)
       }).addTo(map);
       marker.on("click", () => openSpotSheet("building", b));
       pinMarkers[b.id] = marker;
     });
 
-    // 発掘・解説ピン
-    CFG.extraSpots.forEach((s) => {
-      const iconPath = s.type === "dig" ? "./assets/images/map/pin_dig.png" : "./assets/images/map/pin_info.png";
-      const marker = L.marker([s.lat, s.lng], { icon: createPinIcon(iconPath) }).addTo(map);
-      marker.on("click", () => openSpotSheet(s.type, s));
-    });
 
     map.on("click", () => closeSpotSheet());
     startGpsWatch();
@@ -319,7 +313,7 @@
       const m = pinMarkers[b.id];
       if (!m) return;
       const done = state.visitedBuildings.includes(b.id);
-      m.setIcon(createPinIcon(done ? "./assets/images/map/pin_building_done.png" : "./assets/images/map/pin_building.png"));
+      m.setIcon(createPinIcon(done ? b.pinDone : b.pin));
     });
   }
 
@@ -375,76 +369,19 @@
     document.getElementById("spot-sheet-desc").textContent = data.description;
 
     const actBtn = document.getElementById("spot-sheet-action");
-    if (type === "building") {
-      actBtn.textContent = "3D・ARで体験する";
-      actBtn.onclick = () => {
-        if (!isWithinRange(data.lat, data.lng)) {
-          showAlert("現地限定コンテンツ", "この場所では体験できません。正道官衙遺跡の現地にて体験してください。（遠隔テスト時は「設定」からデモモードをONにできます）");
-          return;
-        }
-        openBuildingViewer(data);
-      };
-    } else if (type === "dig") {
-      actBtn.textContent = "発掘体験をはじめる";
-      actBtn.onclick = () => {
-        if (!isWithinRange(data.lat, data.lng)) {
-          showAlert("現地限定コンテンツ", "この場所では体験できません。現地にて体験してください。（遠隔テスト時はデモモードをONにできます）");
-          return;
-        }
-        openDigModal(data);
-      };
-    } else {
-      actBtn.textContent = "詳しく読む";
-      actBtn.onclick = () => showView("about");
-    }
+    actBtn.textContent = "3D・ARで体験する";
+    actBtn.onclick = () => {
+      if (!isWithinRange(data.lat, data.lng)) {
+        showAlert("現地限定コンテンツ", "この場所では体験できません。正道官衙遺跡の現地にて体験してください。（遠隔テスト時は「設定」からデモモードをONにできます）");
+        return;
+      }
+      openBuildingViewer(data);
+    };
     sheet.classList.add("is-open");
   }
 
   function closeSpotSheet() {
     document.getElementById("map-spot-sheet").classList.remove("is-open");
-  }
-
-  // 6. 発掘ミニゲーム（Canvasスクラッチ）
-  function openDigModal(spot) {
-    const modal = document.getElementById("modal-dig");
-    document.getElementById("dig-title").textContent = spot.name;
-    document.getElementById("dig-result-msg").textContent = "指やマウスで土をこすって遺物を発掘しよう！";
-    modal.classList.add("is-open");
-
-    const canvas = document.getElementById("dig-canvas");
-    const ctx = canvas.getContext("2d");
-    canvas.width = 400;
-    canvas.height = 400;
-    ctx.globalCompositeOperation = "source-over";
-
-    const soilImg = new Image();
-    soilImg.onload = () => ctx.drawImage(soilImg, 0, 0, canvas.width, canvas.height);
-    soilImg.src = "./assets/images/dig/dig_soil.png";
-
-    let drawing = false;
-    let strokes = 0;
-
-    function scratch(clientX, clientY) {
-      const rect = canvas.getBoundingClientRect();
-      const x = ((clientX - rect.left) / rect.width) * canvas.width;
-      const y = ((clientY - rect.top) / rect.height) * canvas.height;
-      ctx.globalCompositeOperation = "destination-out";
-      ctx.beginPath();
-      ctx.arc(x, y, 28, 0, Math.PI * 2);
-      ctx.fill();
-      strokes++;
-      if (strokes > 28) {
-        document.getElementById("dig-result-msg").textContent = `発掘成功！「${spot.artifactName}」が見つかりました！`;
-        if (!state.dugSpots.includes(spot.id)) {
-          state.dugSpots.push(spot.id);
-          saveState();
-        }
-      }
-    }
-
-    canvas.onpointerdown = (e) => { drawing = true; scratch(e.clientX, e.clientY); };
-    canvas.onpointermove = (e) => { if (drawing) scratch(e.clientX, e.clientY); };
-    window.onpointerup = () => { drawing = false; };
   }
 
   // 7. おまけ画面（統一：建物5棟コンプリートで gunji.glb / gunji.usdz AR記念撮影解放）
@@ -671,7 +608,7 @@
       state.visitedBuildings = [];
       state.dugSpots = [];
       saveState();
-      showAlert("初期化完了", "体験履歴と発掘データをリセットしました。");
+      showAlert("初期化完了", "体験スタンプをリセットしました。");
     });
 
     updateProgressUI();
