@@ -35,7 +35,7 @@ html, body {
 }
 
 .serif {
-  font-family: "Hiragino Mincho ProN", "Noto Serif JP", "Yu Mincho", serif;
+  font-family: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
 }
 
 /* モバイルアプリ枠（PC閲覧時は中央スマートフォン幅で表示） */
@@ -203,95 +203,133 @@ html, body {
   display: block;
 }
 
-/* 郡司顔画像＋吹き出しヒーロー（スタンプ帯削除分のスペースを活かして大きく表示） */
+/* 郡司顔画像＋吹き出しヒーロー（和モダン・ミュージアム調タイポグラフィ） */
 .home-hero {
   position: relative;
   display: flex;
   align-items: center;
-  padding: 8px 14px 14px;
-  min-height: 186px;
-  gap: 12px;
+  padding: 10px 14px 16px;
+  min-height: 176px;
+  gap: 14px;
 }
 
 .home-hero-char {
-  width: 112px;
+  width: 104px;
   flex-shrink: 0;
 }
 
 .home-hero-char img {
-  width: 112px;
-  height: 112px;
-  object-fit: contain;
+  width: 104px;
+  height: 104px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 252, 245, 0.85);
+  object-fit: cover;
   display: block;
-  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.32));
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
 }
 
 .home-speech-wrap {
+  position: relative;
   flex: 1;
-  background-image: url("../assets/images/bg/bg_speech_bubble.png");
-  background-size: 100% 100%;
-  padding: 14px 16px 16px;
-  min-height: 152px;
+  background: rgba(252, 250, 245, 0.96);
+  border-radius: 12px;
+  padding: 14px 18px 11px;
+  min-height: 148px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-between;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+}
+
+.home-speech-wrap::before {
+  content: "";
+  position: absolute;
+  left: -7px;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  width: 14px;
+  height: 14px;
+  background: rgba(252, 250, 245, 0.96);
+  border-radius: 2px;
 }
 
 .home-speech-head {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 8px;
-  gap: 6px;
+  padding-bottom: 7px;
+  margin-bottom: 9px;
+  border-bottom: 1px solid rgba(20, 24, 34, 0.1);
 }
 
 .home-speech-name {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--accent);
+  font-family: "Shippori Mincho", "Hiragino Mincho ProN", serif;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: #4a4e59;
+}
+
+.home-speech-text {
+  font-family: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  font-size: 13.8px;
+  font-weight: 500;
+  line-height: 1.82;
+  letter-spacing: 0.04em;
+  font-feature-settings: "palt" 1;
+  line-break: strict;
+  word-break: normal;
+  margin: 0;
+  color: #14161b;
+  flex: 1;
+}
+
+.home-speech-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 8px;
 }
 
 .home-speech-controls {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 2px;
 }
 
 .speech-nav-btn {
-  width: 28px;
-  height: 28px;
-  border: 1.5px solid var(--accent);
-  border-radius: 6px;
-  background: #ffffff;
-  color: var(--accent);
-  font-size: 12px;
-  font-weight: 700;
+  width: 30px;
+  height: 26px;
+  border: none;
+  background: transparent;
+  color: #14161b;
+  font-size: 20px;
+  font-weight: 400;
   line-height: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   padding: 0;
+  transition: opacity 0.15s ease;
+}
+
+.speech-nav-btn:active {
+  opacity: 0.5;
 }
 
 .speech-nav-btn:disabled {
-  opacity: 0.28;
+  opacity: 0.2;
   cursor: default;
 }
 
 .home-speech-pager {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--accent-red);
-  min-width: 34px;
+  font-family: "Shippori Mincho", Georgia, serif;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: #555966;
+  min-width: 38px;
   text-align: center;
-}
-
-.home-speech-text {
-  font-size: 14px;
-  line-height: 1.6;
-  margin: 0;
-  color: var(--ink);
 }
 
 .otanoshimi-wrap {
