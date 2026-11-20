@@ -21,6 +21,8 @@
   let currentModelTab = "buildings";
   let quoteIndex = 0;
   let helpIndex = 0;
+  let activeViewId = "home";
+  let viewerReturnView = "models";
 
   function loadState() {
     try {
@@ -62,7 +64,8 @@
     if (target) target.classList.add("is-active");
 
     // ボトムナビ同期
-    const tabMap = { home: "home", map: "map", models: "models", menu: "menu", about: "home", omake: "home" };
+    activeViewId = viewId;
+    const tabMap = { home: "home", map: "map", models: "models", viewer: "models", menu: "menu", about: "home", omake: "home" };
     const activeTab = tabMap[viewId] || "home";
     document.querySelectorAll(".nav-tab").forEach((btn) => {
       const tab = btn.dataset.tab;
@@ -97,9 +100,20 @@
   function updateProgressUI() {
     const count = state.visitedBuildings.length;
     const total = CFG.buildings.length;
-    const el = document.getElementById("home-progress-text");
-    if (el) {
-      el.textContent = count >= total ? `${count} / ${total} 棟（おまけ解放済み！）` : `${count} / ${total} 棟 体験済み`;
+    const unlocked = count >= total;
+    const ov = document.getElementById("home-progress-overlay");
+    if (ov) {
+      ov.textContent = unlocked ? `体験スタンプ ${count}/${total}棟 解放済` : `体験スタンプ ${count} / ${total} 棟`;
+      ov.classList.toggle("is-unlocked", unlocked);
+    }
+    const otBtn = document.getElementById("btn-home-otanoshimi");
+    const otImg = document.getElementById("img-home-otanoshimi");
+    if (otBtn && otImg) {
+      otBtn.disabled = !unlocked;
+      otBtn.setAttribute("aria-disabled", String(!unlocked));
+      otBtn.classList.toggle("is-locked", !unlocked);
+      otImg.src = unlocked ? CFG.omake.bannerUnlocked : CFG.omake.bannerLocked;
+      otImg.alt = unlocked ? "お楽しみ（解放済み）" : "お楽しみ（解放前）";
     }
     const demoStatus = document.getElementById("map-gps-status");
     if (demoStatus && state.demoMode) {
@@ -116,6 +130,19 @@
     grid.innerHTML = "";
 
     if (currentModelTab === "buildings") {
+      const intro = document.createElement("details");
+      intro.className = "cg-intro-box";
+      intro.style.gridColumn = "1 / -1";
+      intro.innerHTML = `
+        <summary class="serif">官衙Ⅲ期建物群の3DCG復元について（タップで開く）</summary>
+        <p style="margin:8px 0 6px;">発掘調査で見つかる柱の痕跡「柱穴（ちゅうけつ）」の配置と、現存する古代の寺院建築や絵巻などの史料、早川和子氏による復元イラストを参考に3DCGで復元しました。</p>
+        <p style="margin:0 0 8px;">正道官衙遺跡で見つかった建物はすべて地面に掘った穴に柱を埋める<strong>掘立柱建物</strong>で、瓦葺きのような重い屋根を支えられないため板葺きや檜皮葺きが採用されたと考えられます。中心の「身舎（もや）」と周囲の「庇（ひさし）」の配置から、庁屋は入母屋造り、副屋・向屋・東屋は切妻造り、南門は八脚門として復元しています。</p>
+        <figure class="about-figure" style="margin:6px 0 0;">
+          <img src="./assets/images/info/about_08_cg_overview.png" alt="官衙Ⅲ期建物群の復元">
+          <figcaption>図8　官衙Ⅲ期建物群の復元</figcaption>
+        </figure>
+      `;
+      grid.appendChild(intro);
       CFG.buildings.forEach((b) => {
         const visited = state.visitedBuildings.includes(b.id);
         const card = document.createElement("button");
@@ -155,48 +182,50 @@
     }
   }
 
-  // 建物3D & Web AR (<model-viewer> .glb + .usdz)
+  // 建物3D & Web AR（全幅ページで開き、戻るボタンで元の画面へ復帰）
   function openBuildingViewer(b) {
+    viewerReturnView = activeViewId === "map" ? "map" : "models";
     markBuildingVisited(b.id);
-    const modal = document.getElementById("modal-viewer");
     document.getElementById("viewer-title").textContent = `${b.name}（${b.kana}）`;
     const body = document.getElementById("viewer-body");
     body.innerHTML = `
-      <model-viewer
-        src="${b.glb}"
-        ios-src="${b.usdz}"
-        poster="${b.thumb}"
-        alt="${b.name} 復元3Dモデル"
-        ar
-        ar-modes="webxr scene-viewer quick-look"
-        camera-controls
-        auto-rotate
-        shadow-intensity="1"
-        exposure="1.05"
-      >
-        <button slot="ar-button" class="ar-launch-btn">
-          <img src="./assets/images/icons/icon_ar.png" alt="">
-          <span>ARで見る</span>
-        </button>
-      </model-viewer>
-      <p style="font-size:11px;color:#5a5e6b;margin:8px 0 10px;">
-        ドラッグで回転・ピンチで拡大縮小できます。対応スマホでは右下の「ARで見る」から実寸配置（Android: GLB / iOS: USDZ）を起動できます。
-      </p>
-      <div class="info-card" style="margin-bottom:0;">
+      <div class="viewer-full-stage">
+        <model-viewer
+          src="${b.glb}"
+          ios-src="${b.usdz}"
+          poster="${b.thumb}"
+          alt="${b.name} 復元3Dモデル"
+          ar
+          ar-modes="webxr scene-viewer quick-look"
+          camera-controls
+          auto-rotate
+          shadow-intensity="1"
+          exposure="1.05"
+        >
+          <button slot="ar-button" class="ar-launch-btn">
+            <img src="./assets/images/icons/icon_ar.png" alt="">
+            <span>ARで見る</span>
+          </button>
+        </model-viewer>
+      </div>
+      <div class="viewer-plain-body">
+        <p class="viewer-plain-note">ドラッグで回転・ピンチで拡大縮小できます。対応スマホでは右下の「ARで見る」から実寸配置（Android: GLB / iOS: USDZ）を起動できます。</p>
         <h3 class="serif">${b.name} — ${b.role}</h3>
         <p>${b.description}</p>
+        ${b.id === "choya" ? `<figure class="about-figure"><img src="./assets/images/info/about_09_choya_interior.png" alt="庁屋内部の復元"><figcaption>図9　庁屋内部の復元</figcaption></figure>` : ""}
       </div>
     `;
-    modal.classList.add("is-open");
+    body.scrollTop = 0;
+    showView("viewer");
   }
 
-  // 遺物3D（Sketchfab Embed API）
+  // 遺物3D（Sketchfab 全幅ページで開き、戻るボタンで戻る）
   function openArtifactViewer(a) {
-    const modal = document.getElementById("modal-viewer");
+    viewerReturnView = activeViewId === "map" ? "map" : "models";
     document.getElementById("viewer-title").textContent = a.name;
     const body = document.getElementById("viewer-body");
     body.innerHTML = `
-      <div class="sketchfab-box">
+      <div class="viewer-full-sketchfab">
         <iframe
           title="${a.name}（正道官衙遺跡）"
           frameborder="0"
@@ -211,15 +240,17 @@
           src="https://sketchfab.com/models/${a.sketchfabUid}/embed"
         ></iframe>
       </div>
-      <p class="sketchfab-credit">
-        <a href="${a.modelUrl}" target="_blank" rel="noopener noreferrer">${a.name}（正道官衙遺跡）</a>
-        by <a href="${a.authorUrl}" target="_blank" rel="noopener noreferrer">${a.authorName}</a> on Sketchfab
-      </p>
-      <div class="info-card" style="margin-bottom:0;">
+      <div class="viewer-plain-body">
+        <p class="sketchfab-credit">
+          <a href="${a.modelUrl}" target="_blank" rel="noopener noreferrer">${a.name}（正道官衙遺跡）</a>
+          by <a href="${a.authorUrl}" target="_blank" rel="noopener noreferrer">${a.authorName}</a> on Sketchfab
+        </p>
+        <h3 class="serif">${a.name}</h3>
         <p>${a.description}</p>
       </div>
     `;
-    modal.classList.add("is-open");
+    body.scrollTop = 0;
+    showView("viewer");
   }
 
   // 5. マップ画面（Leaflet + GPS + レイヤー切替）
@@ -518,19 +549,39 @@
     });
     applyTheme(state.theme);
 
-    // 郡司セリフ切替
-    const nextQuote = () => {
-      quoteIndex = (quoteIndex + 1) % CFG.gunjiQuotes.length;
+    // 郡司セリフ前後切替（1/4⇔4/4 ループ禁止）
+    const prevBtn = document.getElementById("btn-quote-prev");
+    const nextBtn = document.getElementById("btn-quote-next");
+    const renderQuote = () => {
       document.getElementById("home-speech-text").textContent = CFG.gunjiQuotes[quoteIndex];
+      const pager = document.getElementById("home-speech-pager");
+      if (pager) pager.textContent = `${quoteIndex + 1} / ${CFG.gunjiQuotes.length}`;
+      if (prevBtn) prevBtn.disabled = quoteIndex <= 0;
+      if (nextBtn) nextBtn.disabled = quoteIndex >= CFG.gunjiQuotes.length - 1;
     };
-    document.getElementById("home-speech-text").textContent = CFG.gunjiQuotes[0];
-    document.getElementById("home-hero-char").addEventListener("click", nextQuote);
-    document.getElementById("home-speech-wrap").addEventListener("click", nextQuote);
+    if (prevBtn) {
+      prevBtn.addEventListener("click", () => {
+        if (quoteIndex > 0) { quoteIndex--; renderQuote(); }
+      });
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener("click", () => {
+        if (quoteIndex < CFG.gunjiQuotes.length - 1) { quoteIndex++; renderQuote(); }
+      });
+    }
+    renderQuote();
 
     // ナビゲーション＆バナーボタン
     document.querySelectorAll("[data-goto]").forEach((el) => {
       el.addEventListener("click", () => showView(el.dataset.goto));
     });
+    const viewerBackBtn = document.getElementById("btn-viewer-back");
+    if (viewerBackBtn) {
+      viewerBackBtn.addEventListener("click", () => {
+        document.getElementById("viewer-body").innerHTML = "";
+        showView(viewerReturnView || "models");
+      });
+    }
 
     // 3Dモデル鑑賞タブ切替
     document.querySelectorAll(".segment-btn").forEach((btn) => {

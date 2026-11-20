@@ -10,9 +10,7 @@ window.XR_CONFIG = {
     lng: 135.784239,
     zoom: 18
   },
-  // 現地判定の許容半径（メートル）。屋外GPS誤差を考慮して 35m〜50m 推奨
   geofenceRadiusMeters: 45,
-  // 復元図・発掘図オーバーレイの四隅座標 [南西, 北東]（正道官衙遺跡の史跡公園範囲）
   overlayBounds: {
     restoration: [
       [34.85998, 135.78388],
@@ -23,30 +21,30 @@ window.XR_CONFIG = {
       [34.86066, 135.78452]
     ]
   },
-  // テーマカラー背景（設定画面で切替）
   themes: [
     { id: "indigo", label: "縹（藍）", color: "#22345e", bg: "./assets/images/bg/bg_home_indigo.png" },
     { id: "matcha", label: "常盤（緑）", color: "#2d523a", bg: "./assets/images/bg/bg_home_matcha.png" },
     { id: "vermilion", label: "朱（赤）", color: "#7f2b24", bg: "./assets/images/bg/bg_home_vermilion.png" },
     { id: "sumi", label: "墨（黒）", color: "#26282c", bg: "./assets/images/bg/bg_home_sumi.png" }
   ],
-  // 郡司キャラクターのガイドセリフ（ホーム画面でタップ切替）
+  // 郡司キャラクターのガイドセリフ（各バナーの役割を簡潔に案内）
   gunjiQuotes: [
-    "ようこそ正道官衙遺跡へ！わしは久世郡を治めた郡司じゃ。まずは『正道官衙遺跡とは』やマップを見てみよ。",
-    "ここには奈良時代の役所『久世郡衙』の建物が整然と並んでおったのじゃ。",
-    "5つの建物をすべて見ると『おまけ』でわしをタップしてAR記念撮影ができるようになるぞ！",
-    "『3Dモデル鑑賞』では、自宅からでも建物5棟と出土遺物3点をじっくり眺められるぞ。"
+    "ようこそ！『正道官衙遺跡とは』で、奈良時代の役所・久世郡衙の歴史を知ろう。",
+    "『現地マップ&探索』では、GPSで遺跡を歩きながら復元図や発掘体験が楽しめるぞ。",
+    "『3Dで楽しむ』では、復元建物5棟と出土遺物3点の3Dモデルをじっくり鑑賞できるぞ。",
+    "建物5棟をすべて見ると『お楽しみ』が解放！わしと一緒にAR記念撮影ができるぞ！"
   ],
-  // おまけAR（建物5棟コンプリートで解放：正道官衙の郡司と記念撮影）
+  // お楽しみAR（旧おまけ：建物5棟コンプリートで解放）
   omake: {
     title: "正道官衙の郡司と記念撮影",
     glb: "./assets/models/gunji.glb",
     usdz: "./assets/models/gunji.usdz",
     triggerImg: "./assets/images/character/gunji.png",
     lockedImg: "./assets/images/omake/omake_locked.png",
+    bannerLocked: "./assets/images/banners/banner_otanoshimi_locked.svg",
+    bannerUnlocked: "./assets/images/banners/banner_otanoshimi_unlocked.svg",
     description: "下の郡司キャラクター画像をタップすると、iPhoneはクイックルック、AndroidはScene ViewerなどのネイティブARが直接起動します。実空間に郡司を呼び出して記念撮影をお楽しみください！"
   },
-  // 復元建物 3Dモデル（glb + iOS AR用 usdz 同梱前提）
   buildings: [
     {
       id: "choya",
@@ -58,7 +56,7 @@ window.XR_CONFIG = {
       thumb: "./assets/images/thumbs/choya_thum.png",
       lat: 34.86048,
       lng: 135.78423,
-      description: "久世郡衙の中枢を担った最大の掘立柱建物です。庇（ひさし）を備え、政務や重要な儀式が執り行われました。"
+      description: "官衙Ⅲ期の中心建物で、6間×2間の身舎（もや）の四方に庇（ひさし）がめぐる『四面庇建物』と推定されます。掘立柱建物は瓦葺きの重い屋根を支えられないため板葺きや檜皮葺きが採用され、屋根は入母屋造りで復元しました。前面には柵（目隠し塀）が巡っていました。"
     },
     {
       id: "nanmon",
@@ -70,7 +68,7 @@ window.XR_CONFIG = {
       thumb: "./assets/images/thumbs/nanmon_thum.png",
       lat: 34.86008,
       lng: 135.78423,
-      description: "南辺の築地塀の中央に開かれた正門です。ここをくぐると正面に広大な前庭と庁屋がそびえていました。"
+      description: "官衙Ⅲ期の西と南を区画する築地状の遺構の南辺、庁屋正面で溝が途切れる位置に配置された門です。東西に築地塀が取り付く構造で、柱の位置は明確ではないものの『八脚門（桁行3間・梁間2間の門）』として掘立柱建物で復元しています。"
     },
     {
       id: "higashiya",
@@ -82,7 +80,7 @@ window.XR_CONFIG = {
       thumb: "./assets/images/thumbs/higashiya_thum.png",
       lat: 34.86030,
       lng: 135.78442,
-      description: "庁屋の前庭東側に南北棟として配置された建物です。実務や事務作業、来訪者の控えなどに使われたと考えられます。"
+      description: "庁屋前方の広場を挟んで東側に配置された5間×3間の南北棟の掘立柱建物です。二面庇の平面構成をもち、側面（妻）側に庇が付かないことから、板葺き・檜皮葺きの切妻造りの屋根で復元しました。"
     },
     {
       id: "mukaiya",
@@ -94,7 +92,7 @@ window.XR_CONFIG = {
       thumb: "./assets/images/thumbs/mukaiya_thum.png",
       lat: 34.86030,
       lng: 135.78404,
-      description: "東屋と向かい合うように配置された建物です。左右対称に近い計画的な官衙空間を形づくっていました。"
+      description: "東屋の前方に配置された8間×2間の東西棟の細長い掘立柱建物です。身舎（もや）のみの平面構成で側面（妻）側に庇が付かないことから、板葺き・檜皮葺きの切妻造りの屋根で復元しました。"
     },
     {
       id: "soeya",
@@ -106,10 +104,9 @@ window.XR_CONFIG = {
       thumb: "./assets/images/thumbs/soeya_thum.png",
       lat: 34.86062,
       lng: 135.78423,
-      description: "中心建物である庁屋の背後に建てられた付属施設です。庁屋の機能を補完する空間として利用されました。"
+      description: "中心建物である庁屋の後方に配置された7間×2間の掘立柱建物です。身舎（もや）のみの平面構成で側面（妻）側に庇が付かないことから、板葺き・檜皮葺きの切妻造りの屋根で復元しました。"
     }
   ],
-  // 出土遺物 3Dモデル（Sketchfab Embed API）
   artifacts: [
     {
       id: "nokimarugawara",
@@ -145,7 +142,6 @@ window.XR_CONFIG = {
       description: "役人が木簡や文書に墨で文字を書くために使用した須恵器の硯です。ここが役所（官衙）であったことを示す重要な遺物です。"
     }
   ],
-  // マップ上の発掘スポット・解説スポット
   extraSpots: [
     {
       id: "dig_01",
@@ -165,16 +161,15 @@ window.XR_CONFIG = {
       description: "昭和48年（1973年）からの発掘調査により、整然と配置された大型掘立柱建物群が確認され、昭和49年（1974年）に国の史跡に指定されました。"
     }
   ],
-  // ヘルプスライド（全4枚）
   helpSlides: [
     {
       img: "./assets/images/help/help_slide_01.png",
-      title: "現地マップで遺跡を歩こう",
+      title: "現地マップ&探索で遺跡を歩こう",
       text: "GPSで現在地を表示しながら、復元配置図や発掘調査図を現代の地図と重ねて見比べることができます。"
     },
     {
       img: "./assets/images/help/help_slide_02.png",
-      title: "建物5棟を3D・ARで体験",
+      title: "3Dで楽しむ（復元建物5棟）",
       text: "庁屋・南門・東屋・向屋・副屋の3Dモデルを自由に回転・拡大でき、対応スマホではARで実空間に配置できます。"
     },
     {
@@ -184,8 +179,8 @@ window.XR_CONFIG = {
     },
     {
       img: "./assets/images/help/help_slide_04.png",
-      title: "全5棟を見ると『おまけAR』解放",
-      text: "5棟すべての建物を鑑賞すると、『おまけ』で郡司画像をタップしてネイティブARで記念撮影ができます。"
+      title: "全5棟を見ると『お楽しみ』解放",
+      text: "5棟すべての建物を鑑賞すると、『お楽しみ』が解放され、郡司をタップしてネイティブARで記念撮影ができます。"
     }
   ]
 };
