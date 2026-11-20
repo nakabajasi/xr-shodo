@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <rect x="6" y="6" width="388" height="388" rx="28" fill="#9c742c" stroke="#f0d78c" stroke-width="6"/>
+  <rect x="18" y="18" width="364" height="364" rx="20" fill="none" stroke="#fae8b4" stroke-width="2" stroke-opacity="0.65"/>
+  <!-- Corner ornaments -->
+  <path d="M 32 52 L 32 32 L 52 32" fill="none" stroke="#f0d78c" stroke-width="4" stroke-linecap="round"/>
+  <path d="M 368 52 L 368 32 L 348 32" fill="none" stroke="#f0d78c" stroke-width="4" stroke-linecap="round"/>
+  <path d="M 32 348 L 32 368 L 52 368" fill="none" stroke="#f0d78c" stroke-width="4" stroke-linecap="round"/>
+  <path d="M 368 348 L 368 368 L 348 368" fill="none" stroke="#f0d78c" stroke-width="4" stroke-linecap="round"/>
+  <text x="200" y="206" text-anchor="middle" font-family="Noto Serif JP, Hiragino Mincho ProN, Yu Mincho, serif" font-size="40" font-weight="700" letter-spacing="2" fill="#ffffff">お楽しみ</text>
+  <text x="200" y="308" text-anchor="middle" font-family="Noto Sans JP, Hiragino Kaku Gothic ProN, sans-serif" font-size="18" font-weight="500" fill="#f0e8d5">郡司とAR記念撮影</text>
+  <text x="200" y="352" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#f0e8d5" fill-opacity="0.7">[banner_otanoshimi_unlocked.svg]</text>
+</svg>
