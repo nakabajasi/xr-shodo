@@ -251,7 +251,7 @@
   // 5. マップ画面（Leaflet + GPS + レイヤー切替）
   function createPinIcon(imgPath) {
     const url = imgPath && !imgPath.startsWith("data:") && !imgPath.includes("?v=")
-      ? `${imgPath}?v=20261121b`
+      ? `${imgPath}?v=20261121c`
       : imgPath;
     return L.icon({
       iconUrl: url,
@@ -322,24 +322,6 @@
       });
     });
 
-    // 前庭中央の体験ピン
-    const wtPin = L.marker([34.86012, 135.78428], {
-      icon: createPinIcon("./assets/images/map/pin_walkthrough.png"),
-      zIndexOffset: 500
-    }).addTo(map);
-    wtPin.on("click", () => {
-      showConfirm(
-        "前庭からのウォークスルー体験",
-        "この場所からのウォークスルー体験を開始しますか？",
-        () => {
-          if (window.__IS_CANVAS_PREVIEW) {
-            showAlert("プレビュー環境", "GitHub Pages公開版では「準備中」画面を経て、前庭中央からウォークスルー体験へ直接遷移します。");
-            return;
-          }
-          window.location.href = "./vr/index.html";
-        }
-      );
-    });
 
     map.on("click", () => closeSpotSheet());
     startGpsWatch();

@@ -598,6 +598,24 @@
         const name = nameOrig.toLowerCase();
 
         if (name.startsWith('text_')) {
+          // メッシュの法線ベクトルから本来の正面方向（+Z基準の角度）を算出して補正する
+          let frontAngle = 0;
+          let foundNormal = false;
+          obj.traverse((child) => {
+            if (!foundNormal && child.isMesh && child.geometry && child.geometry.attributes && child.geometry.attributes.normal) {
+              const nAttr = child.geometry.attributes.normal;
+              let nx = 0, nz = 0;
+              for (let k = 0; k < nAttr.count; k++) {
+                nx += nAttr.getX(k);
+                nz += nAttr.getZ(k);
+              }
+              if (Math.hypot(nx, nz) > 1e-4) {
+                frontAngle = Math.atan2(nx, nz);
+                foundNormal = true;
+              }
+            }
+          });
+          obj.userData._frontAngle = frontAngle;
           billboardTexts.push(obj);
         }
         if (name === 'camera' || name.startsWith('camera_')) {
@@ -931,10 +949,13 @@
       }
       if (camera.position.y < -100) camera.position.copy(initialCameraPos);
 
-      // text_* オブジェクトを常にカメラ方向へ水平ビルボード回転
+      // text_* オブジェクトの正面を常にカメラ方向へ水平ビルボード回転
       for (const tObj of billboardTexts) {
         tObj.getWorldPosition(_bbWorldPos);
         tObj.lookAt(camera.position.x, _bbWorldPos.y, camera.position.z);
+        if (tObj.userData._frontAngle) {
+          tObj.rotateY(-tObj.userData._frontAngle);
+        }
       }
       updateKaisetsu(camera.position);
 
