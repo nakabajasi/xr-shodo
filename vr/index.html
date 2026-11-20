@@ -6,10 +6,10 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="theme-color" content="#f4efe3">
-  <title>正道官衙遺跡VR体験</title>
+  <title>正道官衙遺跡 ウォークスルー体験</title>
   <meta name="description" content="奈良時代に役所のあった正道官衙遺跡を歩き回ろう！">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="正道官衙遺跡VR体験">
+  <meta property="og:title" content="正道官衙遺跡 ウォークスルー体験">
   <meta property="og:description" content="奈良時代に役所のあった正道官衙遺跡を歩き回ろう！">
   <link rel="icon" href="data:,">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -338,29 +338,15 @@
 </head>
 <body>
   <a class="back-map-btn" href="../index.html#map">← マップへ戻る</a>
-  <!-- スタート画面 -->
+  <!-- 準備中ローディング画面（読み込み完了で自動遷移） -->
   <div id="start">
-    <div class="start-layout">
-      <h1 class="start-title">
-        <span class="t-main">正道官衙遺跡</span><span class="t-sub">VR体験</span>
-      </h1>
-      <div class="figure">
-        <p class="bubble" id="description"><span class="ph">奈良時代に</span><span class="ph">役所のあった</span><span class="ph">正道官衙遺跡を</span><span class="ph">歩き回ろう！</span></p>
-        <picture>
-          <source srcset="kanjin.webp" type="image/webp">
-          <img src="kanjin.png" alt="奈良時代の役人の姿をした案内役" width="464" height="1600" decoding="async">
-        </picture>
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px;width:min(320px,86vw);">
+      <p style="font-family:var(--ud-mincho);font-size:1.35rem;font-weight:700;color:var(--ai-deep);letter-spacing:.12em;">準備中…</p>
+      <div class="loading" id="loading" aria-live="polite" style="width:100%;">
+        <div class="label" id="loading-label">3Dデータを読み込んでいます</div>
+        <div class="bar"><span id="loading-bar"></span></div>
       </div>
-      <div class="action">
-        <button id="start-btn" type="button">
-          <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 0.6 L9.4 5 L1 9.4 Z" fill="currentColor"/></svg>
-          <span id="start-label">スタート</span>
-        </button>
-        <div class="loading" id="loading" aria-live="polite">
-          <div class="label" id="loading-label">3Dデータを読み込んでいます</div>
-          <div class="bar"><span id="loading-bar"></span></div>
-        </div>
-      </div>
+      <button id="start-btn" type="button" class="hidden"><span id="start-label">スタート</span></button>
     </div>
   </div>
 
@@ -368,7 +354,7 @@
 
   <div id="hud" class="hidden">
     <div class="top-bar">
-      <span class="title">正道官衙遺跡VR体験</span>
+      <span class="title">正道官衙遺跡 ウォークスルー体験</span>
       <span class="stats hidden" id="stats">--</span>
     </div>
     <div id="crosshair"></div>
@@ -598,6 +584,8 @@
     // ===== GLBの読み込み =====
     let cameraMarker = null;
     const cameraMarkers = new Map();
+    const billboardTexts = [];
+    const _bbWorldPos = new THREE.Vector3();
     let spawnPoint = null;
     const anchors = [];   // 解説の中心（GLB内の文字オブジェクト）
 
@@ -609,6 +597,9 @@
         const nameOrig = obj.userData.name || obj.name || '';
         const name = nameOrig.toLowerCase();
 
+        if (name.startsWith('text_')) {
+          billboardTexts.push(obj);
+        }
         if (name === 'camera' || name.startsWith('camera_')) {
           const pos = new THREE.Vector3();
           obj.getWorldPosition(pos);
@@ -940,6 +931,11 @@
       }
       if (camera.position.y < -100) camera.position.copy(initialCameraPos);
 
+      // text_* オブジェクトを常にカメラ方向へ水平ビルボード回転
+      for (const tObj of billboardTexts) {
+        tObj.getWorldPosition(_bbWorldPos);
+        tObj.lookAt(camera.position.x, _bbWorldPos.y, camera.position.z);
+      }
       updateKaisetsu(camera.position);
 
       if (debug && (frameCount++ % 10) === 0) {
@@ -982,8 +978,18 @@
         applySpawnPoint();
         try { renderer.compile(scene, camera); } catch (_) {}   // 開始直後のカクつきを減らす
         loadingBar.style.width = '100%';
-        loadingLabel.textContent = '準備ができました';
+        loadingLabel.textContent = 'まもなく開始します…';
         loadingEl.classList.add('done');
+        if (!started) {
+          started = true;
+          const start = document.getElementById('start');
+          start.classList.add('leaving');
+          setTimeout(() => start.classList.add('hidden'), 350);
+          document.getElementById('hud').classList.remove('hidden');
+          if (debug) statsEl.classList.remove('hidden');
+          clock.getDelta();
+          tick();
+        }
       });
     ready.catch((err) => {
       console.error('[viewer] 読み込み失敗:', err);

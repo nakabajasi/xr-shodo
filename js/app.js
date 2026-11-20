@@ -31,7 +31,6 @@
     } catch (e) {}
     return {
       theme: "indigo",
-      demoMode: true, // 動作確認しやすいよう初期ON（本番公開時は false に変更可能）
       sound: true,
       visitedBuildings: [],
       dugSpots: []
@@ -114,10 +113,6 @@
       otBtn.classList.toggle("is-locked", !unlocked);
       otImg.src = unlocked ? CFG.omake.bannerUnlocked : CFG.omake.bannerLocked;
       otImg.alt = unlocked ? "お楽しみ（解放済み）" : "お楽しみ（解放前）";
-    }
-    const demoStatus = document.getElementById("map-gps-status");
-    if (demoStatus && state.demoMode) {
-      demoStatus.textContent = "デモモード中（どこでも体験OK）";
     }
     renderModelGrid();
     refreshMapPinIcons();
@@ -255,8 +250,11 @@
 
   // 5. マップ画面（Leaflet + GPS + レイヤー切替）
   function createPinIcon(imgPath) {
+    const url = imgPath && !imgPath.startsWith("data:") && !imgPath.includes("?v=")
+      ? `${imgPath}?v=20261121b`
+      : imgPath;
     return L.icon({
-      iconUrl: imgPath,
+      iconUrl: url,
       iconSize: [42, 49],
       iconAnchor: [21, 48]
     });
@@ -303,18 +301,44 @@
     });
 
 
-    // VRウォークスルー開始ピン（タップでウォークスルー画面へ直接遷移）
+    // 体験（ウォークスルー）開始ピン：タップで確認モーダル → はい で即遷移
     (CFG.vrSpots || []).forEach((v) => {
       const marker = L.marker([v.lat, v.lng], {
-        icon: createPinIcon(v.pin)
+        icon: createPinIcon(v.pin),
+        zIndexOffset: 400
       }).addTo(map);
       marker.on("click", () => {
-        if (window.__IS_CANVAS_PREVIEW) {
-          showAlert(v.name, `GitHub Pages公開版ではこのアイコンをタップすると、カメラ「${v.id}」から遺跡内VRウォークスルー（./vr/index.html?camera=${v.id}）が直接起動します。`);
-          return;
-        }
-        window.location.href = `./vr/index.html?camera=${encodeURIComponent(v.id)}`;
+        showConfirm(
+          v.name || "ウォークスルー体験",
+          "この場所からのウォークスルー体験を開始しますか？",
+          () => {
+            if (window.__IS_CANVAS_PREVIEW) {
+              showAlert("プレビュー環境", `GitHub Pages公開版では「準備中」画面を経て、この地点（${v.id}）からウォークスルー体験へ直接遷移します。`);
+              return;
+            }
+            window.location.href = `./vr/index.html?camera=${encodeURIComponent(v.id)}`;
+          }
+        );
       });
+    });
+
+    // 前庭中央の体験ピン
+    const wtPin = L.marker([34.86012, 135.78428], {
+      icon: createPinIcon("./assets/images/map/pin_walkthrough.png"),
+      zIndexOffset: 500
+    }).addTo(map);
+    wtPin.on("click", () => {
+      showConfirm(
+        "前庭からのウォークスルー体験",
+        "この場所からのウォークスルー体験を開始しますか？",
+        () => {
+          if (window.__IS_CANVAS_PREVIEW) {
+            showAlert("プレビュー環境", "GitHub Pages公開版では「準備中」画面を経て、前庭中央からウォークスルー体験へ直接遷移します。");
+            return;
+          }
+          window.location.href = "./vr/index.html";
+        }
+      );
     });
 
     map.on("click", () => closeSpotSheet());
@@ -332,18 +356,10 @@
   }
 
   function startGpsWatch() {
-    const statusEl = document.getElementById("map-gps-status");
-    if (!("geolocation" in navigator)) {
-      statusEl.textContent = "この端末はGPS非対応です";
-      return;
-    }
+    if (!("geolocation" in navigator)) return;
     watchId = navigator.geolocation.watchPosition(
       (pos) => {
         userCoords = { lat: pos.coords.latitude, lng: pos.coords.longitude };
-        const dist = Math.round(distanceMeters(userCoords.lat, userCoords.lng, CFG.siteCenter.lat, CFG.siteCenter.lng));
-        if (!state.demoMode) {
-          statusEl.textContent = `GPS受信中（遺跡中心まで約${dist}m）`;
-        }
         if (map) {
           if (!userMarker) {
             userMarker = L.marker([userCoords.lat, userCoords.lng], {
@@ -354,19 +370,9 @@
           }
         }
       },
-      () => {
-        if (!state.demoMode) {
-          statusEl.textContent = "位置情報未許可（設定でデモモード可）";
-        }
-      },
+      () => {},
       { enableHighAccuracy: true, maximumAge: 5000, timeout: 10000 }
     );
-  }
-
-  function isWithinRange(lat, lng) {
-    if (state.demoMode) return true;
-    if (!userCoords) return false;
-    return distanceMeters(userCoords.lat, userCoords.lng, lat, lng) <= CFG.geofenceRadiusMeters;
   }
 
   function openSpotSheet(type, data) {
@@ -377,7 +383,7 @@
       const d = Math.round(distanceMeters(userCoords.lat, userCoords.lng, data.lat, data.lng));
       meta = `現在地から約 ${d}m`;
     } else {
-      meta = state.demoMode ? "デモモード（遠隔体験OK）" : "GPS待機中";
+      meta = "どこからでも3D・AR体験できます";
     }
     document.getElementById("spot-sheet-meta").textContent = meta;
     document.getElementById("spot-sheet-desc").textContent = data.description;
@@ -385,10 +391,6 @@
     const actBtn = document.getElementById("spot-sheet-action");
     actBtn.textContent = "3D・ARで体験する";
     actBtn.onclick = () => {
-      if (!isWithinRange(data.lat, data.lng)) {
-        showAlert("現地限定コンテンツ", "この場所では体験できません。正道官衙遺跡の現地にて体験してください。（遠隔テスト時は「設定」からデモモードをONにできます）");
-        return;
-      }
       openBuildingViewer(data);
     };
     sheet.classList.add("is-open");
@@ -482,6 +484,21 @@
     document.getElementById("modal-alert").classList.add("is-open");
   }
 
+  // はい／いいえ確認モーダル
+  function showConfirm(title, message, onYes) {
+    const modal = document.getElementById("modal-confirm");
+    document.getElementById("confirm-title").textContent = title;
+    document.getElementById("confirm-message").textContent = message;
+    const yesBtn = document.getElementById("btn-confirm-yes");
+    const noBtn = document.getElementById("btn-confirm-no");
+    yesBtn.onclick = () => {
+      modal.classList.remove("is-open");
+      if (typeof onYes === "function") onYes();
+    };
+    noBtn.onclick = () => modal.classList.remove("is-open");
+    modal.classList.add("is-open");
+  }
+
   // 初期化・イベントバインド
   function init() {
     setTimeout(() => {
@@ -571,6 +588,12 @@
         }
       }
     });
+    const wtFab = document.getElementById("btn-start-walkthrough");
+    if (wtFab) {
+      wtFab.addEventListener("click", () => {
+        if (window.XRWalkthrough) window.XRWalkthrough.open("plaza");
+      });
+    }
     document.getElementById("btn-map-gps").addEventListener("click", () => {
       if (!map) return;
       if (userCoords) {
@@ -604,18 +627,6 @@
         document.getElementById(id).classList.remove("is-open");
         if (id === "modal-viewer") document.getElementById("viewer-body").innerHTML = "";
       });
-    });
-
-    // 設定画面スイッチ
-    const demoToggle = document.getElementById("toggle-demo-mode");
-    demoToggle.checked = state.demoMode;
-    demoToggle.addEventListener("change", () => {
-      state.demoMode = demoToggle.checked;
-      saveState();
-      const statusEl = document.getElementById("map-gps-status");
-      if (statusEl) {
-        statusEl.textContent = state.demoMode ? "デモモード中（どこでも体験OK）" : "GPS現地判定モード";
-      }
     });
 
     document.getElementById("btn-reset-progress").addEventListener("click", () => {

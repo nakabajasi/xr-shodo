@@ -10,7 +10,6 @@ window.XR_CONFIG = {
     lng: 135.78433,
     zoom: 18
   },
-  geofenceRadiusMeters: 45,
   overlayBounds: {
     restoration: [
       [34.85947916, 135.78339778],
@@ -171,32 +170,32 @@ window.XR_CONFIG = {
       description: "昭和48年（1973年）からの発掘調査により、整然と配置された大型掘立柱建物群が確認され、昭和49年（1974年）に国の史跡に指定されました。"
     }
   ],
-  // VRウォークスルー開始カメラ地点（マップタップで vr/index.html?camera=... へ遷移）
+  // ウォークスルー体験開始カメラ地点（マップタップで vr/index.html?camera=... へ遷移）
   vrSpots: [
     {
       id: "Camera_choya",
-      name: "VRウォークスルー（庁屋前）",
+      name: "ウォークスルー体験（庁屋前）",
       pin: "./assets/images/map/pin_vr_choya.png",
       lat: 34.86031017489957,
       lng: 135.78424215410848
     },
     {
       id: "Camera_higashiya",
-      name: "VRウォークスルー（東屋前）",
+      name: "ウォークスルー体験（東屋前）",
       pin: "./assets/images/map/pin_vr_higashiya.png",
       lat: 34.860152811740384,
       lng: 135.78447550628817
     },
     {
       id: "Camera_mukaiya",
-      name: "VRウォークスルー（向屋前）",
+      name: "ウォークスルー体験（向屋前）",
       pin: "./assets/images/map/pin_vr_mukaiya.png",
       lat: 34.86002075850735,
       lng: 135.78445404861648
     },
     {
       id: "Camera_nanmon",
-      name: "VRウォークスルー（南門前）",
+      name: "ウォークスルー体験（南門前）",
       pin: "./assets/images/map/pin_vr_nanmon.png",
       lat: 34.859670014134956,
       lng: 135.78428288126926
