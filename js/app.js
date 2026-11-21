@@ -96,6 +96,10 @@
         hdr.style.backgroundImage = `url("${theme.headerBg}")`;
       });
     }
+    if (theme.homeLogo) {
+      const homeLogoEl = document.querySelector(".home-logo-img");
+      if (homeLogoEl) homeLogoEl.src = theme.homeLogo;
+    }
     document.querySelectorAll(".theme-swatch-btn").forEach((b) => {
       b.classList.toggle("is-active", b.dataset.theme === theme.id);
     });
