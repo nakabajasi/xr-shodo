@@ -41,32 +41,6 @@
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     } catch (e) {}
-    // 図1: 官衙Ⅰ〜Ⅲ期 DEMタップ切替（Ⅰ→Ⅱ→Ⅲ→Ⅰ 一方通行）
-    const demStage = document.getElementById("kanga-dem-stage");
-    if (demStage) {
-      const periods = [
-        { idx: 1, label: "官衙Ⅰ期（7世紀後半）", short: "官衙Ⅰ期" },
-        { idx: 2, label: "官衙Ⅱ期（7世紀末〜8世紀初め）", short: "官衙Ⅱ期" },
-        { idx: 3, label: "官衙Ⅲ期（8世紀初め〜9世紀前半）", short: "官衙Ⅲ期" }
-      ];
-      let pCur = 0;
-      const applyPeriod = () => {
-        const p = periods[pCur];
-        [1, 2, 3].forEach((n) => {
-          const el = document.getElementById(`kanga-dem-layer-${n}`);
-          if (el) el.classList.toggle("is-visible", n === p.idx);
-        });
-        const badge = document.getElementById("kanga-dem-badge");
-        const cap = document.getElementById("kanga-dem-caption");
-        if (badge) badge.textContent = `${p.label} ▶ タップで次期へ`;
-        if (cap) cap.textContent = `図1　官衙Ⅰ〜Ⅲ期の変遷イメージ（表示中：${p.short}）`;
-      };
-      demStage.addEventListener("click", () => {
-        pCur = (pCur + 1) % periods.length;
-        applyPeriod();
-      });
-      applyPeriod();
-    }
 
     updateProgressUI();
   }
@@ -98,7 +72,7 @@
       const isAct = tab === activeTab;
       btn.classList.toggle("is-active", isAct);
       const img = btn.querySelector("img");
-      if (img) img.src = `./assets/images/nav/tab_${tab}_${isAct ? "on" : "off"}.png`;
+      if (img) img.src = `./assets/images/nav/tab_${tab}_${isAct ? "on" : "off"}.svg`;
     });
 
     if (viewId === "map") {
@@ -129,7 +103,7 @@
     const unlocked = count >= total;
     const ov = document.getElementById("home-progress-overlay");
     if (ov) {
-      ov.textContent = unlocked ? `体験スタンプ ${count}/${total}棟 解放済` : `体験スタンプ ${count} / ${total} 棟`;
+      ov.textContent = `体験スタンプ ${count}/${total}棟`;
       ov.classList.toggle("is-unlocked", unlocked);
     }
     const otBtn = document.getElementById("btn-home-otanoshimi");
@@ -159,10 +133,6 @@
         <summary class="serif">官衙Ⅲ期建物群の3DCG復元について（タップで開く）</summary>
         <p style="margin:8px 0 6px;">発掘調査で見つかる柱の痕跡「柱穴（ちゅうけつ）」の配置と、現存する古代の寺院建築や絵巻などの史料、早川和子氏による復元イラストを参考に3DCGで復元しました。</p>
         <p style="margin:0 0 8px;">正道官衙遺跡で見つかった建物はすべて地面に掘った穴に柱を埋める<strong>掘立柱建物</strong>で、瓦葺きのような重い屋根を支えられないため板葺きや檜皮葺きが採用されたと考えられます。中心の「身舎（もや）」と周囲の「庇（ひさし）」の配置から、庁屋は入母屋造り、副屋・向屋・東屋は切妻造り、南門は八脚門として復元しています。</p>
-        <figure class="about-figure" style="margin:6px 0 0;">
-          <img src="./assets/images/info/about_08_cg_overview.png" alt="官衙Ⅲ期建物群の復元">
-          <figcaption>図8　官衙Ⅲ期建物群の復元</figcaption>
-        </figure>
       `;
       grid.appendChild(intro);
       CFG.buildings.forEach((b) => {
@@ -234,7 +204,6 @@
         <p class="viewer-plain-note">ドラッグで回転・ピンチで拡大縮小できます。対応スマホでは右下の「ARで見る」から実寸配置（Android: GLB / iOS: USDZ）を起動できます。</p>
         <h3 class="serif">${b.name} — ${b.role}</h3>
         <p>${b.description}</p>
-        ${b.id === "choya" ? `<figure class="about-figure"><img src="./assets/images/info/about_09_choya_interior.png" alt="庁屋内部の復元"><figcaption>図9　庁屋内部の復元</figcaption></figure>` : ""}
       </div>
     `;
     body.scrollTop = 0;
@@ -597,12 +566,6 @@
         }
       }
     });
-    const wtFab = document.getElementById("btn-start-walkthrough");
-    if (wtFab) {
-      wtFab.addEventListener("click", () => {
-        if (window.XRWalkthrough) window.XRWalkthrough.open("plaza");
-      });
-    }
     document.getElementById("btn-map-gps").addEventListener("click", () => {
       if (!map) return;
       if (userCoords) {
@@ -644,6 +607,34 @@
       saveState();
       showAlert("初期化完了", "体験スタンプをリセットしました。");
     });
+
+
+    // 図1: 官衙Ⅰ〜Ⅲ期 DEMタップ切替（Ⅰ→Ⅱ→Ⅲ→Ⅰ）
+    const demStage = document.getElementById("kanga-dem-stage");
+    if (demStage) {
+      const periods = [
+        { idx: 1, label: "官衙Ⅰ期（7世紀後半）", short: "官衙Ⅰ期" },
+        { idx: 2, label: "官衙Ⅱ期（7世紀末〜8世紀初め）", short: "官衙Ⅱ期" },
+        { idx: 3, label: "官衙Ⅲ期（8世紀初め〜9世紀前半）", short: "官衙Ⅲ期" }
+      ];
+      let pCur = 0;
+      const applyPeriod = () => {
+        const p = periods[pCur];
+        [1, 2, 3].forEach((n) => {
+          const el = document.getElementById(`kanga-dem-layer-${n}`);
+          if (el) el.classList.toggle("is-visible", n === p.idx);
+        });
+        const badge = document.getElementById("kanga-dem-badge");
+        const cap = document.getElementById("kanga-dem-caption");
+        if (badge) badge.textContent = p.label;
+        if (cap) cap.textContent = `図1　官衙Ⅰ〜Ⅲ期の変遷イメージ（表示中：${p.short}）`;
+      };
+      demStage.addEventListener("click", () => {
+        pCur = (pCur + 1) % periods.length;
+        applyPeriod();
+      });
+      applyPeriod();
+    }
 
     updateProgressUI();
     if (window.location.hash === "#map") {

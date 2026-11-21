@@ -52,14 +52,15 @@
 | `assets/images/nav/tab_map_on.png` / `_off.png` | 下部タブ：マップ（選択／非選択） | 96 × 96 | 必須 | 2枚セット |
 | `assets/images/nav/tab_models_on.png` / `_off.png` | 下部タブ：3D鑑賞（選択／非選択） | 96 × 96 | 必須 | 2枚セット |
 | `assets/images/nav/tab_menu_on.png` / `_off.png` | 下部タブ：設定（選択／非選択） | 96 × 96 | 必須 | 2枚セット |
-| `assets/images/icons/icon_back.png` | 戻るボタン | 96 × 96 | 必須 | 暗色ヘッダー上 |
+| `assets/images/icons/icon_back.svg` | 戻るボタン（白） | 64 × 64 | 必須 | 暗色ヘッダー上 |
+| `assets/images/icons/icon_back_dark.svg` | 戻るボタン（紺） | 64 × 64 | 必須 | マップ上部バー左端 |
 | `assets/images/icons/icon_help.png` | ヘルプボタン（？） | 96 × 96 | 必須 | ホーム・マップ・3D鑑賞 |
 | `assets/images/icons/icon_close.png` | モーダル閉じるボタン（×） | 96 × 96 | 必須 | モーダル右上 |
-| `assets/images/icons/icon_gps.png` | 現在地フォーカスボタン | 96 × 96 | 必須 | マップ右側ツールレール |
+| `assets/images/icons/icon_gps.svg` | 現在地フォーカスボタン | 64 × 64 | 必須 | マップ右側ツールレール |
 | `assets/images/icons/icon_ar.png` | AR起動ボタン内アイコン | 96 × 96 | 必須 | `<model-viewer>` ARボタン |
 | `assets/images/icons/icon_layer_cg.png` | レイヤー切替：復元建物配置図 | 96 × 96 | 必須 | マップ上部バー／右側ツールレール |
 | `assets/images/icons/icon_layer_dig.png` | レイヤー切替：発掘調査図面 | 96 × 96 | 必須 | マップ上部バー／右側ツールレール |
-| `assets/images/icons/icon_layer_sat.png` | レイヤー切替：航空写真 | 96 × 96 | 必須 | マップ上部バー／右側ツールレール |
+| `assets/images/icons/icon_layer_sat.svg` | レイヤー切替：航空写真 | 64 × 64 | 必須 | マップ右側ツールレール |
 
 ---
 

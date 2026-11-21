@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Shippori+Mincho:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./css/style.css?v=20261121i">
+  <link rel="stylesheet" href="./css/style.css?v=20261121p">
   <script type="module" src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
 </head>
 <body>
@@ -78,6 +78,9 @@
       <div id="leaflet-map"></div>
 
       <div class="map-top-layers">
+        <button class="map-back-btn" data-goto="home" aria-label="ホームへ戻る">
+          <img src="./assets/images/icons/icon_back_dark.svg" alt="戻る">
+        </button>
         <button id="btn-layer-cg" class="layer-toggle-btn">
           <img src="./assets/images/icons/icon_layer_cg.png" alt="">
           <span>復元建物配置図</span>
@@ -90,13 +93,10 @@
 
       <div class="map-right-rail">
         <button id="btn-layer-sat" class="map-tool-btn" aria-label="航空写真切替" title="航空写真切替">
-          <img src="./assets/images/icons/icon_layer_sat.png" alt="航空写真">
+          <img src="./assets/images/icons/icon_layer_sat.svg" alt="航空写真">
         </button>
         <button id="btn-map-gps" class="map-tool-btn" aria-label="現在地へ移動" title="現在地へ移動">
-          <img src="./assets/images/icons/icon_gps.png" alt="GPS">
-        </button>
-        <button class="map-tool-btn js-open-help" aria-label="マップヘルプ" title="ヘルプ">
-          <img src="./assets/images/icons/icon_help.svg" alt="ヘルプ" style="filter: invert(0.75);">
+          <img src="./assets/images/icons/icon_gps.svg" alt="GPS">
         </button>
       </div>
 
@@ -161,8 +161,9 @@
       </header>
       <div class="view-scroll">
         <!-- 1. 遺跡の概要 -->
-        <section class="about-section">
-          <h3 class="serif">1. 遺跡の概要</h3>
+        <details class="about-section about-accordion" open>
+          <summary class="about-accordion-summary serif">1. 遺跡の概要</summary>
+          <div class="about-accordion-body">
           <h4 class="about-subhead">遺跡の規模と構成</h4>
           <p>正道遺跡は標高40〜50mの低台地上にあり、東西約250m、南北約200mの範囲に広がります。これまでの調査で、5世紀前半の小型方形墳群、6世紀末〜7世紀前半の竪穴住居・掘立柱建物からなる集落、7世紀後半〜9世紀前半の掘立柱建物を中心とする官衙遺構などに区分されます。</p>
 
@@ -184,11 +185,13 @@
             <img src="./assets/images/info/about_03_genkyo.png" alt="現在の正道遺跡（南から）">
             <figcaption>写真3　現在の正道遺跡（南から）</figcaption>
           </figure>
-        </section>
+                  </div>
+        </details>
 
         <!-- 2. 官衙遺構の変遷 -->
-        <section class="about-section">
-          <h3 class="serif">2. 官衙遺構の変遷</h3>
+        <details class="about-section about-accordion">
+          <summary class="about-accordion-summary serif">2. 官衙遺構の変遷</summary>
+          <div class="about-accordion-body">
           <p>遺跡の広い範囲で見つかっている掘立柱建物群は規模が大きく、規格性をもって配置されており、飛鳥時代から平安時代初め（7世紀後半〜9世紀前半）の官衙と考えられます。</p>
 
           <h4 class="about-subhead">官衙の変遷</h4>
@@ -203,12 +206,13 @@
 
           <!-- 新 図1: DEM_plane + DEM_kanga1〜3 タップ切替（Ⅰ→Ⅱ→Ⅲ→Ⅰ 一方通行） -->
           <figure class="about-figure">
+            <p class="kanga-dem-hint">※画像をタップすると次の時期（Ⅰ期→Ⅱ期→Ⅲ期）に切り替わります</p>
             <div id="kanga-dem-stage" class="kanga-dem-stage" role="button" tabindex="0" aria-label="タップして官衙Ⅰ〜Ⅲ期を切替">
               <img class="kanga-dem-base" src="./assets/images/info/dem_plane.jpg" alt="正道官衙遺跡の地形">
               <img id="kanga-dem-layer-1" class="kanga-dem-overlay is-visible" src="./assets/images/info/dem_kanga1.png" alt="官衙Ⅰ期">
               <img id="kanga-dem-layer-2" class="kanga-dem-overlay" src="./assets/images/info/dem_kanga2.png" alt="官衙Ⅱ期">
               <img id="kanga-dem-layer-3" class="kanga-dem-overlay" src="./assets/images/info/dem_kanga3.png" alt="官衙Ⅲ期">
-              <div id="kanga-dem-badge" class="kanga-dem-badge">官衙Ⅰ期（7世紀後半） ▶ タップで次期へ</div>
+              <div id="kanga-dem-badge" class="kanga-dem-badge">官衙Ⅰ期（7世紀後半）</div>
             </div>
             <figcaption id="kanga-dem-caption">図1　官衙Ⅰ〜Ⅲ期の変遷イメージ（表示中：官衙Ⅰ期）</figcaption>
           </figure>
@@ -221,11 +225,13 @@
             <img src="./assets/images/info/about_05_pottery.png" alt="出土遺物（官衙の土器）">
             <figcaption>写真5　出土遺物（官衙の土器）</figcaption>
           </figure>
-        </section>
+                  </div>
+        </details>
 
         <!-- 3. その他の遺構 -->
-        <section class="about-section">
-          <h3 class="serif">3. その他の遺構</h3>
+        <details class="about-section about-accordion">
+          <summary class="about-accordion-summary serif">3. その他の遺構</summary>
+          <div class="about-accordion-body">
           <h4 class="about-subhead">古墳（5世紀前半）</h4>
           <p>遺跡の西半分を中心に、5世紀前半に築造された9基の古墳が確認されています。1辺が8〜13m程度の小型の方墳で、墳丘は削られてほとんど残っていませんでしたが、周囲に掘られた溝が見つかっています。周囲には木棺を直葬した土坑もあり、集落が営まれるまでは墓地として利用されていました。</p>
           <figure class="about-figure">
@@ -239,18 +245,21 @@
             <img src="./assets/images/info/about_07_settlement.png" alt="集落の遺構平面図">
             <figcaption>図3　集落の遺構平面図</figcaption>
           </figure>
-        </section>
+                  </div>
+        </details>
 
         <!-- 4. 正道廃寺 -->
-        <section class="about-section">
-          <h3 class="serif">4. 正道廃寺</h3>
+        <details class="about-section about-accordion">
+          <summary class="about-accordion-summary serif">4. 正道廃寺</summary>
+          <div class="about-accordion-body">
           <p>正道官衙遺跡、特に遺跡の東側区域では、飛鳥時代後期から奈良時代にかけての瓦や塼仏、三重塔や五重塔の頂上に使われた水煙や刹管の破片が見つかっています。このことから、かつて官衙に近接する場所には寺院が建っていたと想定できます。</p>
           <p>残念ながら寺院の場所を示すような遺構は見つかっておらず、既に破壊され失われたようです。この寺に関する文献史料も見つかっていませんが、現在の地名をとって「正道廃寺」と呼んでいます。</p>
           <figure class="about-figure">
             <img src="./assets/images/info/about_08_suien.png" alt="水煙と刹管">
             <figcaption>写真6　水煙と刹管</figcaption>
           </figure>
-        </section>
+                  </div>
+        </details>
       </div>
     </section>
 
@@ -380,7 +389,7 @@
   </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-  <script src="./js/config.js?v=20261121i"></script>
-  <script src="./js/app.js?v=20261121i"></script>
+  <script src="./js/config.js?v=20261121p"></script>
+  <script src="./js/app.js?v=20261121p"></script>
 </body>
 </html>
