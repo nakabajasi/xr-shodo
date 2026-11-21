@@ -22,11 +22,15 @@
 | `assets/images/brand/splash_logo.png` | 起動画面のタイトルロゴ | 720 × 480 | 必須 | 白背景上に表示 |
 | `assets/images/brand/ecomu_logo.png` | ホーム画面左上端ロゴ（JOYOエコミュージアム） | 320 × 120 | 必須 | タイトルと同じ高さで左端に配置 |
 | `assets/images/brand/home_title_logo.png` | ホーム画面上部中央のタイトルロゴ | 860 × 180 | 必須 | 暗色背景上・中央揃え |
-| `assets/images/bg/bg_home_indigo.png` | ホーム背景（藍・標準テーマ） | 1080 × 1920 | 不要 | 縦長フルスクリーン |
+| `assets/images/bg/bg_home_indigo.png` | ホーム背景（藍・標準テーマ） | 1437 × 2803 | 不要 | 縦長フルスクリーン |
 | `assets/images/bg/bg_home_matcha.png` | ホーム背景（緑テーマ） | 1080 × 1920 | 不要 | 設定画面で切替可能 |
 | `assets/images/bg/bg_home_vermilion.png` | ホーム背景（朱テーマ） | 1080 × 1920 | 不要 | 設定画面で切替可能 |
 | `assets/images/bg/bg_home_sumi.png` | ホーム背景（墨テーマ） | 1080 × 1920 | 不要 | 設定画面で切替可能 |
 | `assets/images/bg/bg_subpage_washi.png` | サブページ共通背景（和紙等） | 1080 × 1920 | 不要 | 3D鑑賞・解説・おまけ・設定 |
+| `assets/images/bg/bg_header_indigo.png` | サブページヘッダー背景（藍） | 1080 × 180 | 透過可 | テーマ連動ヘッダー |
+| `assets/images/bg/bg_header_matcha.png` | サブページヘッダー背景（常盤・緑） | 1080 × 180 | 透過可 | テーマ連動ヘッダー |
+| `assets/images/bg/bg_header_vermilion.png` | サブページヘッダー背景（朱・赤） | 1080 × 180 | 透過可 | テーマ連動ヘッダー |
+| `assets/images/bg/bg_header_sumi.png` | サブページヘッダー背景（墨・黒） | 1080 × 180 | 透過可 | テーマ連動ヘッダー |
 | `assets/images/bg/bg_header_bar.png` | サブページ上部ヘッダー帯 | 1080 × 180 | 不要 | 上に白文字タイトルを重ねて表示 |
 
 ---
@@ -54,7 +58,8 @@
 | `assets/images/icons/icon_back.svg` | 戻るボタン（白） | 64 × 64 | 必須 | 暗色ヘッダー上 |
 | `assets/images/icons/icon_back_dark.svg` | 戻るボタン（紺） | 64 × 64 | 必須 | マップ上部バー左端 |
 | `assets/images/icons/icon_help.png` | ヘルプボタン（？） | 96 × 96 | 必須 | ホーム・マップ・3D鑑賞 |
-| `assets/images/icons/icon_close.png` | モーダル閉じるボタン（×） | 96 × 96 | 必須 | モーダル右上 |
+| `assets/images/icons/icon_camera_ar.svg` | 記念撮影AR起動用カメラアイコン | 120 × 120 | 透過 | お楽しみ画面で郡司の横に配置 |
+| `assets/images/icons/icon_close.svg` | モーダル閉じるボタン（×） | 96 × 96 | 必須 | モーダル右上 |
 | `assets/images/icons/icon_gps.svg` | 現在地フォーカスボタン | 64 × 64 | 必須 | マップ右側ツールレール |
 | `assets/images/icons/icon_ar.png` | AR起動ボタン内アイコン | 96 × 96 | 必須 | `<model-viewer>` ARボタン |
 | `assets/images/icons/icon_layer_cg.png` | レイヤー切替：復元建物配置図 | 96 × 96 | 必須 | マップ上部バー／右側ツールレール |

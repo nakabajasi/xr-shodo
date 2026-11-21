@@ -1080,29 +1080,66 @@ model-viewer {
   object-fit: contain;
 }
 
+.help-page-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 20px 18px 28px;
+}
+
+.help-slide-wrap {
+  width: 100%;
+}
+
 .help-slide-img {
   width: 100%;
   border-radius: 10px;
   display: block;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
+}
+
+.help-slide-title {
+  margin: 0 0 8px;
+  font-size: 18px;
+  line-height: 1.45;
+  color: #111111;
+}
+
+.help-slide-text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.75;
+  color: #111111;
 }
 
 .help-dots {
   display: flex;
   justify-content: center;
-  gap: 8px;
-  margin: 12px 0;
+  gap: 10px;
+  margin: 20px 0 16px;
 }
 
 .help-dot {
-  width: 9px;
-  height: 9px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
+  border: none;
+  padding: 0;
   background: #c8c5bc;
+  cursor: pointer;
 }
 
 .help-dot.is-active {
   background: var(--accent);
+}
+
+.help-nav-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.help-nav-actions button {
+  flex: 1;
 }
 
 /* 正道官衙遺跡とは — 解説記事・全幅図版 */
@@ -1294,6 +1331,10 @@ model-viewer {
   border-color: var(--accent);
 }
 
+.map-tool-btn.is-on img {
+  filter: brightness(0) invert(1);
+}
+
 /* ==========================================================================
    ウォークスルー AR/VR 起動ボタン & 全画面HUD
    ========================================================================== */
@@ -1381,4 +1422,32 @@ model-viewer {
   letter-spacing: 0.04em;
   border-radius: 4px;
   pointer-events: none;
+}
+
+/* お楽しみ：郡司＋カメラアイコン AR起動トリガー */
+.omake-ar-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 6px 14px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  margin: 0 auto;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.omake-ar-gunji {
+  height: 270px;
+  width: auto;
+  display: block;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.2));
+}
+
+.omake-ar-camera {
+  width: 88px;
+  height: 88px;
+  display: block;
+  flex-shrink: 0;
 }

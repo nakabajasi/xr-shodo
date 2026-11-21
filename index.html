@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Shippori+Mincho:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./css/style.css?v=20261121r">
+  <link rel="stylesheet" href="./css/style.css?v=20261121t">
   <script type="module" src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
 </head>
 <body>
@@ -303,6 +303,32 @@
     </section>
 
     <!-- 常設ボトムタブナビゲーション -->
+
+    <!-- =====================================================================
+         8. 使い方ガイド（ヘルプ画面：ページ遷移型）
+         ===================================================================== -->
+    <section id="view-help" class="view subpage-bg">
+      <header class="sub-header">
+        <button id="btn-help-back" class="icon-btn" aria-label="戻る">
+          <img src="./assets/images/icons/icon_back.svg" alt="戻る">
+        </button>
+        <h2 class="sub-header-title serif">使い方ガイド</h2>
+        <span style="width:40px;"></span>
+      </header>
+      <div class="view-body help-page-body">
+        <div class="help-slide-wrap">
+          <img id="help-slide-img" class="help-slide-img" src="./assets/images/help/help_slide_01.png" alt="">
+          <h3 id="help-slide-title" class="help-slide-title serif"></h3>
+          <p id="help-slide-text" class="help-slide-text"></p>
+        </div>
+        <div id="help-dots" class="help-dots"></div>
+        <div class="help-nav-actions">
+          <button id="btn-help-prev" class="secondary-btn" type="button">前へ</button>
+          <button id="btn-help-next" class="primary-btn" type="button">次へ</button>
+        </div>
+      </div>
+    </section>
+
     <nav class="bottom-nav" aria-label="メインメニュー">
       <button class="nav-tab is-active" data-tab="home" data-goto="home">
         <img src="./assets/images/nav/tab_home_on.svg" alt="">
@@ -329,25 +355,6 @@
 
 
     <!-- モーダル: ヘルプカルーセル -->
-    <div id="modal-help" class="modal-overlay">
-      <div class="modal-card">
-        <div class="modal-header">
-          <h3 class="serif">使い方ガイド</h3>
-          <button class="icon-btn" data-close-modal="modal-help" aria-label="閉じる">
-            <img src="./assets/images/icons/icon_close.png" alt="閉じる">
-          </button>
-        </div>
-        <div class="modal-body">
-          <img id="help-slide-img" class="help-slide-img" src="./assets/images/help/help_slide_01.png" alt="">
-          <h4 id="help-slide-title" class="serif" style="margin:0 0 6px;font-size:16px;"></h4>
-          <p id="help-slide-text" style="margin:0;font-size:13px;line-height:1.6;"></p>
-          <div id="help-dots" class="help-dots"></div>
-          <div style="display:flex;gap:8px;">
-            <button id="btn-help-prev" class="secondary-btn" style="flex:1;">前へ</button>
-            <button id="btn-help-next" class="primary-btn" style="flex:1;">次へ</button>
-          </div>
-        </div>
-      </div>
     </div>
 
     <!-- モーダル: ウォークスルー開始確認（はい／いいえ） -->
@@ -356,7 +363,7 @@
         <div class="modal-header">
           <h3 id="confirm-title" class="serif">体験の開始</h3>
           <button class="icon-btn" data-close-modal="modal-confirm" aria-label="閉じる">
-            <img src="./assets/images/icons/icon_close.png" alt="閉じる">
+            <img src="./assets/images/icons/icon_close.svg" alt="閉じる">
           </button>
         </div>
         <div class="modal-body">
@@ -375,7 +382,7 @@
         <div class="modal-header">
           <h3 id="alert-title" class="serif">お知らせ</h3>
           <button class="icon-btn" data-close-modal="modal-alert" aria-label="閉じる">
-            <img src="./assets/images/icons/icon_close.png" alt="閉じる">
+            <img src="./assets/images/icons/icon_close.svg" alt="閉じる">
           </button>
         </div>
         <div class="modal-body">
@@ -389,7 +396,7 @@
   </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-  <script src="./js/config.js?v=20261121r"></script>
-  <script src="./js/app.js?v=20261121r"></script>
+  <script src="./js/config.js?v=20261121t"></script>
+  <script src="./js/app.js?v=20261121t"></script>
 </body>
 </html>

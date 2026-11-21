@@ -21,10 +21,10 @@ window.XR_CONFIG = {
     ]
   },
   themes: [
-    { id: "indigo", label: "縹（藍）", color: "#22345e", bg: "./assets/images/bg/bg_home_indigo.png" },
-    { id: "matcha", label: "常盤（緑）", color: "#2d523a", bg: "./assets/images/bg/bg_home_matcha.png" },
-    { id: "vermilion", label: "朱（赤）", color: "#7f2b24", bg: "./assets/images/bg/bg_home_vermilion.png" },
-    { id: "sumi", label: "墨（黒）", color: "#26282c", bg: "./assets/images/bg/bg_home_sumi.png" }
+    { id: "indigo", label: "縹（藍）", color: "#22345e", bg: "./assets/images/bg/bg_home_indigo.png", headerBg: "./assets/images/bg/bg_header_indigo.png" },
+    { id: "matcha", label: "常盤（緑）", color: "#2d523a", bg: "./assets/images/bg/bg_home_matcha.png", headerBg: "./assets/images/bg/bg_header_matcha.png" },
+    { id: "vermilion", label: "朱（赤）", color: "#7f2b24", bg: "./assets/images/bg/bg_home_vermilion.png", headerBg: "./assets/images/bg/bg_header_vermilion.png" },
+    { id: "sumi", label: "墨（黒）", color: "#26282c", bg: "./assets/images/bg/bg_home_sumi.png", headerBg: "./assets/images/bg/bg_header_sumi.png" }
   ],
   // 郡司キャラクターのガイドセリフ（各バナーの役割を簡潔に案内）
   gunjiQuotes: [
@@ -39,6 +39,7 @@ window.XR_CONFIG = {
     glb: "./assets/models/gunji.glb",
     usdz: "./assets/models/gunji.usdz",
     triggerImg: "./assets/images/character/gunji.png",
+    cameraIcon: "./assets/images/icons/icon_camera_ar.svg",
     lockedImg: "./assets/images/omake/omake_locked.png",
     bannerLocked: "./assets/images/banners/banner_bonus_locked.svg",
     bannerUnlocked: "./assets/images/banners/banner_bonus.svg",
@@ -205,20 +206,25 @@ window.XR_CONFIG = {
     {
       img: "./assets/images/help/help_slide_01.png",
       title: "現地マップ＆探索で遺跡を歩こう",
-      text: "GPSで現在地を表示しながら、復元建物配置図・発掘調査図面・航空写真を重ねて見比べられます。青い「体験」ピンからはVRウォークスルーも楽しめます。"
+      text: "GPSで現在地を表示しながら、復元建物配置図・発掘調査図面・航空写真を重ねて見比べられます。"
     },
     {
       img: "./assets/images/help/help_slide_02.png",
+      title: "復元建物のウォークスルー体験",
+      text: "マップにある青い「体験」ピンをタップすると、その場所から正道官衙遺跡の復元建物のウォークスルーがスタートします。"
+    },
+    {
+      img: "./assets/images/help/help_slide_03.png",
       title: "復元建物の3D・AR鑑賞（全5棟）",
       text: "庁屋・南門・東屋・向屋・副屋の5棟を3Dで自由に回転・拡大でき、対応スマホではARで実空間に配置して鑑賞できます。"
     },
     {
-      img: "./assets/images/help/help_slide_03.png",
+      img: "./assets/images/help/help_slide_04.png",
       title: "出土遺物の3Dモデル鑑賞",
       text: "正道官衙遺跡から出土した軒丸瓦・軒平瓦・円面硯の高精細3Dモデルを、あらゆる角度からじっくり観察できます。"
     },
     {
-      img: "./assets/images/help/help_slide_04.png",
+      img: "./assets/images/help/help_slide_05.png",
       title: "5棟鑑賞で「お楽しみ」",
       text: "復元建物5棟すべてを鑑賞して体験スタンプ（5/5棟）を集めると「お楽しみ」が開き、郡司キャラクターと一緒にAR記念撮影ができます。"
     }

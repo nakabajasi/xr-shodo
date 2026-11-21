@@ -21,6 +21,7 @@
   let currentModelTab = "buildings";
   let quoteIndex = 0;
   let helpIndex = 0;
+  let helpReturnView = "home";
   let activeViewId = "home";
   let viewerReturnView = "models";
 
@@ -65,7 +66,7 @@
 
     // ボトムナビ同期
     activeViewId = viewId;
-    const tabMap = { home: "home", map: "map", models: "models", viewer: "models", menu: "menu", about: "home", omake: "home" };
+    const tabMap = { home: "home", map: "map", models: "models", viewer: "models", help: "help", menu: "menu", about: "home", omake: "home" };
     const activeTab = tabMap[viewId] || "home";
     document.querySelectorAll(".nav-tab").forEach((btn) => {
       const tab = btn.dataset.tab;
@@ -90,6 +91,11 @@
     state.theme = theme.id;
     const homeEl = document.getElementById("view-home");
     if (homeEl) homeEl.style.backgroundImage = `url("${theme.bg}")`;
+    if (theme.headerBg) {
+      document.querySelectorAll(".sub-header").forEach((hdr) => {
+        hdr.style.backgroundImage = `url("${theme.headerBg}")`;
+      });
+    }
     document.querySelectorAll(".theme-swatch-btn").forEach((b) => {
       b.classList.toggle("is-active", b.dataset.theme === theme.id);
     });
@@ -401,9 +407,13 @@
           <h3 class="serif">${omake.title}</h3>
           <p style="font-size:12.5px;line-height:1.6;margin-bottom:14px;">${omake.description}</p>
 
-          <!-- gunji.png タップでネイティブAR（iOS Quick Look / Android Scene Viewer）起動 -->
-          <a id="omake-ar-trigger" rel="ar" href="${omake.usdz}" style="display:inline-block;text-decoration:none;cursor:pointer;">
-            <img src="${omake.triggerImg}" alt="郡司をタップしてAR起動" style="height:280px;width:auto;display:block;margin:0 auto;filter:drop-shadow(0 8px 16px rgba(0,0,0,0.22));">
+          <!-- 郡司＋カメラアイコン タップでネイティブAR起動（iOSのARバッジ重なり防止のため rel="ar" は非表示リンク経由） -->
+          <button type="button" id="omake-ar-trigger" class="omake-ar-trigger" aria-label="郡司をタップしてAR起動">
+            <img src="${omake.triggerImg}" alt="久世郡司" class="omake-ar-gunji">
+            <img src="${omake.cameraIcon}" alt="カメラ" class="omake-ar-camera">
+          </button>
+          <a id="omake-ar-ios-link" rel="ar" href="${omake.usdz}" style="position:absolute;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none;" tabindex="-1" aria-hidden="true">
+            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="">
           </a>
           <p style="margin:10px 0 4px;font-size:13px;font-weight:700;color:#22345e;">
             郡司をタップしてAR起動（記念撮影）
@@ -414,11 +424,12 @@
 
       const triggerEl = document.getElementById("omake-ar-trigger");
       triggerEl.addEventListener("click", (ev) => {
+        ev.preventDefault();
         if (isIOS && !omake.usdz.startsWith("data:")) {
-          // iOS Safari は <a rel="ar" href="...usdz"> のネイティブ動作で Quick Look を直接起動
+          const iosLink = document.getElementById("omake-ar-ios-link");
+          if (iosLink) iosLink.click();
           return;
         }
-        ev.preventDefault();
         if (isAndroid && !omake.glb.startsWith("data:")) {
           const absGlb = new URL(omake.glb, window.location.href).href;
           const intentUrl = `intent://arvr.google.com/scene-viewer/1.0?file=${encodeURIComponent(absGlb)}&mode=ar_preferred&title=${encodeURIComponent(omake.title)}#Intent;scheme=https;package=com.google.android.googlequicksearchbox;action=android.intent.action.VIEW;end;`;
@@ -443,7 +454,7 @@
     }
   }
 
-  // 8. ヘルプモーダル
+  // 8. ヘルプ画面（ページ遷移型）
   function renderHelpSlide() {
     const slide = CFG.helpSlides[helpIndex];
     document.getElementById("help-slide-img").src = slide.img;
@@ -451,8 +462,14 @@
     document.getElementById("help-slide-text").textContent = slide.text;
     const dots = document.getElementById("help-dots");
     dots.innerHTML = CFG.helpSlides
-      .map((_, i) => `<span class="help-dot ${i === helpIndex ? "is-active" : ""}"></span>`)
+      .map((_, i) => `<button type="button" class="help-dot ${i === helpIndex ? "is-active" : ""}" data-help-dot="${i}" aria-label="スライド${i + 1}"></button>`)
       .join("");
+    dots.querySelectorAll("[data-help-dot]").forEach((dotBtn) => {
+      dotBtn.addEventListener("click", () => {
+        helpIndex = Number(dotBtn.dataset.helpDot);
+        renderHelpSlide();
+      });
+    });
   }
 
   // 汎用アラートモーダル
@@ -575,14 +592,23 @@
       }
     });
 
-    // ヘルプモーダル
+    // ヘルプ画面遷移
     document.querySelectorAll(".js-open-help").forEach((b) => {
       b.addEventListener("click", () => {
+        if (activeViewId && activeViewId !== "help") {
+          helpReturnView = activeViewId;
+        }
         helpIndex = 0;
         renderHelpSlide();
-        document.getElementById("modal-help").classList.add("is-open");
+        showView("help");
       });
     });
+    const helpBackBtn = document.getElementById("btn-help-back");
+    if (helpBackBtn) {
+      helpBackBtn.addEventListener("click", () => {
+        showView(helpReturnView || "home");
+      });
+    }
     document.getElementById("btn-help-prev").addEventListener("click", () => {
       helpIndex = (helpIndex - 1 + CFG.helpSlides.length) % CFG.helpSlides.length;
       renderHelpSlide();
