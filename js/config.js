@@ -40,8 +40,8 @@ window.XR_CONFIG = {
     usdz: "./assets/models/gunji.usdz",
     triggerImg: "./assets/images/character/gunji.png",
     lockedImg: "./assets/images/omake/omake_locked.png",
-    bannerLocked: "./assets/images/banners/banner_otanoshimi_locked.svg",
-    bannerUnlocked: "./assets/images/banners/banner_otanoshimi_unlocked.svg",
+    bannerLocked: "./assets/images/banners/banner_bonus_locked.svg",
+    bannerUnlocked: "./assets/images/banners/banner_bonus.svg",
     description: "下の郡司キャラクター画像をタップすると、iPhoneはクイックルック、AndroidはScene ViewerなどのネイティブARが直接起動します。実空間に郡司を呼び出して記念撮影をお楽しみください！"
   },
   buildings: [

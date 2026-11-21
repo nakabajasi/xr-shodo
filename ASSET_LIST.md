@@ -28,7 +28,6 @@
 | `assets/images/bg/bg_home_sumi.png` | ホーム背景（墨テーマ） | 1080 × 1920 | 不要 | 設定画面で切替可能 |
 | `assets/images/bg/bg_subpage_washi.png` | サブページ共通背景（和紙等） | 1080 × 1920 | 不要 | 3D鑑賞・解説・おまけ・設定 |
 | `assets/images/bg/bg_header_bar.png` | サブページ上部ヘッダー帯 | 1080 × 180 | 不要 | 上に白文字タイトルを重ねて表示 |
-| `assets/images/bg/bg_speech_bubble.png` | ホーム画面の郡司セリフ吹き出し枠 | 960 × 240 | 必須 | 左に郡司立ち絵を配置 |
 
 ---
 
@@ -39,8 +38,8 @@
 | `assets/images/banners/banner_about.svg` | 上段左：「正道官衙遺跡とは」正方形バナー | 400 × 400 SVG | 任意 | 2×2グリッド上段左 |
 | `assets/images/banners/banner_map.svg` | 上段右：「現地マップ&探索」正方形バナー | 400 × 400 SVG | 任意 | 2×2グリッド上段右 |
 | `assets/images/banners/banner_3d.svg` | 下段左：「3Dで楽しむ」正方形バナー | 400 × 400 SVG | 任意 | 2×2グリッド下段左 |
-| `assets/images/banners/banner_otanoshimi_locked.svg` | 下段右：「お楽しみ」解放前バナー（グレーアウト） | 400 × 400 SVG | 任意 | 建物5棟鑑賞前は選択不可 |
-| `assets/images/banners/banner_otanoshimi_unlocked.svg` | 下段右：「お楽しみ」解放後バナー | 400 × 400 SVG | 任意 | 建物5棟すべて鑑賞で切替・選択可 |
+| `assets/images/banners/banner_bonus_locked.svg` | 下段右：「お楽しみ」解放前バナー（グレーアウト） | 400 × 400 SVG | 任意 | 建物5棟鑑賞前は選択不可 |
+| `assets/images/banners/banner_bonus.svg` | 下段右：「お楽しみ」解放後バナー | 400 × 400 SVG | 任意 | 建物5棟すべて鑑賞で切替・選択可 |
 
 ---
 
@@ -102,6 +101,7 @@
 
 | ファイルパス | 用途 | 推奨サイズ (px) | 透過 | 備考 |
 | :--- | :--- | :--- | :---: | :--- |
-| `assets/images/info/about_01_overview.png`〜`about_12_suien.png` | 「正道官衙遺跡とは」・3D復元解説の図版（全12点） | 横幅960px目安 | 不要 | 図録PDF切り抜きダミーを配置済み（全幅表示） |
+| `assets/images/info/about_01_overview.png`〜`about_08_suien.png` | 「正道官衙遺跡とは」の図版（写真1〜6・図2〜3、全8点） | 横幅960px目安 | 不要 | 全幅表示 |
+| `assets/images/info/dem_plane.jpg`／`dem_kanga1〜3.png` | 図1 官衙Ⅰ〜Ⅲ期の変遷（地形図＋各期の重ね画像、タップで切替） | 960 × 540 | kanga1〜3は必須 | 地形図の上に各期を重ねる |
 | `assets/images/omake/omake_locked.png` | おまけ：未解放カード | 640 × 480 | 任意 | 建物5棟鑑賞前に表示 |
 | `assets/images/help/help_slide_01.png`〜`04.png` | ヘルプモーダル用スライド（4枚） | 800 × 520 | 不要 | 使い方ガイド各ページ |

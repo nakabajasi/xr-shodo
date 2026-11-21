@@ -335,9 +335,9 @@ html, body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22);
 }
 
+/* 解放後はバナー（banner_bonus.svg）自体に「全5棟 鑑賞達成」があるため表示しない */
 .otanoshimi-stamp-overlay.is-unlocked {
-  border-color: #2e7a4a;
-  color: #2e7a4a;
+  display: none;
 }
 
 /* ホームメニュー（2x2 正方形SVGバナーグリッド） */
@@ -374,10 +374,9 @@ html, body {
   object-fit: contain;
 }
 
+/* 解放前の見た目は banner_bonus_locked.svg 側のデザインに任せる（半透明・白黒化はしない） */
 .square-banner.is-locked,
 .square-banner:disabled {
-  opacity: 0.72;
-  filter: grayscale(1);
   cursor: not-allowed;
   pointer-events: none;
 }
