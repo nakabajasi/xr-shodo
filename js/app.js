@@ -41,6 +41,33 @@
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     } catch (e) {}
+    // 図1: 官衙Ⅰ〜Ⅲ期 DEMタップ切替（Ⅰ→Ⅱ→Ⅲ→Ⅰ 一方通行）
+    const demStage = document.getElementById("kanga-dem-stage");
+    if (demStage) {
+      const periods = [
+        { idx: 1, label: "官衙Ⅰ期（7世紀後半）", short: "官衙Ⅰ期" },
+        { idx: 2, label: "官衙Ⅱ期（7世紀末〜8世紀初め）", short: "官衙Ⅱ期" },
+        { idx: 3, label: "官衙Ⅲ期（8世紀初め〜9世紀前半）", short: "官衙Ⅲ期" }
+      ];
+      let pCur = 0;
+      const applyPeriod = () => {
+        const p = periods[pCur];
+        [1, 2, 3].forEach((n) => {
+          const el = document.getElementById(`kanga-dem-layer-${n}`);
+          if (el) el.classList.toggle("is-visible", n === p.idx);
+        });
+        const badge = document.getElementById("kanga-dem-badge");
+        const cap = document.getElementById("kanga-dem-caption");
+        if (badge) badge.textContent = `${p.label} ▶ タップで次期へ`;
+        if (cap) cap.textContent = `図1　官衙Ⅰ〜Ⅲ期の変遷イメージ（表示中：${p.short}）`;
+      };
+      demStage.addEventListener("click", () => {
+        pCur = (pCur + 1) % periods.length;
+        applyPeriod();
+      });
+      applyPeriod();
+    }
+
     updateProgressUI();
   }
 
@@ -112,7 +139,7 @@
       otBtn.setAttribute("aria-disabled", String(!unlocked));
       otBtn.classList.toggle("is-locked", !unlocked);
       otImg.src = unlocked ? CFG.omake.bannerUnlocked : CFG.omake.bannerLocked;
-      otImg.alt = unlocked ? "お楽しみ（解放済み）" : "お楽しみ（解放前）";
+      otImg.alt = unlocked ? "お楽しみ" : "お楽しみ（解放前）";
     }
     renderModelGrid();
     refreshMapPinIcons();
@@ -251,7 +278,7 @@
   // 5. マップ画面（Leaflet + GPS + レイヤー切替）
   function createPinIcon(imgPath) {
     const url = imgPath && !imgPath.startsWith("data:") && !imgPath.includes("?v=")
-      ? `${imgPath}?v=20261121c`
+      ? `${imgPath}?v=20261121d`
       : imgPath;
     return L.icon({
       iconUrl: url,

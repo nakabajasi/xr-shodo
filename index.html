@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Shippori+Mincho:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./css/style.css?v=20261121c">
+  <link rel="stylesheet" href="./css/style.css?v=20261121i">
   <script type="module" src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
 </head>
 <body>
@@ -17,23 +17,14 @@
     <div id="splash-screen">
       <img class="splash-logo-img" src="./assets/images/brand/splash_logo.png" alt="XR正道官衙遺跡">
       <img class="splash-gunji" src="./assets/images/character/gunji.png" alt="久世郡司キャラクター">
+      <img class="splash-ecomu-img" src="./assets/images/brand/ecomu_logo.png" alt="JOYOエコミュージアム">
     </div>
 
     <!-- 1. ホーム画面 -->
     <section id="view-home" class="view is-active">
-      <!-- 上部ヘッダー: 左端 ecomu_logo.png / 中央 タイトルロゴ / 右端 ヘルプ -->
+      <!-- 上部ヘッダー（全幅） -->
       <div class="home-top-bar">
-        <div class="home-top-left">
-          <img class="home-ecomu-img" src="./assets/images/brand/ecomu_logo.png" alt="JOYOエコミュージアム">
-        </div>
-        <div class="home-top-center">
-          <img class="home-logo-img" src="./assets/images/brand/home_title_logo.png" alt="XR正道官衙遺跡">
-        </div>
-        <div class="home-top-right">
-          <button class="icon-btn js-open-help" aria-label="ヘルプ">
-            <img src="./assets/images/icons/icon_help.png" alt="ヘルプ">
-          </button>
-        </div>
+        <img class="home-logo-img" src="./assets/images/brand/home_title_logo.png" alt="XR正道官衙遺跡">
       </div>
 
       <div class="view-scroll" style="padding: 0;">
@@ -75,7 +66,7 @@
               <button id="btn-home-otanoshimi" class="banner-btn square-banner is-locked" data-goto="omake" disabled aria-disabled="true">
                 <img id="img-home-otanoshimi" src="./assets/images/banners/banner_otanoshimi_locked.svg" alt="お楽しみ（解放前）">
               </button>
-              <div id="home-progress-overlay" class="otanoshimi-stamp-overlay">体験スタンプ 0 / 5 棟</div>
+              <div id="home-progress-overlay" class="otanoshimi-stamp-overlay">体験スタンプ 0/5棟</div>
             </div>
           </div>
         </div>
@@ -96,7 +87,6 @@
           <span>発掘調査図面</span>
         </button>
       </div>
-      <button id="btn-start-walkthrough" class="map-wt-fab" type="button">ウォークスルーAR/VR 開始</button>
 
       <div class="map-right-rail">
         <button id="btn-layer-sat" class="map-tool-btn" aria-label="航空写真切替" title="航空写真切替">
@@ -106,7 +96,7 @@
           <img src="./assets/images/icons/icon_gps.png" alt="GPS">
         </button>
         <button class="map-tool-btn js-open-help" aria-label="マップヘルプ" title="ヘルプ">
-          <img src="./assets/images/icons/icon_help.png" alt="ヘルプ" style="filter: invert(0.75);">
+          <img src="./assets/images/icons/icon_help.svg" alt="ヘルプ" style="filter: invert(0.75);">
         </button>
       </div>
 
@@ -130,11 +120,11 @@
     <section id="view-models" class="view subpage-bg">
       <header class="sub-header">
         <button class="icon-btn" data-goto="home" aria-label="ホームへ戻る">
-          <img src="./assets/images/icons/icon_back.png" alt="戻る">
+          <img src="./assets/images/icons/icon_back.svg" alt="戻る">
         </button>
         <h2 class="sub-header-title serif">3Dで楽しむ</h2>
         <button class="icon-btn js-open-help" aria-label="ヘルプ">
-          <img src="./assets/images/icons/icon_help.png" alt="ヘルプ">
+          <img src="./assets/images/icons/icon_help.svg" alt="ヘルプ">
         </button>
       </header>
 
@@ -152,7 +142,7 @@
     <section id="view-viewer" class="view subpage-bg">
       <header class="sub-header">
         <button id="btn-viewer-back" class="icon-btn" aria-label="戻る">
-          <img src="./assets/images/icons/icon_back.png" alt="戻る">
+          <img src="./assets/images/icons/icon_back.svg" alt="戻る">
         </button>
         <h2 id="viewer-title" class="sub-header-title serif">3Dモデル</h2>
         <span style="width:40px;"></span>
@@ -160,11 +150,11 @@
       <div id="viewer-body" class="view-scroll viewer-page-scroll"></div>
     </section>
 
-    <!-- 4. 正道官衙遺跡とは（解説画面） -->
+    <!-- 4. 正道官衙遺跡とは（解説画面：小項目ごと開閉・初期全閉じ・枠なし黒文字） -->
     <section id="view-about" class="view subpage-bg">
       <header class="sub-header">
         <button class="icon-btn" data-goto="home" aria-label="戻る">
-          <img src="./assets/images/icons/icon_back.png" alt="戻る">
+          <img src="./assets/images/icons/icon_back.svg" alt="戻る">
         </button>
         <h2 class="sub-header-title serif">正道官衙遺跡とは</h2>
         <span style="width:40px;"></span>
@@ -173,57 +163,63 @@
         <!-- 1. 遺跡の概要 -->
         <section class="about-section">
           <h3 class="serif">1. 遺跡の概要</h3>
-          <h4 class="about-subhead">調査のあゆみ</h4>
-          <p>正道遺跡は、昭和40（1965）年に文様瓦が採集され、地名をとって「正道廃寺」として注目されました。昭和41（1966）年に京都府教育委員会により行われた最初の調査では、南北に長い建物跡が見つかり、寺院の中心は東に広がるものと考えられました。その後も寺院跡として調査が行われ、出土した瓦類から遺跡の年代は7世紀後半から9世紀前半と想定されました。</p>
-          <p>ところが、昭和48（1973）年に城陽市で実施した第5次調査で、古墳時代から奈良時代にかけての遺構が重なって存在する複合遺跡であることが判明しました。それにより、遺跡の名称も寺院跡とは区別して「正道遺跡」と呼称することになり、その後も継続的な調査によって遺跡の姿が明らかになりました。</p>
-
-          <h4 class="about-subhead">遺跡の規模と構成・現状</h4>
+          <h4 class="about-subhead">遺跡の規模と構成</h4>
           <p>正道遺跡は標高40〜50mの低台地上にあり、東西約250m、南北約200mの範囲に広がります。これまでの調査で、5世紀前半の小型方形墳群、6世紀末〜7世紀前半の竪穴住居・掘立柱建物からなる集落、7世紀後半〜9世紀前半の掘立柱建物を中心とする官衙遺構などに区分されます。</p>
-          <p>昭和49（1974）年9月に城陽市で最初の国の史跡に指定され、現在は官衙Ⅲ期の中心建物群（庁屋・副屋・南門など）の柱や遺構の一部を復元した史跡公園として整備・公開されています。</p>
 
           <figure class="about-figure">
             <img src="./assets/images/info/about_01_overview.png" alt="正道遺跡東側調査地遠景（西から）">
-            <figcaption>図1　正道遺跡東側調査地遠景（西から）</figcaption>
+            <figcaption>写真1　正道遺跡東側調査地遠景（西から）</figcaption>
           </figure>
           <figure class="about-figure">
             <img src="./assets/images/info/about_02_buildings.png" alt="正道遺跡東側調査地の建物群（北から）">
-            <figcaption>図2　正道遺跡東側調査地の建物群（北から）</figcaption>
+            <figcaption>写真2　正道遺跡東側調査地の建物群（北から）</figcaption>
+          </figure>
+
+          <h4 class="about-subhead">調査から史跡整備まで</h4>
+          <p>正道遺跡は、昭和40（1965）年に文様瓦が採集され、地名をとって「正道廃寺」として注目されました。昭和41（1966）年に京都府教育委員会により行われた最初の調査では、南北に長い建物跡が見つかり、寺院の中心は東に広がるものと考えられました。その後も寺院跡として調査が行われ、出土した瓦類から遺跡の年代は7世紀後半から9世紀前半と想定されました。</p>
+          <p>ところが、昭和48（1973）年に城陽市で実施した第5次調査で、古墳時代から奈良時代にかけての遺構が重なって存在する複合遺跡であることが判明しました。それにより、遺跡の名称も寺院跡とは区別して「正道遺跡」と呼称することになり、その後も継続的な調査によって遺跡の姿が明らかになりました。</p>
+          <p>昭和49（1974）年9月に城陽市で最初の国の史跡に指定され、現在は官衙Ⅲ期の中心建物群（庁屋・副屋・南門など）の柱や遺構の一部を復元した史跡公園として整備・公開されています。</p>
+
+          <figure class="about-figure">
+            <img src="./assets/images/info/about_03_genkyo.png" alt="現在の正道遺跡（南から）">
+            <figcaption>写真3　現在の正道遺跡（南から）</figcaption>
           </figure>
         </section>
 
         <!-- 2. 官衙遺構の変遷 -->
         <section class="about-section">
           <h3 class="serif">2. 官衙遺構の変遷</h3>
-          <p>遺跡の広い範囲で見つかっている掘立柱建物群は規模が大きく、企画性をもって配置されており、飛鳥時代から平安時代初め（7世紀後半〜9世紀前半）の官衙と考えられます。その配置や建物の方位からⅠ〜Ⅲ期の3時期に区分され、文献史料に見える「屯倉」の施設から大宝令以前の「評衙」、奈良時代の「郡衙」への変遷と結びつける見方があります。</p>
+          <p>遺跡の広い範囲で見つかっている掘立柱建物群は規模が大きく、規格性をもって配置されており、飛鳥時代から平安時代初め（7世紀後半〜9世紀前半）の官衙と考えられます。</p>
 
-          <h4 class="about-subhead">（1）官衙Ⅰ期（7世紀後半）</h4>
-          <p>遺跡の西半分に、やや東に傾いた方位に合わせて建物群が広がります。庇のある南北棟の建物を中心に、西・北に倉庫や棟の長い建物をL字形に配置して柵で区画しています。中心建物は棟が長く間仕切りがある実務的な建物と想定され、柵で囲まれる東西の規模は約92mで南を区画する遺構はありません。周囲の倉庫は平面積83㎡を超える大規模なもので、前期難波宮内裏西方官衙の配置に共通する古い官衙形態の一つと考えられます。</p>
-          <figure class="about-figure">
-            <img src="./assets/images/info/about_03_kanga1.png" alt="官衙Ⅰ期のようす">
-            <figcaption>図3　官衙Ⅰ期のようす</figcaption>
-          </figure>
+          <h4 class="about-subhead">官衙の変遷</h4>
+          <p>その配置や建物の方位からⅠ〜Ⅲ期の3時期に区分され、文献史料に見える「屯倉」の施設から大宝令以前の「評衙」、奈良時代の「郡衙」への変遷と結びつける見方があります。</p>
 
-          <h4 class="about-subhead">（2）官衙Ⅱ期（7世紀末〜8世紀初め）</h4>
-          <p>Ⅰ期と同様に遺跡の西半分にやや東に傾いた方位で建物群が広がります。南寄りには柱穴が小さく棟の長い建物（長舎）と柵・溝で構成された建物群があり、Ⅰ期に一部重なります。南・西・北に棟の長い建物をコの字形に並べ、区画の東寄りに東西に庇をもつ南北棟の建物を置きます。規模は異なるものの、郡庁（郡役所の中心部）の一形態と共通性があります。</p>
-          <figure class="about-figure">
-            <img src="./assets/images/info/about_04_kanga2.png" alt="官衙Ⅱ期のようす">
-            <figcaption>図4　官衙Ⅱ期のようす</figcaption>
-          </figure>
+          <p><strong>（1）官衙Ⅰ期（7世紀後半）</strong><br>遺跡の西半分に、やや東に傾いた方位に合わせて建物群が広がります。庇のある南北棟の建物を中心に、西・北に倉庫や棟の長い建物をL字形に配置して柵で区画しています。中心建物は棟が長く間仕切りがある実務的な建物と想定され、柵で囲まれる東西の規模は約92mで南を区画する遺構はありません。周囲の倉庫は平面積83㎡を超える大規模なもので、前期難波宮内裏西方官衙の配置に共通する古い官衙形態の一つと考えられます。</p>
 
-          <h4 class="about-subhead">（3）官衙Ⅲ期（8世紀初め〜9世紀前半）</h4>
-          <p>Ⅰ・Ⅱ期には空閑地となっていた遺跡の東半分に、方位を磁北に合わせて大型の建物群が計画的に配置されます。中心建物（庁屋）は6間×2間の四面庇建物で、前面には柵（目隠し塀）が巡ります。後方には7間×2間の副屋、前方の広場を挟んで東側には5間×3間の南北棟（東屋）、その前に8間×2間の東西棟（向屋）が並びます（西側に対称建物は見つかっていません）。</p>
+          <p><strong>（2）官衙Ⅱ期（7世紀末〜8世紀初め）</strong><br>Ⅰ期と同様に遺跡の西半分にやや東に傾いた方位で建物群が広がります。南寄りには柱穴が小さく棟の長い建物（長舎）と柵・溝で構成された建物群があり、Ⅰ期に一部重なります。南・西・北に棟の長い建物をコの字形に並べ、区画の東寄りに東西に庇をもつ南北棟の建物を置きます。規模は異なるものの、郡庁（郡役所の中心部）の一形態と共通性があります。</p>
+
+          <p><strong>（3）官衙Ⅲ期（8世紀初め〜9世紀前半）</strong><br>Ⅰ・Ⅱ期には空閑地となっていた遺跡の東半分に、方位を磁北に合わせて大型の建物群が計画的に配置されます。中心建物（庁屋）は6間×2間の四面庇建物で、前面には柵（目隠し塀）が巡ります。後方には7間×2間の副屋、前方の広場を挟んで東側には5間×3間の南北棟（東屋）、その前に8間×2間の東西棟（向屋）が並びます（西側に対称建物は見つかっていません）。</p>
           <p>区画施設として西と南には両側に溝をもつ築地状の遺構があり、中心建物の正面で溝が途切れる位置に南門が配置されます。敷地は東西約105m、南北約125mの南北に長い規模と想定できます。</p>
+
+          <!-- 新 図1: DEM_plane + DEM_kanga1〜3 タップ切替（Ⅰ→Ⅱ→Ⅲ→Ⅰ 一方通行） -->
           <figure class="about-figure">
-            <img src="./assets/images/info/about_05_kanga3.png" alt="官衙Ⅲ期のようす">
-            <figcaption>図5　官衙Ⅲ期のようす</figcaption>
+            <div id="kanga-dem-stage" class="kanga-dem-stage" role="button" tabindex="0" aria-label="タップして官衙Ⅰ〜Ⅲ期を切替">
+              <img class="kanga-dem-base" src="./assets/images/info/dem_plane.jpg" alt="正道官衙遺跡の地形">
+              <img id="kanga-dem-layer-1" class="kanga-dem-overlay is-visible" src="./assets/images/info/dem_kanga1.png" alt="官衙Ⅰ期">
+              <img id="kanga-dem-layer-2" class="kanga-dem-overlay" src="./assets/images/info/dem_kanga2.png" alt="官衙Ⅱ期">
+              <img id="kanga-dem-layer-3" class="kanga-dem-overlay" src="./assets/images/info/dem_kanga3.png" alt="官衙Ⅲ期">
+              <div id="kanga-dem-badge" class="kanga-dem-badge">官衙Ⅰ期（7世紀後半） ▶ タップで次期へ</div>
+            </div>
+            <figcaption id="kanga-dem-caption">図1　官衙Ⅰ〜Ⅲ期の変遷イメージ（表示中：官衙Ⅰ期）</figcaption>
+          </figure>
+
+          <figure class="about-figure">
+            <img src="./assets/images/info/about_04_enmenken.png" alt="出土遺物（円面硯）">
+            <figcaption>写真4　出土遺物（円面硯）</figcaption>
           </figure>
           <figure class="about-figure">
-            <img src="./assets/images/info/about_06_enmenken.png" alt="円面硯">
-            <figcaption>図6　円面硯</figcaption>
-          </figure>
-          <figure class="about-figure">
-            <img src="./assets/images/info/about_07_pottery.png" alt="官衙の土器">
-            <figcaption>図7　官衙の土器</figcaption>
+            <img src="./assets/images/info/about_05_pottery.png" alt="出土遺物（官衙の土器）">
+            <figcaption>写真5　出土遺物（官衙の土器）</figcaption>
           </figure>
         </section>
 
@@ -233,15 +229,15 @@
           <h4 class="about-subhead">古墳（5世紀前半）</h4>
           <p>遺跡の西半分を中心に、5世紀前半に築造された9基の古墳が確認されています。1辺が8〜13m程度の小型の方墳で、墳丘は削られてほとんど残っていませんでしたが、周囲に掘られた溝が見つかっています。周囲には木棺を直葬した土坑もあり、集落が営まれるまでは墓地として利用されていました。</p>
           <figure class="about-figure">
-            <img src="./assets/images/info/about_10_kofun.png" alt="古墳のようす">
-            <figcaption>図10　古墳のようす</figcaption>
+            <img src="./assets/images/info/about_06_kofun.png" alt="古墳の遺構平面図">
+            <figcaption>図2　古墳の遺構平面図</figcaption>
           </figure>
 
           <h4 class="about-subhead">集落（6世紀末〜7世紀前半）</h4>
           <p>集落の遺構は、竪穴住居34棟と掘立柱建物10棟が見つかっています。竪穴住居はⅢ期の建物群がある遺跡の東半分を中心に広がり、平面形態は一辺3〜6mの方形でカマドをもちます。大半は6世紀末〜7世紀前半のものですが、奈良時代のものもあります。掘立柱建物は官衙の建物に比べると小規模なものです。</p>
           <figure class="about-figure">
-            <img src="./assets/images/info/about_11_settlement.png" alt="集落のようす">
-            <figcaption>図11　集落のようす</figcaption>
+            <img src="./assets/images/info/about_07_settlement.png" alt="集落の遺構平面図">
+            <figcaption>図3　集落の遺構平面図</figcaption>
           </figure>
         </section>
 
@@ -249,10 +245,10 @@
         <section class="about-section">
           <h3 class="serif">4. 正道廃寺</h3>
           <p>正道官衙遺跡、特に遺跡の東側区域では、飛鳥時代後期から奈良時代にかけての瓦や塼仏、三重塔や五重塔の頂上に使われた水煙や刹管の破片が見つかっています。このことから、かつて官衙に近接する場所には寺院が建っていたと想定できます。</p>
-          <p>残念ながら寺院の場所を示すような遺構は見つかっておらず、既に破壊され失われた可能性が高いと考えられています。この寺に関する文献史料も見つかっていませんが、現在の地名をとって「正道廃寺」と呼んでいます。</p>
+          <p>残念ながら寺院の場所を示すような遺構は見つかっておらず、既に破壊され失われたようです。この寺に関する文献史料も見つかっていませんが、現在の地名をとって「正道廃寺」と呼んでいます。</p>
           <figure class="about-figure">
-            <img src="./assets/images/info/about_12_suien.png" alt="水煙と刹管">
-            <figcaption>図12　水煙と刹管</figcaption>
+            <img src="./assets/images/info/about_08_suien.png" alt="水煙と刹管">
+            <figcaption>写真6　水煙と刹管</figcaption>
           </figure>
         </section>
       </div>
@@ -262,7 +258,7 @@
     <section id="view-omake" class="view subpage-bg">
       <header class="sub-header">
         <button class="icon-btn" data-goto="home" aria-label="戻る">
-          <img src="./assets/images/icons/icon_back.png" alt="戻る">
+          <img src="./assets/images/icons/icon_back.svg" alt="戻る">
         </button>
         <h2 class="sub-header-title serif">お楽しみ</h2>
         <span style="width:40px;"></span>
@@ -276,7 +272,7 @@
     <section id="view-menu" class="view subpage-bg">
       <header class="sub-header">
         <button class="icon-btn" data-goto="home" aria-label="戻る">
-          <img src="./assets/images/icons/icon_back.png" alt="戻る">
+          <img src="./assets/images/icons/icon_back.svg" alt="戻る">
         </button>
         <h2 class="sub-header-title serif">ガイド・設定</h2>
         <span style="width:40px;"></span>
@@ -300,19 +296,23 @@
     <!-- 常設ボトムタブナビゲーション -->
     <nav class="bottom-nav" aria-label="メインメニュー">
       <button class="nav-tab is-active" data-tab="home" data-goto="home">
-        <img src="./assets/images/nav/tab_home_on.png" alt="">
+        <img src="./assets/images/nav/tab_home_on.svg" alt="">
         <span>ホーム</span>
       </button>
       <button class="nav-tab" data-tab="map" data-goto="map">
-        <img src="./assets/images/nav/tab_map_off.png" alt="">
+        <img src="./assets/images/nav/tab_map_off.svg" alt="">
         <span>マップ</span>
       </button>
       <button class="nav-tab" data-tab="models" data-goto="models">
-        <img src="./assets/images/nav/tab_models_off.png" alt="">
+        <img src="./assets/images/nav/tab_models_off.svg" alt="">
         <span>3D鑑賞</span>
       </button>
+      <button class="nav-tab js-open-help" data-tab="help" type="button" aria-label="ヘルプ">
+        <img src="./assets/images/nav/tab_help_off.svg" alt="">
+        <span>ヘルプ</span>
+      </button>
       <button class="nav-tab" data-tab="menu" data-goto="menu">
-        <img src="./assets/images/nav/tab_menu_off.png" alt="">
+        <img src="./assets/images/nav/tab_menu_off.svg" alt="">
         <span>設定</span>
       </button>
     </nav>
@@ -376,41 +376,11 @@
       </div>
     </div>
     <!-- 全画面モーダル: ウォークスルー AR/VR 体験 -->
-    <div id="modal-walkthrough" class="wt-modal">
-      <video id="wt-ar-video" class="wt-ar-video" autoplay playsinline muted></video>
-      <div id="wt-canvas-wrap" class="wt-canvas-wrap"></div>
-      <div id="wt-loading" class="wt-loading">読み込み中...</div>
 
-      <div class="wt-hud-top">
-        <button id="wt-btn-close" class="icon-btn wt-circle-btn" aria-label="戻る">
-          <img src="./assets/images/icons/icon_back.png" alt="戻る">
-        </button>
-        <div class="wt-top-actions">
-          <button id="wt-btn-ar" class="wt-pill-btn" type="button">AR切替</button>
-          <button id="wt-btn-gyro" class="wt-pill-btn" type="button">ジャイロ</button>
-          <button id="wt-btn-gps" class="wt-pill-btn" type="button">GPS連動</button>
-        </div>
-      </div>
-
-      <div class="wt-hud-bottom">
-        <div id="wt-warp-bar" class="wt-warp-bar"></div>
-        <div class="wt-controls-row">
-          <div class="wt-dpad">
-            <button id="wt-move-fwd" class="wt-pad-btn" type="button">▲</button>
-            <div class="wt-dpad-mid">
-              <button id="wt-move-left" class="wt-pad-btn" type="button">◀</button>
-              <button id="wt-move-back" class="wt-pad-btn" type="button">▼</button>
-              <button id="wt-move-right" class="wt-pad-btn" type="button">▶</button>
-            </div>
-          </div>
-          <button id="wt-btn-snap" class="wt-snap-btn" type="button" aria-label="撮影">撮影</button>
-        </div>
-      </div>
-    </div>
   </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-  <script src="./js/config.js?v=20261121c"></script>
-  <script src="./js/app.js?v=20261121c"></script>
+  <script src="./js/config.js?v=20261121i"></script>
+  <script src="./js/app.js?v=20261121i"></script>
 </body>
 </html>
