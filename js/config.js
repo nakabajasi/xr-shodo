@@ -29,8 +29,8 @@ window.XR_CONFIG = {
   // 郡司キャラクターのガイドセリフ（各バナーの役割を簡潔に案内）
   gunjiQuotes: [
     "まずは「正道官衙遺跡とは」で、この遺跡の歴史を知ろう。",
-    "「現地マップ&探索」では、現地で地図を見ながら復元建物や発掘調査図面が楽しめるぞ。",
-    "「3Dで楽しむ」では、復元建物や出土遺物の3Dモデルの鑑賞できるぞ。建物はARでも楽しめるのじゃ。",
+    "「現地マップ&探索」では、地図を見ながら復元建物や発掘調査図面が楽しめるぞ。",
+    "「3Dで楽しむ」では、復元建物や出土遺物の3Dモデルが鑑賞できるぞ。建物はARでも楽しめるのじゃ。",
     "建物5棟をすべて見ると「お楽しみ」が開き、わしと一緒に記念撮影ができるぞ。"
   ],
   // お楽しみAR（旧おまけ：建物5棟コンプリートで解放）
@@ -43,7 +43,7 @@ window.XR_CONFIG = {
     lockedImg: "./assets/images/omake/omake_locked.png",
     bannerLocked: "./assets/images/banners/banner_bonus_locked.svg",
     bannerUnlocked: "./assets/images/banners/banner_bonus.svg",
-    description: "下の郡司キャラクター画像をタップすると、iPhoneはクイックルック、AndroidはScene ViewerなどのネイティブARが直接起動します。実空間に郡司を呼び出して記念撮影をお楽しみください！"
+    description: "郡司キャラクターをタップすると、ARが起動します。現実空間に郡司を呼び出して記念撮影をお楽しみください！"
   },
   buildings: [
     {
@@ -127,7 +127,7 @@ window.XR_CONFIG = {
       modelUrl: "https://sketchfab.com/3d-models/356cc80d3dc348518d2b54e3513a0ff4",
       authorName: "京都府城陽市 JOYO エコミュージアム",
       authorUrl: "https://sketchfab.com/joyo-ecomuseum",
-      description: "奈良時代の屋根の軒先を飾った丸瓦です。八葉の複弁蓮華文が精緻に表現されています。"
+      description: "屋根の軒先に葺かれた丸瓦で、文様は蓮の花を模したものです。奈良時代に作られたものです。"
     },
     {
       id: "nokihiragawara",
@@ -138,7 +138,7 @@ window.XR_CONFIG = {
       modelUrl: "https://sketchfab.com/3d-models/e0e5606fcc254c36afdda1e0b8f09913",
       authorName: "京都府城陽市 JOYO エコミュージアム",
       authorUrl: "https://sketchfab.com/joyo-ecomuseum",
-      description: "軒丸瓦と対になって軒先を葺いた平瓦です。左右対称の均整の取れた唐草文様が特徴です。"
+      description: "軒先に葺かれた平瓦です。文様は、左右対称に唐草が伸びるデザインです。奈良時代に作られたものです。"
     },
     {
       id: "enmenken",
@@ -149,7 +149,7 @@ window.XR_CONFIG = {
       modelUrl: "https://sketchfab.com/3d-models/a570f128181c4870903feacd0f240c93",
       authorName: "京都府城陽市 JOYO エコミュージアム",
       authorUrl: "https://sketchfab.com/joyo-ecomuseum",
-      description: "役人が木簡や文書に墨で文字を書くために使用した須恵器の硯です。ここが役所（官衙）であったことを示す重要な遺物です。"
+      description: "役人が木簡や文書に墨で文字を書くために使用した硯です。ここが官衙（役所）であったことを示す重要な遺物です。"
     }
   ],
   extraSpots: [
