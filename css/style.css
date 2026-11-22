@@ -60,7 +60,31 @@ html, body {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
   transition: opacity 0.45s ease, visibility 0.45s ease;
+}
+
+.splash-tap-hint {
+  position: absolute;
+  left: 50%;
+  bottom: calc(28px + var(--safe-bottom));
+  transform: translateX(-50%);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: #1f2b44;
+  white-space: nowrap;
+  pointer-events: none;
+  animation: splashHintPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes splashHintPulse {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 0.95; }
 }
 
 #splash-screen.is-hidden {
@@ -74,6 +98,9 @@ html, body {
   height: 100%;
   object-fit: contain;
   display: block;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 /* ビュー共通 */
@@ -144,6 +171,26 @@ html, body {
   background-image: url("../assets/images/bg/bg_subpage_washi.png");
   background-size: cover;
   background-position: center;
+}
+
+/* 3D鑑賞・個別3Dビューア・ヘルプ画面：メイン背景線画を活かした固定背景 */
+#view-models.subpage-bg,
+#view-viewer.subpage-bg,
+#view-help.subpage-bg,
+#view-menu.subpage-bg {
+  background-image: url("../assets/images/bg/bg_subpage_lineart.png?v=20261122e");
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+}
+
+#view-models .model-card {
+  background: rgba(255, 253, 248, 0.88);
+}
+
+#view-viewer .viewer-full-stage,
+#view-viewer .viewer-full-stage model-viewer {
+  background: transparent;
 }
 
 /* ==========================================================================
@@ -725,34 +772,32 @@ html, body {
 
 .theme-swatches {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 10px;
-  margin: 10px 0 14px;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: calc(20% / 3);
+  width: 100%;
+  margin: 10px 0 4px;
 }
-
 .theme-swatch-btn {
-  border: 2px solid transparent;
-  border-radius: 10px;
-  padding: 8px 4px;
-  background: #ffffff;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border: 2.5px solid transparent;
+  border-radius: 12px;
+  padding: 4px;
+  background: transparent;
   cursor: pointer;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 6px;
-  font-size: 11px;
-  font-weight: 700;
+  justify-content: center;
+  transition: transform 0.15s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
-
 .theme-swatch-btn.is-active {
   border-color: var(--accent-gold);
   box-shadow: 0 0 0 2px rgba(184, 146, 66, 0.35);
 }
-
 .theme-swatch-dot {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
   display: block;
 }
 
@@ -1436,4 +1481,228 @@ model-viewer {
   height: 88px;
   display: block;
   flex-shrink: 0;
+}
+
+/* 設定画面（枠なし・半透明ベースで固定線画背景と調和） */
+.settings-block {
+  background: rgba(255, 253, 248, 0.86);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 14px;
+}
+.settings-block h3 {
+  margin: 0 0 8px;
+  font-size: 15px;
+  color: #111111;
+}
+.settings-desc,
+.settings-progress {
+  margin: 0 0 12px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: #111111;
+}
+.settings-full-btn {
+  width: 100%;
+}
+.settings-about p {
+  margin: 0 0 8px;
+  font-size: 12.5px;
+  line-height: 1.75;
+  color: #111111;
+}
+.settings-about p:last-child {
+  margin-bottom: 0;
+}
+.settings-version {
+  margin-top: 12px !important;
+  font-size: 12px !important;
+  color: #555964 !important;
+}
+
+/* 文字サイズ切替ボタン（2段階：標準／大） */
+.font-size-toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.font-size-btn {
+  padding: 11px 14px;
+  border: 1.5px solid var(--accent);
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--accent);
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+.font-size-btn.is-active {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+/* 文字サイズ「大」モード：見出し・本文・郡司セリフを枠ごと拡大 */
+body.font-large .splash-tap-hint {
+  font-size: 17px;
+}
+body.font-large .sub-header-title {
+  font-size: 21px;
+}
+body.font-large .home-hero {
+  align-items: flex-start;
+  padding: 10px 12px;
+  min-height: 132px;
+}
+body.font-large .home-speech-wrap {
+  padding: 12px 14px 10px;
+  min-height: 118px;
+}
+body.font-large .home-speech-wrap::before {
+  top: 40px;
+  transform: rotate(45deg);
+}
+body.font-large .home-speech-name {
+  font-size: 13.5px;
+}
+body.font-large .home-speech-text {
+  font-size: 16px;
+  line-height: 1.55;
+}
+body.font-large .home-speech-pager {
+  font-size: 14px;
+}
+body.font-large .speech-nav-btn {
+  width: 32px;
+  height: 32px;
+  font-size: 24px;
+}
+body.font-large .otanoshimi-stamp-overlay {
+  font-size: 13px;
+  padding: 5px 10px;
+}
+body.font-large .about-accordion-summary {
+  font-size: 24px;
+  padding: 15px 2px;
+}
+body.font-large .about-section h3 {
+  font-size: 25px;
+}
+body.font-large .about-section .about-subhead {
+  font-size: 19px;
+}
+body.font-large .about-section p {
+  font-size: 18px;
+  line-height: 1.9;
+}
+body.font-large .about-figure figcaption {
+  font-size: 14.5px;
+}
+body.font-large .cg-intro-box {
+  font-size: 17px;
+  line-height: 1.8;
+}
+body.font-large .cg-intro-box summary {
+  font-size: 18.5px;
+}
+body.font-large .kanga-dem-badge {
+  font-size: 14px;
+  padding: 6px 12px;
+}
+body.font-large .layer-toggle-btn {
+  font-size: 15.5px;
+  padding: 10px 8px;
+}
+body.font-large .map-status-pill {
+  font-size: 13.5px;
+  padding: 7px 12px;
+}
+body.font-large .spot-sheet-title {
+  font-size: 20px;
+}
+body.font-large .spot-sheet-meta {
+  font-size: 13.5px;
+}
+body.font-large .spot-sheet-desc {
+  font-size: 16.5px;
+  line-height: 1.6;
+}
+body.font-large .segment-btn {
+  font-size: 16px;
+  padding: 12px 10px;
+}
+body.font-large .model-card-body {
+  padding: 12px 12px 14px;
+}
+body.font-large .model-card-title {
+  font-size: 17.5px;
+}
+body.font-large .model-card-sub {
+  font-size: 14px;
+  line-height: 1.45;
+}
+body.font-large .badge-done {
+  font-size: 12.5px;
+  padding: 3px 8px;
+}
+body.font-large .viewer-plain-body h3 {
+  font-size: 23px;
+}
+body.font-large .viewer-plain-body p {
+  font-size: 18px;
+  line-height: 1.9;
+}
+body.font-large .viewer-plain-note {
+  font-size: 15px !important;
+  line-height: 1.7 !important;
+}
+body.font-large .viewer-plain-body .sketchfab-credit {
+  font-size: 14.5px;
+}
+body.font-large .ar-launch-btn {
+  font-size: 14.5px;
+  padding: 10px 16px;
+}
+body.font-large .help-slide-title {
+  font-size: 22px;
+}
+body.font-large .help-slide-text {
+  font-size: 17.5px;
+  line-height: 1.85;
+}
+body.font-large .settings-block {
+  padding: 18px;
+}
+body.font-large .settings-block h3 {
+  font-size: 18.5px;
+}
+body.font-large .settings-desc,
+body.font-large .settings-progress {
+  font-size: 16.5px;
+  line-height: 1.75;
+}
+body.font-large .settings-about p {
+  font-size: 15.5px;
+  line-height: 1.8;
+}
+body.font-large .settings-version {
+  font-size: 14.5px !important;
+}
+body.font-large .primary-btn,
+body.font-large .secondary-btn,
+body.font-large .danger-btn,
+body.font-large .font-size-btn {
+  font-size: 16px;
+  padding: 13px 16px;
+}
+body.font-large .modal-header h3 {
+  font-size: 19.5px;
+}
+body.font-large .modal-body,
+body.font-large .modal-body p {
+  font-size: 16.5px;
+  line-height: 1.7;
+}
+body.font-large .nav-tab {
+  font-size: 12px;
 }

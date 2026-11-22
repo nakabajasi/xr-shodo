@@ -115,3 +115,6 @@
 | `assets/images/info/dem_plane.jpg`／`dem_kanga1〜3.png` | 図1 官衙Ⅰ〜Ⅲ期の変遷（地形図＋各期の重ね画像、タップで切替） | 960 × 540 | kanga1〜3は必須 | 地形図の上に各期を重ねる |
 | `assets/images/omake/omake_locked.png` | おまけ：未解放カード | 640 × 480 | 任意 | 建物5棟鑑賞前に表示 |
 | `assets/images/help/help_slide_01.png`〜`04.png` | ヘルプモーダル用スライド（4枚） | 800 × 520 | 不要 | 使い方ガイド各ページ |
+
+### 追加背景素材（V10-2）
+- `assets/images/bg/bg_subpage_lineart.png`（1437 × 2803 px）：3D鑑賞・個別3Dビューア・ヘルプ画面用の固定線画背景（メイン背景の遺構平面図・庁屋立面図の線画を生成り地上に淡い濃色で配置）

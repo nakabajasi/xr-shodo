@@ -32,6 +32,7 @@
     } catch (e) {}
     return {
       theme: "indigo",
+      fontSize: "normal",
       sound: true,
       visitedBuildings: [],
       dugSpots: []
@@ -106,6 +107,17 @@
     saveState();
   }
 
+  // 2b. 文字サイズ切替（標準／大）
+  function applyFontSize(size) {
+    const valid = size === "large" ? "large" : "normal";
+    state.fontSize = valid;
+    document.body.classList.toggle("font-large", valid === "large");
+    document.querySelectorAll(".font-size-btn").forEach((btn) => {
+      btn.classList.toggle("is-active", btn.dataset.fontSize === valid);
+    });
+    saveState();
+  }
+
   // 3. 進捗UI更新
   function updateProgressUI() {
     const count = state.visitedBuildings.length;
@@ -115,6 +127,12 @@
     if (ov) {
       ov.textContent = `体験スタンプ ${count}/${total}棟`;
       ov.classList.toggle("is-unlocked", unlocked);
+    }
+    const spText = document.getElementById("settings-progress-text");
+    if (spText) {
+      spText.textContent = unlocked
+        ? `現在の鑑賞状況：${count} / ${total}棟（お楽しみ解放済み）`
+        : `現在の鑑賞状況：${count} / ${total}棟`;
     }
     const otBtn = document.getElementById("btn-home-otanoshimi");
     const otImg = document.getElementById("img-home-otanoshimi");
@@ -500,9 +518,21 @@
 
   // 初期化・イベントバインド
   function init() {
-    setTimeout(() => {
-      document.getElementById("splash-screen").classList.add("is-hidden");
-    }, 1100);
+    const splashEl = document.getElementById("splash-screen");
+    if (splashEl) {
+      const dismissSplash = () => {
+        splashEl.classList.add("is-hidden");
+      };
+      splashEl.addEventListener("click", dismissSplash);
+      splashEl.addEventListener("pointerup", dismissSplash);
+      splashEl.addEventListener("touchend", dismissSplash, { passive: true });
+      splashEl.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          dismissSplash();
+        }
+      });
+    }
 
     // テーマスウォッチ生成
     const swWrap = document.getElementById("theme-swatches");
@@ -510,11 +540,19 @@
       const btn = document.createElement("button");
       btn.className = "theme-swatch-btn";
       btn.dataset.theme = t.id;
-      btn.innerHTML = `<span class="theme-swatch-dot" style="background:${t.color};"></span><span>${t.label}</span>`;
+      btn.setAttribute("aria-label", t.label);
+      btn.title = t.label;
+      btn.innerHTML = `<span class="theme-swatch-dot" style="background:${t.color};"></span>`;
       btn.addEventListener("click", () => applyTheme(t.id));
       swWrap.appendChild(btn);
     });
     applyTheme(state.theme);
+
+    // 文字サイズ切替（標準／大）
+    document.querySelectorAll(".font-size-btn").forEach((btn) => {
+      btn.addEventListener("click", () => applyFontSize(btn.dataset.fontSize));
+    });
+    applyFontSize(state.fontSize || "normal");
 
     // 郡司セリフ前後切替（1/4⇔4/4 ループ禁止）
     const prevBtn = document.getElementById("btn-quote-prev");
@@ -638,6 +676,14 @@
       showAlert("初期化完了", "体験スタンプをリセットしました。");
     });
 
+    const showSplashBtn = document.getElementById("btn-show-splash");
+    if (showSplashBtn) {
+      showSplashBtn.addEventListener("click", () => {
+        const sp = document.getElementById("splash-screen");
+        if (sp) sp.classList.remove("is-hidden");
+      });
+    }
+
 
     // 図1: 官衙Ⅰ〜Ⅲ期 DEMタップ切替（Ⅰ→Ⅱ→Ⅲ→Ⅰ）
     const demStage = document.getElementById("kanga-dem-stage");
@@ -675,5 +721,9 @@
     }
   }
 
-  document.addEventListener("DOMContentLoaded", init);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
 })();

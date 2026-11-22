@@ -8,14 +8,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Shippori+Mincho:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./css/style.css?v=20261122a">
+  <link rel="stylesheet" href="./css/style.css?v=20261122e">
   <script type="module" src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
 </head>
 <body>
   <div id="app-shell">
-    <!-- スプラッシュ画面 -->
-    <div id="splash-screen">
+    <!-- スプラッシュ画面（タップで開始） -->
+    <div id="splash-screen" role="button" tabindex="0" aria-label="画面をタップして開始" onclick="this.classList.add('is-hidden')">
       <img class="splash-full-img" src="./assets/images/brand/top.svg" alt="XR正道官衙遺跡">
+      <div class="splash-tap-hint serif">画面をタップして開始</div>
     </div>
 
     <!-- 1. ホーム画面 -->
@@ -281,22 +282,43 @@
         <button class="icon-btn" data-goto="home" aria-label="戻る">
           <img src="./assets/images/icons/icon_back.svg" alt="戻る">
         </button>
-        <h2 class="sub-header-title serif">ガイド・設定</h2>
+        <h2 class="sub-header-title serif">設定</h2>
         <span style="width:40px;"></span>
       </header>
       <div class="view-scroll">
-        <div class="info-card">
+        <div class="settings-block">
           <h3 class="serif">ホーム背景テーマ設定</h3>
-          <p style="font-size:12px;">背景画面を気分に合わせて変えてください</p>
+          <p class="settings-desc">背景画面を気分に合わせて変えてください。</p>
           <div id="theme-swatches" class="theme-swatches"></div>
         </div>
 
-        <button class="danger-btn" id="btn-reset-progress">体験スタンプを初期化</button>
-        <button class="secondary-btn js-open-help" style="width:100%;margin-bottom:10px;">使い方ガイド（ヘルプ）を見る</button>
+        <div class="settings-block">
+          <h3 class="serif">文字サイズ設定</h3>
+          <p class="settings-desc">画面の文字サイズを切り替えられます。</p>
+          <div class="font-size-toggle" role="group" aria-label="文字サイズ設定">
+            <button type="button" class="font-size-btn is-active" data-font-size="normal">標準</button>
+            <button type="button" class="font-size-btn" data-font-size="large">大</button>
+          </div>
+        </div>
 
-        <p style="text-align:center;font-size:12px;color:#5a5e6b;margin-top:24px;">
-          XR正道官衙遺跡 Web GitHub Pages Edition
-        </p>
+        <div class="settings-block">
+          <h3 class="serif">体験スタンプ</h3>
+          <p id="settings-progress-text" class="settings-progress">現在の鑑賞状況：0 / 5棟</p>
+          <button class="danger-btn" id="btn-reset-progress" style="margin-bottom:0;">体験スタンプを初期化</button>
+        </div>
+
+        <div class="settings-block">
+          <h3 class="serif">トップ画面</h3>
+          <button class="secondary-btn settings-full-btn" id="btn-show-splash">トップ画面を再表示</button>
+        </div>
+
+        <div class="settings-block settings-about">
+          <h3 class="serif">このアプリについて</h3>
+          <p>図・写真出典　城陽市歴史民俗資料館2024『正道官衙遺跡と奈良時代の役所 : 令和6年度秋季特別展』城陽市歴史民俗資料館展示図録 71</p>
+          <p>地図データ出典：OpenStreetMap ／ 国土地理院</p>
+          <p>推奨動作環境：iOS Safari（AR表示はARKit / ARCore対応端末）</p>
+          <p class="settings-version">XR正道官衙遺跡 v1.1</p>
+        </div>
       </div>
     </section>
 
@@ -394,7 +416,7 @@
   </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-  <script src="./js/config.js?v=20261122a"></script>
-  <script src="./js/app.js?v=20261122a"></script>
+  <script src="./js/config.js?v=20261122e"></script>
+  <script src="./js/app.js?v=20261122e"></script>
 </body>
 </html>
