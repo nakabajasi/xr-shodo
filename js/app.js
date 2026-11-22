@@ -158,7 +158,7 @@
       intro.className = "cg-intro-box";
       intro.style.gridColumn = "1 / -1";
       intro.innerHTML = `
-        <summary class="serif">官衙Ⅲ期建物群の3DCG復元について（タップで開く）</summary>
+        <summary class="serif">官衙Ⅲ期建物群の3DCG復元（タップで開く）</summary>
         <p style="margin:8px 0 6px;">発掘調査で見つかる柱の痕跡「柱穴（ちゅうけつ）」の配置と、現存する古代の寺院建築や絵巻などの史料、早川和子氏による復元イラストを参考に3DCGで復元しました。</p>
         <p style="margin:0 0 8px;">正道官衙遺跡で見つかった建物はすべて地面に掘った穴に柱を埋める掘立柱建物で、瓦葺きのような重い屋根を支えられないため板葺きや檜皮葺きが採用されたと考えられます。中心の「身舎（もや）」と周囲の「庇（ひさし）」の配置から、庁屋は入母屋造り、副屋・向屋・東屋は切妻造り、南門は八脚門として復元しています。</p>
       `;
@@ -229,7 +229,7 @@
         </model-viewer>
       </div>
       <div class="viewer-plain-body">
-        <p class="viewer-plain-note">ドラッグで回転・ピンチで拡大縮小できます。対応スマホでは右下の「ARで見る」から実寸配置（Android: GLB / iOS: USDZ）を起動できます。</p>
+        <p class="viewer-plain-note">ドラッグで回転・ピンチで拡大縮小できます。対応スマホでは右下の「ARで見る」から起動できます。</p>
         <h3 class="serif">${b.name} — ${b.role}</h3>
         <p>${b.description}</p>
       </div>
@@ -673,7 +673,7 @@
       state.visitedBuildings = [];
       state.dugSpots = [];
       saveState();
-      showAlert("初期化完了", "体験スタンプをリセットしました。");
+      showAlert("リセット完了", "体験スタンプをリセットしました。");
     });
 
     const showSplashBtn = document.getElementById("btn-show-splash");
@@ -703,7 +703,7 @@
         const badge = document.getElementById("kanga-dem-badge");
         const cap = document.getElementById("kanga-dem-caption");
         if (badge) badge.textContent = p.label;
-        if (cap) cap.textContent = `図1　官衙Ⅰ〜Ⅲ期の変遷イメージ（表示中：${p.short}）`;
+        if (cap) cap.innerHTML = `図1　官衙Ⅰ〜Ⅲ期の変遷イメージ<br>（表示中：${p.short}）`;
       };
       demStage.addEventListener("click", () => {
         pCur = (pCur + 1) % periods.length;
