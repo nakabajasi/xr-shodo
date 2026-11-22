@@ -729,9 +729,9 @@
     const demStage = document.getElementById("kanga-dem-stage");
     if (demStage) {
       const periods = [
-        { idx: 1, label: "官衙Ⅰ期（7世紀後半）", short: "官衙Ⅰ期" },
-        { idx: 2, label: "官衙Ⅱ期（7世紀末〜8世紀初め）", short: "官衙Ⅱ期" },
-        { idx: 3, label: "官衙Ⅲ期（8世紀初め〜9世紀前半）", short: "官衙Ⅲ期" }
+        { idx: 1, label: "官衙Ⅰ期（7世紀後半）" },
+        { idx: 2, label: "官衙Ⅱ期（7世紀末〜8世紀初め）" },
+        { idx: 3, label: "官衙Ⅲ期（8世紀初め〜9世紀前半）" }
       ];
       let pCur = 0;
       const applyPeriod = () => {
@@ -740,10 +740,8 @@
           const el = document.getElementById(`kanga-dem-layer-${n}`);
           if (el) el.classList.toggle("is-visible", n === p.idx);
         });
-        const badge = document.getElementById("kanga-dem-badge");
         const cap = document.getElementById("kanga-dem-caption");
-        if (badge) badge.textContent = p.label;
-        if (cap) cap.innerHTML = `図1　官衙Ⅰ〜Ⅲ期の変遷イメージ<br>（表示中：${p.short}）`;
+        if (cap) cap.innerHTML = `図1　官衙Ⅰ〜Ⅲ期の変遷イメージ<br>（表示中：${p.label}）`;
       };
       demStage.addEventListener("click", () => {
         pCur = (pCur + 1) % periods.length;
