@@ -127,7 +127,7 @@ window.XR_CONFIG = {
       modelUrl: "https://sketchfab.com/3d-models/356cc80d3dc348518d2b54e3513a0ff4",
       authorName: "京都府城陽市 JOYO エコミュージアム",
       authorUrl: "https://sketchfab.com/joyo-ecomuseum",
-      description: "屋根の軒先に葺かれた丸瓦で、文様は蓮の花を模したものです。奈良時代に作られたものです。"
+      description: "屋根の軒先に葺かれた丸瓦で、蓮の花をかたどった文様です。奈良時代に作られた瓦です。"
     },
     {
       id: "nokihiragawara",
@@ -138,7 +138,7 @@ window.XR_CONFIG = {
       modelUrl: "https://sketchfab.com/3d-models/e0e5606fcc254c36afdda1e0b8f09913",
       authorName: "京都府城陽市 JOYO エコミュージアム",
       authorUrl: "https://sketchfab.com/joyo-ecomuseum",
-      description: "軒先に葺かれた平瓦です。文様は、左右対称に唐草が伸びるデザインです。奈良時代に作られたものです。"
+      description: "軒先に葺かれた平瓦です。文様は、左右対称に唐草が伸びるデザインです。奈良時代に作られた瓦です。"
     },
     {
       id: "enmenken",

@@ -679,6 +679,8 @@
     const showSplashBtn = document.getElementById("btn-show-splash");
     if (showSplashBtn) {
       showSplashBtn.addEventListener("click", () => {
+        // トップ画面の裏でホームに切り替えておき、タップで閉じたらホームが出るようにする
+        showView("home");
         const sp = document.getElementById("splash-screen");
         if (sp) sp.classList.remove("is-hidden");
       });
