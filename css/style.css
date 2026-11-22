@@ -178,7 +178,7 @@ html, body {
 #view-help.subpage-bg,
 #view-menu.subpage-bg,
 #view-omake.subpage-bg {
-  background-image: url("../assets/images/bg/bg_subpage_lineart.png?v=20261123a");
+  background-image: url("../assets/images/bg/bg_subpage_lineart.png?v=20261123b");
   background-size: cover;
   background-position: center bottom;
   background-repeat: no-repeat;
@@ -611,14 +611,6 @@ html, body {
   align-items: center;
   gap: 10px;
   margin-bottom: 8px;
-}
-
-.spot-sheet-char {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  object-fit: cover;
-  flex-shrink: 0;
 }
 
 .spot-sheet-title {
