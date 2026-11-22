@@ -73,8 +73,6 @@
       const tab = btn.dataset.tab;
       const isAct = tab === activeTab;
       btn.classList.toggle("is-active", isAct);
-      const img = btn.querySelector("img");
-      if (img) img.src = `./assets/images/nav/tab_${tab}_${isAct ? "on" : "off"}.svg`;
     });
 
     if (viewId === "map") {
@@ -86,10 +84,38 @@
     }
   }
 
+  // "#22345e" → "rgba(34, 52, 94, 0.18)"
+  function hexToRgba(hex, alpha) {
+    const h = hex.replace("#", "");
+    const n = parseInt(h.length === 3 ? h.split("").map((c) => c + c).join("") : h, 16);
+    return `rgba(${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}, ${alpha})`;
+  }
+
+  // 紺で描かれたSVGアイコン（<img>）を、色をテーマ色で塗れるインラインSVGに置き換える
+  function inlineAccentSvg(img) {
+    if (!img || !window.fetch) return;
+    fetch(img.src)
+      .then((r) => (r.ok ? r.text() : Promise.reject()))
+      .then((text) => {
+        if (!img.isConnected) return;
+        const span = document.createElement("span");
+        span.className = img.className;
+        span.setAttribute("role", "img");
+        span.setAttribute("aria-label", img.alt || "");
+        span.innerHTML = text.replace(/#1b314f/gi, "currentColor");
+        img.replaceWith(span);
+      })
+      .catch(() => {});
+  }
+
   // 2. テーマ適用
   function applyTheme(themeId) {
     const theme = CFG.themes.find((t) => t.id === themeId) || CFG.themes[0];
     state.theme = theme.id;
+    // ボタン・選択中表示・紺のアイコンなどの基調色をテーマ色に合わせる
+    const root = document.documentElement;
+    root.style.setProperty("--accent", theme.color);
+    root.style.setProperty("--border-subtle", hexToRgba(theme.color, 0.18));
     const homeEl = document.getElementById("view-home");
     if (homeEl) homeEl.style.backgroundImage = `url("${theme.bg}")`;
     if (theme.headerBg) {
@@ -437,12 +463,14 @@
           <a id="omake-ar-ios-link" rel="ar" href="${omake.usdz}" style="position:absolute;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none;" tabindex="-1" aria-hidden="true">
             <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="">
           </a>
-          <p style="margin:10px 0 4px;font-size:13px;font-weight:700;color:#22345e;">
+          <p style="margin:10px 0 4px;font-size:13px;font-weight:700;color:var(--accent);">
             郡司をタップしてAR起動（記念撮影）
           </p>
         </div>
         <div style="text-align:center;">${checklistHtml}</div>
       `;
+
+      inlineAccentSvg(container.querySelector(".omake-ar-camera"));
 
       const triggerEl = document.getElementById("omake-ar-trigger");
       triggerEl.addEventListener("click", (ev) => {
@@ -520,12 +548,22 @@
   function init() {
     const splashEl = document.getElementById("splash-screen");
     if (splashEl) {
-      const dismissSplash = () => {
+      // トップ画面は click でだけ閉じる（touchend / pointerup で閉じると、
+      // 直後のクリックが裏のホーム画面のボタンに届いてしまうため）
+      let splashGuardUntil = 0;
+      const dismissSplash = (e) => {
+        if (e) { e.preventDefault(); e.stopPropagation(); }
+        splashGuardUntil = Date.now() + 400;
         splashEl.classList.add("is-hidden");
       };
       splashEl.addEventListener("click", dismissSplash);
-      splashEl.addEventListener("pointerup", dismissSplash);
-      splashEl.addEventListener("touchend", dismissSplash, { passive: true });
+      // 閉じた直後0.4秒間は、裏の画面へのクリックを受け付けない
+      document.addEventListener("click", (e) => {
+        if (Date.now() < splashGuardUntil && !splashEl.contains(e.target)) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      }, true);
       splashEl.addEventListener("keydown", (e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();

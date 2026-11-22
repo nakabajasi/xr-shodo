@@ -40,7 +40,6 @@ window.XR_CONFIG = {
     usdz: "./assets/models/gunji.usdz",
     triggerImg: "./assets/images/character/gunji.png",
     cameraIcon: "./assets/images/icons/icon_camera_ar.svg",
-    lockedImg: "./assets/images/omake/omake_locked.png",
     bannerLocked: "./assets/images/banners/banner_bonus_locked.svg",
     bannerUnlocked: "./assets/images/banners/banner_bonus.svg",
     description: "郡司キャラクターをタップすると、ARが起動します。現実空間に郡司を呼び出して記念撮影をお楽しみください！"
