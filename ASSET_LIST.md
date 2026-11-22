@@ -27,10 +27,10 @@
 | `assets/images/brand/home_title_logo_sumi.png` | ホーム上部タイトルヘッダー（墨・黒） | 1200 × 290 | 透過可 | テーマ連動ホームヘッダー |
 | `assets/images/brand/top.svg` | 起動時トップ（スプラッシュ）画面 | 432 × 842 (SVG) | 不要 | 白地（#fdfcf8）全画面表示 |
 | `assets/images/brand/home_title_logo.png` | ホーム画面上部中央のタイトルロゴ | 860 × 180 | 必須 | 暗色背景上・中央揃え |
-| `assets/images/bg/bg_home_indigo.png` | ホーム背景（藍・標準テーマ） | 1437 × 2803 | 不要 | 縦長フルスクリーン |
-| `assets/images/bg/bg_home_matcha.png` | ホーム背景（緑テーマ） | 1080 × 1920 | 不要 | 設定画面で切替可能 |
-| `assets/images/bg/bg_home_vermilion.png` | ホーム背景（朱テーマ） | 1080 × 1920 | 不要 | 設定画面で切替可能 |
-| `assets/images/bg/bg_home_sumi.png` | ホーム背景（墨テーマ） | 1080 × 1920 | 不要 | 設定画面で切替可能 |
+| `assets/images/bg/bg_home_indigo.svg` | ホーム背景（藍・標準テーマ） | 432 × 842 (SVG) | 不要 | 縦長フルスクリーン。建物正面図・発掘調査平面図の線画入り |
+| `assets/images/bg/bg_home_matcha.svg` | ホーム背景（緑テーマ） | 432 × 842 (SVG) | 不要 | 設定画面で切替可能 |
+| `assets/images/bg/bg_home_vermilion.svg` | ホーム背景（朱テーマ） | 432 × 842 (SVG) | 不要 | 設定画面で切替可能 |
+| `assets/images/bg/bg_home_sumi.svg` | ホーム背景（墨テーマ） | 432 × 842 (SVG) | 不要 | 設定画面で切替可能 |
 | `assets/images/bg/bg_subpage_washi.png` | サブページ共通背景（和紙等） | 1080 × 1920 | 不要 | 3D鑑賞・解説・おまけ・設定 |
 | `assets/images/bg/bg_header_indigo.png` | サブページヘッダー背景（藍） | 1080 × 180 | 透過可 | テーマ連動ヘッダー |
 | `assets/images/bg/bg_header_matcha.png` | サブページヘッダー背景（常盤・緑） | 1080 × 180 | 透過可 | テーマ連動ヘッダー |

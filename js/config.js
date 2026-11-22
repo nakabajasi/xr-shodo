@@ -21,10 +21,10 @@ window.XR_CONFIG = {
     ]
   },
   themes: [
-    { id: "indigo", label: "縹（藍）", color: "#22345e", bg: "./assets/images/bg/bg_home_indigo.png", headerBg: "./assets/images/bg/bg_header_indigo.png", homeLogo: "./assets/images/brand/home_title_logo_indigo.png" },
-    { id: "matcha", label: "常盤（緑）", color: "#2d523a", bg: "./assets/images/bg/bg_home_matcha.png", headerBg: "./assets/images/bg/bg_header_matcha.png", homeLogo: "./assets/images/brand/home_title_logo_matcha.png" },
-    { id: "vermilion", label: "朱（赤）", color: "#7f2b24", bg: "./assets/images/bg/bg_home_vermilion.png", headerBg: "./assets/images/bg/bg_header_vermilion.png", homeLogo: "./assets/images/brand/home_title_logo_vermilion.png" },
-    { id: "sumi", label: "墨（黒）", color: "#26282c", bg: "./assets/images/bg/bg_home_sumi.png", headerBg: "./assets/images/bg/bg_header_sumi.png", homeLogo: "./assets/images/brand/home_title_logo_sumi.png" }
+    { id: "indigo", label: "縹（藍）", color: "#22345e", bg: "./assets/images/bg/bg_home_indigo.svg", headerBg: "./assets/images/bg/bg_header_indigo.png", homeLogo: "./assets/images/brand/home_title_logo_indigo.png" },
+    { id: "matcha", label: "常盤（緑）", color: "#2d523a", bg: "./assets/images/bg/bg_home_matcha.svg", headerBg: "./assets/images/bg/bg_header_matcha.png", homeLogo: "./assets/images/brand/home_title_logo_matcha.png" },
+    { id: "vermilion", label: "朱（赤）", color: "#7f2b24", bg: "./assets/images/bg/bg_home_vermilion.svg", headerBg: "./assets/images/bg/bg_header_vermilion.png", homeLogo: "./assets/images/brand/home_title_logo_vermilion.png" },
+    { id: "sumi", label: "墨（黒）", color: "#26282c", bg: "./assets/images/bg/bg_home_sumi.svg", headerBg: "./assets/images/bg/bg_header_sumi.png", homeLogo: "./assets/images/brand/home_title_logo_sumi.png" }
   ],
   // 郡司キャラクターのガイドセリフ（各バナーの役割を簡潔に案内）
   gunjiQuotes: [
