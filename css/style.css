@@ -168,7 +168,6 @@ html, body {
 }
 
 .subpage-bg {
-  background-image: url("../assets/images/bg/bg_subpage_washi.png");
   background-size: cover;
   background-position: center;
 }
@@ -178,12 +177,16 @@ html, body {
 #view-viewer.subpage-bg,
 #view-help.subpage-bg,
 #view-menu.subpage-bg,
-#view-omake.subpage-bg,
-#view-about.subpage-bg {
+#view-omake.subpage-bg {
   background-image: url("../assets/images/bg/bg_subpage_lineart.png?v=20261122g");
   background-size: cover;
   background-position: center bottom;
   background-repeat: no-repeat;
+}
+
+/* 解説画面：文字の後ろに線が来ないよう、線画背景の地色と同じ色の無地にする */
+#view-about.subpage-bg {
+  background-color: #f3f0e8;
 }
 
 #view-models .model-card {
