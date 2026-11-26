@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Shippori+Mincho:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./css/style.css?v=20261123b">
+  <link rel="stylesheet" href="./css/style.css?v=20261126b">
   <script type="module" src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
 </head>
 <body>
@@ -99,6 +99,10 @@
         </button>
       </div>
 
+      <button id="btn-map-vr-gps" class="map-vr-gps-btn hidden" type="button">
+        <span>現在地からウォークスルー</span>
+      </button>
+
       <div id="map-spot-sheet" class="map-spot-sheet">
         <div class="spot-sheet-head">
           <div>
@@ -108,7 +112,8 @@
         </div>
         <p id="spot-sheet-desc" class="spot-sheet-desc"></p>
         <div class="spot-sheet-actions">
-          <button id="spot-sheet-action" class="primary-btn accent-red">体験する</button>
+          <button id="spot-sheet-action" class="primary-btn accent-red">3D・床面AR</button>
+          <button id="spot-sheet-gps-ar" class="primary-btn">現地AR</button>
           <button class="secondary-btn" onclick="document.getElementById('map-spot-sheet').classList.remove('is-open')">閉じる</button>
         </div>
       </div>
@@ -314,7 +319,7 @@
           <p>図・写真出典　城陽市歴史民俗資料館2024『正道官衙遺跡と奈良時代の役所 : 令和6年度秋季特別展』城陽市歴史民俗資料館展示図録 71</p>
           <p>地図データ出典：OpenStreetMap ／ 国土地理院</p>
           <p>推奨動作環境：iOS Safari（AR表示はARKit / ARCore対応端末）</p>
-          <p class="settings-version">XR正道官衙遺跡 v1.1</p>
+          <p class="settings-version">XR正道官衙遺跡 v1.2</p>
         </div>
       </div>
     </section>
@@ -413,7 +418,7 @@
   </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-  <script src="./js/config.js?v=20261123b"></script>
-  <script src="./js/app.js?v=20261123b"></script>
+  <script src="./js/config.js?v=20261126b"></script>
+  <script src="./js/app.js?v=20261126b"></script>
 </body>
 </html>

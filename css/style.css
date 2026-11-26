@@ -1725,3 +1725,69 @@ body.font-large .nav-tab {
 /* お楽しみ画面のカメラ（app.js がインラインSVGに置き換え、紺の部分をテーマ色で塗る） */
 span.omake-ar-camera { color: var(--accent); }
 span.omake-ar-camera svg { width: 100%; height: 100%; display: block; }
+
+
+/* ==========================================================================
+   v1.2 追加: 現地GPSウォークスルー開始ボタン・現地AR起動ボタン
+   ========================================================================== */
+.hidden {
+  display: none !important;
+}
+.map-vr-gps-btn {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  z-index: 410;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 20px;
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
+  border-radius: 999px;
+  background: var(--accent, #22345e);
+  color: #ffffff;
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.32);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.map-vr-gps-btn:active {
+  transform: translateX(-50%) scale(0.97);
+}
+.viewer-gps-ar-wrap {
+  margin: 12px 0 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.viewer-gps-ar-btn {
+  width: 100%;
+  padding: 13px 16px;
+  border: none;
+  border-radius: 10px;
+  background: var(--accent, #22345e);
+  color: #ffffff;
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+.viewer-gps-ar-note {
+  font-size: 12px;
+  line-height: 1.6;
+  color: #444444;
+  margin: 0;
+}
+body.font-large .viewer-gps-ar-btn {
+  font-size: 16px;
+  padding: 14px 16px;
+}
+body.font-large .viewer-gps-ar-note {
+  font-size: 14px;
+}

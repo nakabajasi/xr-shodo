@@ -228,34 +228,42 @@
     }
   }
 
-  // 建物3D & Web AR（全幅ページで開き、戻るボタンで元の画面へ復帰）
+  // 建物3D（3D鑑賞ではAR一切なし／マップ経由のときのみ床面ARを表示）
   function openBuildingViewer(b) {
-    viewerReturnView = activeViewId === "map" ? "map" : "models";
+    const fromMap = activeViewId === "map";
+    viewerReturnView = fromMap ? "map" : "models";
     markBuildingVisited(b.id);
     document.getElementById("viewer-title").textContent = `${b.name}（${b.kana}）`;
     const body = document.getElementById("viewer-body");
+    const arAttrs = fromMap
+      ? `ios-src="${b.usdz}" ar ar-modes="webxr scene-viewer quick-look"`
+      : "";
+    const arButtonHtml = fromMap
+      ? `<button slot="ar-button" class="ar-launch-btn">
+            <img src="./assets/images/icons/icon_ar.png" alt="">
+            <span>ARで見る</span>
+          </button>`
+      : "";
+    const noteText = fromMap
+      ? "ドラッグで回転・ピンチで拡大縮小できます。対応スマホでは右下の「ARで見る」から床面に配置できます。"
+      : "ドラッグで回転・ピンチで拡大縮小できます。";
     body.innerHTML = `
       <div class="viewer-full-stage">
         <model-viewer
           src="${b.glb}"
-          ios-src="${b.usdz}"
+          ${arAttrs}
           poster="${b.thumb}"
           alt="${b.name} 復元3Dモデル"
-          ar
-          ar-modes="webxr scene-viewer quick-look"
           camera-controls
           auto-rotate
           shadow-intensity="1"
           exposure="1.05"
         >
-          <button slot="ar-button" class="ar-launch-btn">
-            <img src="./assets/images/icons/icon_ar.png" alt="">
-            <span>ARで見る</span>
-          </button>
+          ${arButtonHtml}
         </model-viewer>
       </div>
       <div class="viewer-plain-body">
-        <p class="viewer-plain-note">ドラッグで回転・ピンチで拡大縮小できます。対応スマホでは右下の「ARで見る」から起動できます。</p>
+        <p class="viewer-plain-note">${noteText}</p>
         <h3 class="serif">${b.name} — ${b.role}</h3>
         <p>${b.description}</p>
       </div>
@@ -373,6 +381,24 @@
     });
 
 
+    const vrGpsBtn = document.getElementById("btn-map-vr-gps");
+    if (vrGpsBtn && !vrGpsBtn.dataset.bound) {
+      vrGpsBtn.dataset.bound = "1";
+      vrGpsBtn.addEventListener("click", () => {
+        showConfirm(
+          "現在地からウォークスルー",
+          "現在地とカメラの向きに合わせてウォークスルー体験を開始しますか？",
+          () => {
+            if (window.__IS_CANVAS_PREVIEW) {
+              showAlert("プレビュー環境", "GitHub Pages公開版では、現在地（GPS）とカメラの向きに合わせたウォークスルー体験へ遷移します。");
+              return;
+            }
+            window.location.href = "./vr/index.html?mode=gps";
+          }
+        );
+      });
+    }
+
     map.on("click", () => closeSpotSheet());
     startGpsWatch();
   }
@@ -385,6 +411,22 @@
       const done = state.visitedBuildings.includes(b.id);
       m.setIcon(createPinIcon(done ? b.pinDone : b.pin));
     });
+  }
+
+  function launchGpsBuildingAr(b) {
+    if (window.__IS_CANVAS_PREVIEW) {
+      showAlert("プレビュー環境", `GitHub Pages公開版では、GPS＋スマホ向き連動の現地AR画面（${b.name}）へ遷移します。`);
+      return;
+    }
+    window.location.href = `./ar/index.html?building=${encodeURIComponent(b.id)}`;
+  }
+
+  function updateOnSiteVrButton() {
+    const btn = document.getElementById("btn-map-vr-gps");
+    if (!btn || !userCoords) return;
+    const radius = (CFG.siteGeoTransform && CFG.siteGeoTransform.siteRadiusMeters) || 200;
+    const dist = distanceMeters(userCoords.lat, userCoords.lng, CFG.siteCenter.lat, CFG.siteCenter.lng);
+    btn.classList.toggle("hidden", dist > radius);
   }
 
   function startGpsWatch() {
@@ -401,6 +443,7 @@
             userMarker.setLatLng([userCoords.lat, userCoords.lng]);
           }
         }
+        updateOnSiteVrButton();
       },
       () => {},
       { enableHighAccuracy: true, maximumAge: 5000, timeout: 10000 }
@@ -421,10 +464,17 @@
     document.getElementById("spot-sheet-desc").textContent = data.description;
 
     const actBtn = document.getElementById("spot-sheet-action");
-    actBtn.textContent = "3D・ARで体験する";
+    actBtn.textContent = "3D・床面AR";
     actBtn.onclick = () => {
       openBuildingViewer(data);
     };
+    const gpsArBtn = document.getElementById("spot-sheet-gps-ar");
+    if (gpsArBtn) {
+      gpsArBtn.onclick = () => {
+        closeSpotSheet();
+        launchGpsBuildingAr(data);
+      };
+    }
     sheet.classList.add("is-open");
   }
 
